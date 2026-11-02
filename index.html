@@ -698,7 +698,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
       <div class="q-l">
         <span class="eyebrow">Le plus rapide · 2 minutes</span>
         <h3 id="hQuick">Laissez votre IA remplir le formulaire pour vous</h3>
-        <p class="hint">Votre IA vous connaît déjà. Elle répond aux questions à votre place et vous donne un fichier : vous le déposez ici, tout se remplit.</p>
+        <p class="hint">Votre IA fouille vos mails, vos documents et vos conversations, remplit tout à votre place et vous demande simplement « OUI GO ». Elle vous donne un fichier : vous le déposez ici, tout se remplit.</p>
         <ol class="qsteps">
           <li><button type="button" class="primary" id="btnAsk">1. Copier la demande</button></li>
           <li><a class="btn" id="openAI2" href="https://claude.ai/new" target="_blank" rel="noopener">2. L'envoyer à mon IA</a></li>
@@ -2349,13 +2349,20 @@ route();
 /* ---------- Votre IA remplit le formulaire ---------- */
 function askPrompt(){
   const countries = Object.keys(COUNTRIES).join(", ");
-  return `Je configure LinkSharp, un assistant qui m'aide à trouver de nouveaux clients. Aide-moi à remplir son formulaire.
+  return `Je configure LinkSharp, un assistant qui m'aide à trouver de nouveaux clients. Remplis son formulaire à ma place : je veux n'avoir qu'à répondre « OUI GO ».
 
-1. Utilise tout ce que tu sais déjà sur moi et sur mon activité.
-2. S'il te manque des informations indispensables, pose-moi toutes les questions en une seule fois, courtes, avec un exemple de réponse pour chacune. Attends mes réponses.
-3. Ensuite, crée un fichier texte nommé « linksharp-reponses.txt ». Si tu ne peux pas créer de fichier, affiche son contenu dans un seul bloc de code que je copierai.
+ÉTAPE 1 – CHERCHE TOI-MÊME, SANS ME DEMANDER
+Fouille tout ce à quoi tu as accès : ta mémoire et nos conversations passées, mes emails, mon Drive et mes documents (CV, présentations, propositions commerciales, devis, factures, fiches produit), mon agenda, mon site web et mes profils publics. Repère ce que je vends, à qui, à quel prix, mes clients et mes résultats réels, mon adresse email professionnelle, ma signature, les outils que j'utilise.
 
-Respecte exactement ce format, sans rien ajouter avant « LINKSHARP v1 » ni après la dernière ligne. Pour les choix, garde une seule des valeurs proposées.
+ÉTAPE 2 – DÉCIDE POUR MOI
+Pour chaque rubrique, prends la réponse la plus probable d'après ce que tu as trouvé. Si j'ai plusieurs activités, choisis celle qui a le plus de chances de m'apporter des clients maintenant, et dis lequel tu as choisi. Pour les réglages, prends ces valeurs par défaut si tu n'as rien de mieux : ton direct, 30 mails par jour, brief à 07:15, CRM « Aucun » si je n'en utilise pas, source « Recherche web » si je n'ai pas d'outil de prospection, nom du sheet « [Entreprise] – Prospects », la personne qui valide et l'adresse du brief = moi.
+
+ÉTAPE 3 – MONTRE-MOI UN RÉSUMÉ COURT, PUIS ATTENDS « OUI GO »
+En 8 lignes maximum : l'activité choisie, l'offre, la cible, le pays et la langue, l'adresse d'envoi, les preuves que tu comptes citer, et ce que tu as supposé. Termine par : « Réponds OUI GO pour que je crée le fichier, ou corrige une ligne. »
+Ne pose une question que si une information est à la fois indispensable, introuvable et impossible à déduire raisonnablement. Dans ce cas : 3 questions au maximum, chacune avec ta proposition par défaut, pour que je puisse quand même répondre simplement « OUI GO ».
+
+ÉTAPE 4 – APRÈS « OUI GO », CRÉE LE FICHIER
+Crée un fichier texte nommé « linksharp-reponses.txt ». Si tu ne peux pas créer de fichier, affiche son contenu dans un seul bloc de code que je copierai. Respecte exactement ce format, sans rien avant « LINKSHARP v1 » ni après la dernière ligne. Pour les choix, garde une seule des valeurs proposées.
 
 LINKSHARP v1
 produit: <<<
@@ -2367,7 +2374,7 @@ offre: <<<
 (ce que je vends, en 2 ou 3 phrases simples, pour les messages)
 >>>
 preuves: <<<
-(clients citables, chiffres vérifiables, expérience ; une par ligne ; vide si aucune)
+(clients citables, chiffres vérifiables, expérience ; une par ligne ; uniquement ce que tu as trouvé ; vide si rien)
 >>>
 clients_ideaux: <<<
 (les entreprises à viser : secteur, zone précise, taille, qui décide, les faits publics et datés qui montrent qu'elles ont besoin de moi et où les vérifier, et qui exclure)
@@ -2377,20 +2384,20 @@ pays_prospects: une valeur parmi : ${countries}
 langue_mails: fr | en-US | en-GB | es | de | it
 boite_envoi: (l'adresse email d'où partiront les messages)
 expediteur: (Prénom Nom, fonction)
-adresse_postale: (obligatoire si les prospects sont aux États-Unis ou au Canada, sinon vide)
+adresse_postale: (seulement si les prospects sont aux États-Unis ou au Canada, sinon vide)
 mails_par_jour: 15 | 25 | 30 | 45 | 60
 crm: HubSpot | Pipedrive | Salesforce | Folk | Aucun
 source_prospects: Apollo | Recherche web | Lemlist | Kaspr
-nom_sheet: (le nom du Google Sheet de suivi ; propose « [Entreprise] – Prospects » si je n'en ai pas)
-lien_sheet: (vide si je n'en ai pas encore)
-validateur: (la personne qui valide les envois, souvent moi)
+nom_sheet: (nom du Google Sheet de suivi)
+lien_sheet: (vide si je n'en ai pas)
+validateur: (la personne qui valide les envois)
 email_brief: (l'adresse qui reçoit le brief du matin)
 heure_brief: 06:30 | 07:00 | 07:15 | 07:30 | 08:00 | 08:30
 precisions: <<<
 (saisonnalité, vocabulaire du métier, salons, sujets à éviter, tout ce qui rend mon cas particulier)
 >>>
 
-Règle absolue : n'invente jamais une information. Si je n'ai pas répondu à une question facultative, laisse la rubrique vide.`;
+Règle absolue : n'invente jamais un client, un chiffre ou un résultat. Ce que tu supposes doit être raisonnable et signalé dans le résumé.`;
 }
 const ANS_MAP = {produit:"prodDesc", marche:"prodMarket", entreprise:"coName", offre:"offer", preuves:"proofs", clients_ideaux:"icpDoc", ton:"tone", pays_prospects:"country", langue_mails:"lang", boite_envoi:"mailbox", expediteur:"sender", adresse_postale:"postal", mails_par_jour:"cap", crm:"crm", source_prospects:"source", nom_sheet:"sheetName", lien_sheet:"sheetLink", validateur:"validator", email_brief:"briefTo", heure_brief:"briefTime", precisions:"aiNotes"};
 function parseAnswers(text){
@@ -2437,7 +2444,7 @@ function applyAnswers(text){
   setStatus("ansMsg", n+" champs remplis."+(miss.length ? " Encore à compléter : "+miss.map(k=>LABELS[k]).join(", ")+"." : " Tout est prêt : passez à l'étape 3."));
   $("reglages").scrollIntoView();
 }
-$("btnAsk").onclick = async () => { const ok = await copyText(askPrompt()); setStatus("ansMsg", (ok ? "Demande copiée. " : "")+"Envoyez-la à "+(aiKey()==="autre"?"votre IA":aiName())+", répondez à ses questions, puis déposez le fichier qu'elle vous donne."); };
+$("btnAsk").onclick = async () => { const ok = await copyText(askPrompt()); setStatus("ansMsg", (ok ? "Demande copiée. " : "")+"Envoyez-la à "+(aiKey()==="autre"?"votre IA":aiName())+", répondez « OUI GO », puis déposez le fichier qu'elle vous donne."); };
 $("ansFile").onchange = e => { const f = e.target.files && e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = () => applyAnswers(String(r.result||"")); r.readAsText(f); e.target.value = ""; };
 $("ansApply").onclick = () => applyAnswers($("ansPaste").value);
 
