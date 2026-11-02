@@ -1,0 +1,1464 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LinkSharp</title>
+<meta name="description" content="LinkSharp construit votre système de prospection B2B dans Claude : cibles, mails vérifiés, relances et brief du matin. Gratuit, avec votre propre clé.">
+<meta name="author" content="Eliad Garnault">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* LinkSharp — instrument de précision : craie froide, encre profonde, une seule lame cobalt.
+   Accueil éditorial (hero + journée type), puis l'outil en trois étapes, puis signature de l'éditeur. */
+:root{
+  --bg:#F4F5F2; --surface:#FFFFFF; --sunk:#EAECE7; --ink:#0E1116; --muted:#596070; --line:#D8DBD4;
+  --accent:#2443F5; --accent-ink:#FFFFFF; --accent-soft:#E3E7FE; --signal:#E9A21C;
+  --ok:#24704A; --ok-soft:#DFF0E6; --warn:#8F5309; --warn-soft:#FBEFDC; --code:#F8F9F7;
+  --inv-bg:#0E1116; --inv-ink:#EEF0F3; --inv-muted:#9AA1AE; --inv-line:#262B35;
+  --f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Public Sans","Segoe UI",Roboto,Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:6px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B0D12; --surface:#12151C; --sunk:#191D26; --ink:#ECEEF2; --muted:#9AA1AE; --line:#262B36;
+  --accent:#7C8CFF; --accent-ink:#0B0D12; --accent-soft:#1A2042; --signal:#F2B84B;
+  --ok:#6CC28F; --ok-soft:#14291D; --warn:#E3A953; --warn-soft:#2B2213; --code:#0F1218;
+  --inv-bg:#ECEEF2; --inv-ink:#0E1116; --inv-muted:#4E5562; --inv-line:#CDD1D8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B0D12; --surface:#12151C; --sunk:#191D26; --ink:#ECEEF2; --muted:#9AA1AE; --line:#262B36;
+  --accent:#7C8CFF; --accent-ink:#0B0D12; --accent-soft:#1A2042; --signal:#F2B84B;
+  --ok:#6CC28F; --ok-soft:#14291D; --warn:#E3A953; --warn-soft:#2B2213; --code:#0F1218;
+  --inv-bg:#ECEEF2; --inv-ink:#0E1116; --inv-muted:#4E5562; --inv-line:#CDD1D8; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+[hidden]{display:none!important}
+img,svg{max-width:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.wrap{max-width:1160px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.02em;font-weight:700}
+h1{font-size:clamp(2.2rem,5.4vw,4rem);line-height:1.02;font-weight:800;letter-spacing:-.035em}
+h2{font-size:clamp(1.5rem,2.8vw,2.1rem);line-height:1.1}
+h3{font-size:1.06rem;line-height:1.25}
+p{margin:0}
+a{color:var(--accent)}
+.eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.lede{color:var(--muted);max-width:60ch;font-size:1.1rem}
+.hint{color:var(--muted);font-size:.9rem}
+button,.btn{font:600 .95rem var(--f-body);border-radius:var(--r);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.6rem 1rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.45rem;transition:border-color .15s,transform .15s}
+button:hover,.btn:hover{border-color:var(--accent)}
+button.primary,.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+button.primary:hover,.btn.primary:hover{transform:translateY(-1px)}
+button.ghost,.btn.ghost{background:transparent}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+/* Barre de navigation */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)))}
+.nav .in{max-width:1160px;margin:0 auto;padding:12px max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;gap:20px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-family:var(--f-display);font-weight:800;font-size:1.2rem;letter-spacing:-.03em}
+.brand b{color:var(--accent);font-weight:800}
+.brand svg{width:28px;height:28px;flex:none}
+.nav .links{display:flex;gap:18px;margin-left:auto;font-size:.92rem}
+.nav .links a{color:var(--muted);text-decoration:none}
+.nav .links a:hover{color:var(--ink)}
+@media (max-width:760px){.nav .links{display:none}.nav .btn{margin-left:auto}}
+
+/* Accueil */
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;padding-block:64px 56px}
+@media (max-width:900px){.hero{grid-template-columns:minmax(0,1fr);gap:32px;padding-block:40px}}
+.hero .copy{display:grid;gap:22px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+.facts span::before{content:"— ";color:var(--accent)}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px 22px 18px;display:grid;gap:14px;position:relative}
+.day .top{display:flex;justify-content:space-between;align-items:baseline}
+.day ol{list-style:none;margin:0;padding:0 0 0 22px;display:grid;gap:14px;position:relative}
+.day ol::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.day li{position:relative;display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px}
+.day li::before{content:"";position:absolute;left:-22px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.day li.you::before{background:var(--signal);border-color:var(--signal)}
+.day time{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);padding-top:1px}
+.day strong{display:block;font-size:.95rem}
+.day small{color:var(--muted);font-size:.84rem}
+.day .foot{border-top:1px dashed var(--line);padding-top:12px;font-size:.84rem;color:var(--muted)}
+
+/* Sections vitrine */
+.sec{padding-block:56px;display:grid;gap:28px;border-top:1px solid var(--line)}
+.sec .intro{display:grid;gap:10px;max-width:62ch}
+.steps3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;counter-reset:s}
+@media (max-width:820px){.steps3{grid-template-columns:minmax(0,1fr)}}
+.steps3 li{list-style:none;display:grid;gap:8px;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:10px;counter-increment:s}
+.steps3 li::before{content:"0" counter(s);font-family:var(--f-mono);font-size:.8rem;color:var(--accent)}
+.steps3 p{color:var(--muted);font-size:.95rem}
+.steps3{margin:0;padding:0}
+.deliv{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.deliv div{padding:18px;display:grid;gap:6px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0}
+.deliv .k{font-family:var(--f-mono);font-size:.72rem;color:var(--muted)}
+.deliv p{color:var(--muted);font-size:.9rem}
+.band{background:var(--inv-bg);color:var(--inv-ink);border-radius:14px;padding:36px clamp(20px,4vw,44px);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:32px}
+@media (max-width:820px){.band{grid-template-columns:minmax(0,1fr)}}
+.band .eyebrow{color:var(--inv-muted)}
+.band ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px}
+@media (max-width:560px){.band ul{grid-template-columns:minmax(0,1fr)}}
+.band li{padding-left:18px;position:relative;font-size:.95rem}
+.band li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;background:var(--accent);transform:rotate(45deg)}
+.band p{color:var(--inv-muted)}
+
+/* Outil */
+.tool{padding-block:56px 24px;border-top:1px solid var(--line);display:grid;gap:8px}
+.flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+@media (max-width:620px){.flow{grid-template-columns:minmax(0,1fr)}}
+.flow a{display:grid;gap:2px;padding:.7rem .85rem;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink);text-decoration:none}
+.flow a:hover{border-color:var(--accent)}
+.flow .n{font-family:var(--f-mono);font-size:.72rem;color:var(--accent)}
+.flow .l{font-weight:600}
+.pill{font-family:var(--f-mono);font-size:.74rem;padding:.3rem .65rem;border-radius:99px;background:var(--sunk);color:var(--muted);justify-self:start}
+.pill.on{background:var(--ok-soft);color:var(--ok)}
+.pill.off{background:var(--warn-soft);color:var(--warn)}
+section.block{margin-top:36px;display:grid;gap:16px;scroll-margin-top:80px}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px}
+.head .t{display:grid;gap:4px}
+.head h2{font-size:1.5rem}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.pad{padding:22px;display:grid;gap:16px;min-width:0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:620px){.row,.row3{grid-template-columns:minmax(0,1fr)}}
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+label.f{display:grid;gap:5px;font-weight:600;font-size:.92rem;min-width:0;align-content:start}
+label.f small{font-weight:400;color:var(--muted);font-size:.82rem}
+label.f.missing input,label.f.missing textarea,label.f.missing select{border-color:var(--warn);background:var(--warn-soft)}
+input[type=text],input[type=email],input[type=number],input[type=time],input[type=url],input[type=password],select,textarea{
+  font:400 .95rem var(--f-body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:.55rem .7rem;width:100%;min-width:0}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+textarea{min-height:80px;resize:vertical}
+textarea.doc{min-height:150px;font-family:var(--f-mono);font-size:.8rem}
+.group{display:grid;gap:14px;padding-top:18px;border-top:1px solid var(--line)}
+.group:first-child{padding-top:0;border-top:0}
+.gtitle{display:flex;gap:10px;align-items:baseline}
+.gtitle .n{font-family:var(--f-mono);font-size:.74rem;color:var(--accent)}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.checks label{display:flex;gap:8px;align-items:center;padding:.45rem .7rem;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);font-size:.92rem;cursor:pointer}
+.inline{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.filebtn{position:relative;overflow:hidden}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+details.adv{border:1px solid var(--line);border-radius:var(--r);padding:.6rem .85rem;background:var(--bg)}
+details.adv summary{cursor:pointer;font-weight:600;font-size:.92rem}
+details.adv[open]{display:grid;gap:14px}
+.status{font-size:.9rem;color:var(--muted)}
+.status.err{color:var(--warn)}
+.access{padding:22px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px}
+@media (max-width:900px){.access{grid-template-columns:minmax(0,1fr)}}
+.acc-l,.acc-r{display:grid;gap:12px;align-content:start;min-width:0}
+.meter{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.meter span{display:block;height:100%;width:0;background:var(--ok)}
+.meter span.full{background:var(--warn)}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.cards{grid-template-columns:minmax(0,1fr)}}
+.card{padding:18px;display:grid;gap:10px;align-content:start;min-width:0}
+.card .rank{font-family:var(--f-mono);font-size:.72rem;color:var(--accent)}
+.card dl{margin:0;display:grid;gap:6px;font-size:.9rem}
+.card dt{font-weight:600}
+.card dd{margin:0;color:var(--muted)}
+.card ul{margin:0;padding-left:18px;color:var(--muted)}
+.card .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.card.chosen{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.side{display:grid;gap:16px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 72px)}
+@media (max-width:900px){.side{position:static}}
+.cap{padding:18px;display:grid;gap:14px}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.kpi .v{font-family:var(--f-display);font-size:1.75rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1;display:block;letter-spacing:-.02em}
+.kpi .k{font-size:.78rem;color:var(--muted)}
+.cadence{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+.cadence b{color:var(--ink);font-weight:600}
+.bars{display:flex;align-items:flex-end;gap:3px;height:56px;border-bottom:1px solid var(--line)}
+.bars span{flex:1;background:var(--accent);opacity:.85;border-radius:2px 2px 0 0;min-height:2px}
+.bars-axis{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.7rem;color:var(--muted)}
+.notes{display:grid;gap:6px;margin:0;padding:0;list-style:none;font-size:.86rem}
+.notes li{padding-left:12px;border-left:2px solid var(--line);color:var(--muted)}
+.notes li.w{border-left-color:var(--warn);color:var(--ink)}
+.missing-box{padding:16px 18px;display:grid;gap:8px}
+.missing-box ul{margin:0;padding-left:18px;font-size:.9rem}
+.missing-box button{padding:.15rem .3rem;border:0;background:none;color:var(--accent);text-decoration:underline;font-weight:400;font-size:.9rem;text-align:left}
+.ok-line{color:var(--ok);font-weight:600;font-size:.92rem}
+.genbar{padding:20px 22px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+.genbar .l{display:grid;gap:6px;max-width:62ch}
+.genbar .r{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.prog{display:flex;flex-wrap:wrap;gap:8px}
+.prog span{font-family:var(--f-mono);font-size:.74rem;padding:.2rem .55rem;border-radius:99px;background:var(--sunk);color:var(--muted)}
+.prog span.run{background:var(--accent-soft);color:var(--accent)}
+.prog span.done{background:var(--ok-soft);color:var(--ok)}
+.prog span.err,.prog span.old{background:var(--warn-soft);color:var(--warn)}
+.tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tab{background:var(--sunk);border-color:transparent;font-weight:600}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.outcard{overflow:hidden}
+.outbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--sunk)}
+.outbar .meta{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);min-width:0;overflow-wrap:anywhere}
+.outbar .btns{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.seg button{border:0;border-radius:0;padding:.4rem .7rem;background:var(--surface);font-size:.85rem}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+pre#out{margin:0;padding:18px;background:var(--code);font-family:var(--f-mono);font-size:.8rem;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;max-height:640px;overflow:auto;tab-size:2}
+.toast{font-size:.85rem;color:var(--ok);min-height:1.2em}
+
+/* Installation accompagnée + pied de page */
+.service{margin-top:56px;padding:32px clamp(20px,4vw,40px);border:1px solid var(--accent);border-radius:14px;background:var(--accent-soft);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:center}
+@media (max-width:820px){.service{grid-template-columns:minmax(0,1fr)}}
+.service .copy{display:grid;gap:10px}
+.service p{color:var(--muted)}
+.service .ways{display:grid;gap:10px}
+.service .ways a{justify-content:space-between;background:var(--surface)}
+.service .ways span{font-family:var(--f-mono);font-size:.85rem;color:var(--muted)}
+footer.site{margin-top:64px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));background:var(--inv-bg);color:var(--inv-ink)}
+footer.site .in{max-width:1160px;margin:0 auto;padding:44px max(16px,env(safe-area-inset-left,0px)) calc(28px + env(safe-area-inset-bottom,0px));display:grid;gap:32px}
+footer.site .cols{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(2,minmax(0,1fr));gap:28px}
+@media (max-width:760px){footer.site .cols{grid-template-columns:minmax(0,1fr)}}
+footer.site .brand{color:var(--inv-ink)}
+footer.site p,footer.site li{color:var(--inv-muted);font-size:.92rem}
+footer.site h3{font-size:.8rem;font-family:var(--f-mono);font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--inv-muted)}
+footer.site ul{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
+footer.site a{color:var(--inv-ink);text-decoration:none;border-bottom:1px solid var(--inv-line)}
+footer.site a:hover{border-color:var(--inv-ink)}
+footer.site a.brand{border-bottom:0}
+footer.site .legal{border-top:1px solid var(--inv-line);padding-top:18px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:.82rem;color:var(--inv-muted)}
+footer.site details summary{cursor:pointer;color:var(--inv-ink)}
+footer.site details p{margin-top:8px;max-width:80ch}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Navigation principale"><div class="in">
+  <a class="brand" href="#top" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a>
+  <div class="links"><a href="#comment">Comment ça marche</a><a href="#livrables">Ce que vous recevez</a><a href="#garde-fous">Garde-fous</a><a href="#contact">Contact</a></div>
+  <a class="btn primary" href="#acces">Créer mon système</a>
+</div></nav>
+
+<header class="wrap hero" id="top">
+  <div class="copy">
+    <span class="eyebrow">LinkSharp · Outil de prospection B2B</span>
+    <h1>Votre prospection tourne seule. <em>Vous gardez la main.</em></h1>
+    <p class="lede">LinkSharp construit votre système de prospection complet dans Claude : cibles qualifiées, mails vérifiés et personnalisés, relances, brief du matin. Rien ne part sans votre « go ».</p>
+    <div class="cta"><a class="btn primary" href="#acces">Créer mon système gratuitement</a><a class="btn ghost" href="#comment">Voir comment ça marche</a></div>
+    <div class="facts"><span>Gratuit, avec votre propre clé d'IA</span><span>Plafond de dépense choisi par vous</span><span>Garde-fous intégrés</span></div>
+  </div>
+  <aside class="day" aria-label="Une journée type avec LinkSharp">
+    <div class="top"><span class="eyebrow">Une journée type</span><span class="eyebrow">Jours ouvrés</span></div>
+    <ol>
+      <li><time>17:30</time><div><strong>Préparation du lot</strong><small>Prospects trouvés, signaux vérifiés, mails rédigés</small></div></li>
+      <li class="you"><time>Soir</time><div><strong>Votre « go »</strong><small>Vous relisez, corrigez, validez. Sinon rien ne part.</small></div></li>
+      <li><time>07:15</time><div><strong>Brief du matin</strong><small>Qui appeler, quoi leur dire, quoi traiter</small></div></li>
+      <li><time>08:30</time><div><strong>Premiers mails</strong><small>Programmés, au moins 2 minutes d'écart</small></div></li>
+      <li><time>13:10</time><div><strong>Contrôle des relances</strong><small>Un prospect a répondu ? Vous êtes prévenu.</small></div></li>
+      <li><time>14:00</time><div><strong>Relances</strong><small>Dans le fil du premier mail, jamais après une réponse</small></div></li>
+    </ol>
+    <p class="foot">Horaires réglables. Tout tourne dans Claude, avec vos propres outils.</p>
+  </aside>
+</header>
+
+<main class="wrap">
+  <section class="sec" id="comment">
+    <div class="intro"><span class="eyebrow">Comment ça marche</span><h2>Trois étapes, dix minutes</h2></div>
+    <ol class="steps3">
+      <li><h3>Décrivez votre offre</h3><p>L'IA propose trois profils de clients idéaux, avec les décideurs à viser et les signaux d'achat vérifiables.</p></li>
+      <li><h3>Réglez l'envoi</h3><p>Pays, langue, plafond de mails par jour, séquence de relances, outils. Fuseau, jours fériés et mentions légales se règlent seuls.</p></li>
+      <li><h3>Installez dans Claude</h3><p>Vous récupérez les skills et les tâches planifiées, réécrits pour votre secteur, avec la checklist d'installation.</p></li>
+    </ol>
+  </section>
+
+  <section class="sec" id="livrables">
+    <div class="intro"><span class="eyebrow">Ce que vous recevez</span><h2>Un système complet, pas un modèle de mail</h2></div>
+    <div class="deliv">
+      <div><span class="k">SKILL.md</span><h3>Skill prospection</h3><p>Recherche, vérification, rédaction, relances, suivi CRM et contrôle de cohérence.</p></div>
+      <div><span class="k">SKILL.md</span><h3>Skill brief du matin</h3><p>Un mail chaque matin : leads à appeler, pitch, objections, mails à traiter.</p></div>
+      <div><span class="k">3 prompts</span><h3>Tâches planifiées</h3><p>Préparation la veille, brief à l'aube, contrôle des relances avant l'envoi.</p></div>
+      <div><span class="k">Checklist</span><h3>Installation</h3><p>Connecteurs, réglages, premier test sur trois prospects.</p></div>
+      <div><span class="k">Calcul</span><h3>Capacité</h3><p>Nouveaux prospects par jour, montée en charge, calendrier réel.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="garde-fous">
+    <div class="band">
+      <div style="display:grid;gap:10px;align-content:start"><span class="eyebrow">Garde-fous</span><h2>Automatisé, jamais incontrôlé</h2><p>Ces règles sont écrites dans chaque système généré. L'IA peut les préciser, jamais les retirer.</p></div>
+      <ul>
+        <li>Aucun envoi sans votre « go »</li>
+        <li>Plafond de mails par jour, 2 minutes entre deux envois</li>
+        <li>Aucun email, numéro ou signal inventé</li>
+        <li>Désinscription simple dans chaque mail</li>
+        <li>Une seule personne par entreprise, dédoublonnage par domaine</li>
+        <li>Rien n'est supprimé dans vos outils</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="tool" id="acces">
+    <span class="eyebrow">L'outil</span>
+    <h2>Créez votre système</h2>
+    <p class="lede">Gratuit : l'IA fonctionne avec votre propre clé, et vous fixez vous-même votre plafond de dépense.</p>
+    <span class="pill" id="aiPill">Ajoutez votre clé d'API pour activer l'IA</span>
+  <section class="panel access" aria-labelledby="hAcc">
+    <div class="acc-l">
+      <h3 id="hAcc">Votre accès à l'IA</h3>
+      <p class="hint">Le site est gratuit : l'IA fonctionne avec votre propre clé d'API Anthropic, à créer sur <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> (rubrique « API Keys », avec un petit crédit). La clé reste dans votre navigateur et n'est envoyée qu'à Anthropic. Une génération complète coûte moins d'un centime avec Haiku, environ 0,10 $ avec Sonnet.</p>
+      <div class="inline">
+        <label class="f" style="flex:1 1 260px">Clé d'API<input type="password" id="keyInput" autocomplete="off" placeholder="sk-ant-…"></label>
+        <button type="button" id="keySave" class="primary" style="align-self:end">Enregistrer</button>
+        <button type="button" id="keyForget" class="ghost" style="align-self:end">Effacer</button>
+      </div>
+      <span class="status" id="keyMsg" role="status"></span>
+    </div>
+    <div class="acc-r">
+      <div class="row">
+        <label class="f">Modèle
+          <select id="modelSel"><option value="claude-haiku-5-5">Haiku 5.5 · économique</option><option value="claude-sonnet-5-5">Sonnet 5.5 · plus fin</option></select>
+        </label>
+        <label class="f">Votre plafond de dépense
+          <select id="capSel"><option value="0.5">0,50 $</option><option value="1">1 $</option><option value="2">2 $</option><option value="5">5 $</option><option value="10">10 $</option><option value="custom">Autre montant</option></select>
+          <input type="text" id="capCustom" inputmode="decimal" placeholder="Montant en $" hidden>
+        </label>
+      </div>
+      <div class="meter"><span id="spentBar"></span></div>
+      <div class="inline" style="justify-content:space-between"><span class="hint" id="spentLine"></span><button type="button" class="ghost" id="spentReset" style="padding:.3rem .6rem;font-size:.85rem">Remettre le compteur à zéro</button></div>
+      <p class="hint" style="font-size:.82rem">Le site s'arrête de lui-même avant de dépasser ce plafond. Pour une garantie totale, réglez aussi une limite de dépense dans la console Anthropic.</p>
+    </div>
+  </section>
+    <nav class="flow" aria-label="Étapes">
+    <a href="#cible"><span class="n">Étape 1</span><span class="l">Trouver votre cible</span></a>
+    <a href="#reglages"><span class="n">Étape 2</span><span class="l">Régler votre système</span></a>
+    <a href="#kit"><span class="n">Étape 3</span><span class="l">Récupérer votre kit</span></a>
+  </nav>
+  </section>
+  <!-- Étape 1 -->
+  <section class="block" id="cible" aria-labelledby="h1s">
+    <div class="head"><div class="t"><span class="eyebrow">Étape 1</span><h2 id="h1s">Trouver votre cible</h2></div></div>
+    <div class="panel pad">
+      <label class="f">Décrivez votre produit ou service
+        <small>Ce que vous vendez, à qui vous pensez le vendre, ce qui vous différencie. Quelques phrases suffisent.</small>
+        <textarea id="prodDesc" rows="4"></textarea>
+      </label>
+      <div class="row">
+        <label class="f">Marché ou zone visée<small>Pays, régions, villes</small><input type="text" id="prodMarket"></label>
+        <label class="f">Ce que vous savez déjà<small>Premiers clients, refus, intuitions (facultatif)</small><input type="text" id="prodNotes"></label>
+      </div>
+      <div class="inline">
+        <button type="button" class="primary" id="btnIcp">Générer 3 ICP</button>
+        <button type="button" id="btnIcpStop" hidden>Arrêter</button>
+        <span class="status" id="icpStatus" role="status"></span>
+      </div>
+      <p class="hint">Vous avez déjà un ICP ? Passez directement à l'<a href="#reglages">étape 2</a> et déposez-le.</p>
+    </div>
+    <div id="icpCards"></div>
+  </section>
+
+  <!-- Étape 2 -->
+  <section class="block" id="reglages" aria-labelledby="h2s">
+    <div class="head"><div class="t"><span class="eyebrow">Étape 2</span><h2 id="h2s">Régler votre système</h2></div>
+      <button type="button" class="ghost" id="btnReset">Tout effacer</button></div>
+    <div class="grid">
+      <form class="panel pad" id="f" autocomplete="off" novalidate>
+        <div class="group">
+          <div class="gtitle"><span class="n">A</span><h3>Votre cible</h3></div>
+          <label class="f" data-k="icpDoc">ICP
+            <small>Choisi à l'étape 1, déposé en fichier ou collé ici. L'IA le lit en entier.</small>
+            <textarea id="icpDoc" class="doc"></textarea>
+          </label>
+          <div class="inline"><span class="btn filebtn">Déposer un fichier .md / .txt<input type="file" id="icpFile" accept=".txt,.md,text/plain,text/markdown"></span><span class="status" id="icpFileMsg"></span></div>
+        </div>
+
+        <div class="group">
+          <div class="gtitle"><span class="n">B</span><h3>Votre offre</h3></div>
+          <div class="row">
+            <label class="f" data-k="coName">Nom de l'entreprise<input type="text" id="coName"></label>
+            <label class="f">Ton des mails
+              <select id="tone"><option value="direct">Direct et concret</option><option value="chaleureux">Chaleureux et proche</option><option value="formel">Formel</option></select>
+            </label>
+          </div>
+          <label class="f" data-k="offer">Ce que vous vendez<small>2 ou 3 phrases</small><textarea id="offer" rows="3"></textarea></label>
+          <label class="f">Preuves utilisables dans les mails<small>Clients citables, chiffres vérifiables, expérience. Seules ces preuves seront citées.</small><textarea id="proofs" rows="2"></textarea></label>
+        </div>
+
+        <div class="group">
+          <div class="gtitle"><span class="n">C</span><h3>Envoi</h3></div>
+          <div class="row">
+            <label class="f">Pays des prospects
+              <select id="country"></select>
+            </label>
+            <label class="f">Fuseau des prospects
+              <select id="tz"></select>
+            </label>
+          </div>
+          <div class="row">
+            <label class="f" data-k="mailbox">Boîte d'envoi<input type="email" id="mailbox"></label>
+            <label class="f">Langue des mails
+              <select id="lang"><option value="fr">Français</option><option value="en-US">Anglais (États-Unis)</option><option value="en-GB">Anglais (Royaume-Uni)</option><option value="es">Espagnol</option><option value="de">Allemand</option><option value="it">Italien</option></select>
+            </label>
+          </div>
+          <div class="row">
+            <label class="f" data-k="sender">Expéditeur<small>Prénom Nom, fonction : le « je » des mails</small><input type="text" id="sender"></label>
+            <label class="f" data-k="postal">Adresse postale<small id="postalHint">Pied de mail</small><input type="text" id="postal"></label>
+          </div>
+          <div class="row3">
+            <label class="f">Mails par jour, au maximum
+              <select id="cap"><option>15</option><option>25</option><option>30</option><option>45</option><option>60</option></select>
+            </label>
+            <label class="f">Séquence
+              <select id="cadence"><option value="0,3,7">3 mails : J0, J+3, J+7</option><option value="0,4">2 mails : J0, J+4</option><option value="0,3,7,14">4 mails : J0, J+3, J+7, J+14</option><option value="0,2,5,10">4 mails : J0, J+2, J+5, J+10</option></select>
+            </label>
+            <label class="f">Programmation
+              <select id="sendMethod"><option value="chrome">Claude programme dans Gmail (Chrome)</option><option value="drafts">Brouillons, programmés à la main</option></select>
+            </label>
+          </div>
+          <div class="checks"><label><input type="checkbox" id="warm"> Domaine d'envoi récent (moins de 4 semaines) : montée progressive</label></div>
+        </div>
+
+        <div class="group">
+          <div class="gtitle"><span class="n">D</span><h3>Outils</h3></div>
+          <div class="row">
+            <label class="f">CRM
+              <select id="crm"><option>HubSpot</option><option>Pipedrive</option><option>Salesforce</option><option>Folk</option><option value="Aucun">Aucun : le Google Sheet sert de CRM</option></select>
+            </label>
+            <label class="f">Source de prospects
+              <select id="source"><option>Apollo</option><option value="Recherche web">Recherche web, sans outil</option><option>Lemlist</option><option>Kaspr</option></select>
+            </label>
+          </div>
+          <div class="row">
+            <label class="f" data-k="sheetName">Nom exact du Google Sheet de suivi<input type="text" id="sheetName"></label>
+            <label class="f">Lien du Google Sheet<small>L'identifiant est extrait automatiquement</small><input type="url" id="sheetLink"></label>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="gtitle"><span class="n">E</span><h3>Brief du matin et validation</h3></div>
+          <div class="row">
+            <label class="f" data-k="validator">Personne qui donne le « go »<input type="text" id="validator"></label>
+            <label class="f" data-k="briefTo">Adresse qui reçoit le brief<input type="email" id="briefTo"></label>
+          </div>
+          <div class="row">
+            <label class="f">Heure du brief
+              <select id="briefTime"><option>06:30</option><option>07:00</option><option>07:15</option><option>07:30</option><option>08:00</option><option>08:30</option></select>
+            </label>
+            <div class="f" style="display:grid;gap:5px"><span style="font-weight:600;font-size:.92rem">Sections du brief</span>
+              <div class="checks">
+                <label><input type="checkbox" id="secLeads"> Leads</label><label><input type="checkbox" id="secMails"> Mails</label><label><input type="checkbox" id="secTasks"> Tâches</label><label><input type="checkbox" id="secAgenda"> Agenda</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group">
+          <div class="gtitle"><span class="n">F</span><h3>Précisions pour l'IA</h3></div>
+          <label class="f">Tout ce qui rend votre cas particulier
+            <small>Saisonnalité, vocabulaire du métier, salons, sujets à éviter, façon de parler aux prospects, concurrents à ne pas citer… L'IA en tient compte dans chaque section.</small>
+            <textarea id="aiNotes" rows="4"></textarea>
+          </label>
+          <details class="adv">
+            <summary>Réglages avancés</summary>
+            <div class="row">
+              <label class="f">Créneau premiers mails<span class="pair"><input type="time" id="slotJ0a" aria-label="Début"><input type="time" id="slotJ0b" aria-label="Fin"></span></label>
+              <label class="f">Créneau relances<span class="pair"><input type="time" id="slotRa" aria-label="Début"><input type="time" id="slotRb" aria-label="Fin"></span></label>
+            </div>
+            <div class="row">
+              <label class="f">Préparation du lot (la veille)<input type="time" id="prepTime"></label>
+              <label class="f">Contrôle des relances<input type="time" id="ctrlTime"></label>
+            </div>
+            <div class="row">
+              <label class="f">Propriétaire des fiches<small>Par défaut : la personne qui valide</small><input type="text" id="owner"></label>
+              <label class="f">Source de numéros<small>Par défaut : site officiel, annuaires</small><input type="text" id="phones"></label>
+            </div>
+          </details>
+        </div>
+      </form>
+
+      <aside class="side">
+        <section class="panel cap" aria-label="Capacité">
+          <span class="eyebrow">Capacité, régime établi</span>
+          <div class="kpis" id="kpis"></div>
+          <div class="cadence" id="cadenceLine"></div>
+          <div style="display:grid;gap:6px">
+            <span class="hint" style="font-size:.82rem">Mails par jour ouvré, depuis le lancement</span>
+            <div class="bars" id="bars" role="img" aria-label="Montée en charge"></div>
+            <div class="bars-axis" id="barsAxis"></div>
+          </div>
+          <ul class="notes" id="capNotes"></ul>
+        </section>
+        <section class="panel missing-box" id="missingBox" aria-live="polite"></section>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Étape 3 -->
+  <section class="block" id="kit" aria-labelledby="h3s">
+    <div class="head"><div class="t"><span class="eyebrow">Étape 3</span><h2 id="h3s">Récupérer votre kit</h2></div></div>
+    <div class="panel genbar">
+      <div class="l">
+        <h3>Personnaliser avec l'IA</h3>
+        <p class="hint">L'IA réécrit les deux skills pour votre secteur : signaux à chercher et où les vérifier, façon de trouver les décideurs, modèles de mails dans la langue choisie, objections. Les réglages chiffrés et les garde-fous ne changent pas. Compter une à deux minutes.</p>
+        <div class="prog" id="prog"></div>
+      </div>
+      <div class="r">
+        <button type="button" class="primary" id="btnGen">Personnaliser</button>
+        <button type="button" id="btnGenStop" hidden>Arrêter</button>
+      </div>
+    </div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="panel outcard">
+      <div class="outbar">
+        <span class="meta" id="outMeta"></span>
+        <span class="btns">
+          <span class="seg" id="verSeg" hidden><button type="button" data-v="ai" aria-pressed="true">Version IA</button><button type="button" data-v="tpl" aria-pressed="false">Modèle</button></span>
+          <button type="button" id="btnCopy">Copier</button><button type="button" id="btnDl">Télécharger</button>
+        </span>
+      </div>
+      <pre id="out" tabindex="0"></pre>
+    </div>
+    <span class="toast" id="toast" role="status"></span>
+  </section>
+
+  <section class="service" id="contact">
+    <div class="copy"><span class="eyebrow">Installation accompagnée</span><h2>Vous préférez qu'on l'installe pour vous ?</h2><p>LinkSharp installe le système chez vous : choix de la cible, branchement des connecteurs, réglage des skills et des tâches planifiées, premier lot accompagné, puis suivi quand vos volumes ou vos outils changent.</p></div>
+    <div class="ways">
+      <a class="btn" href="mailto:egarnault@gmail.com?subject=LinkSharp%20%E2%80%93%20installation">Écrire <span>egarnault@gmail.com</span></a>
+      <a class="btn" href="tel:+33607763994">Appeler <span>+33 6 07 76 39 94</span></a>
+      <a class="btn" href="https://www.linkedin.com/in/eliad-garnault" target="_blank" rel="noopener">LinkedIn <span>eliad-garnault</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="site"><div class="in">
+  <div class="cols">
+    <div style="display:grid;gap:12px;align-content:start"><a class="brand" href="#top" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a><p>Outil de prospection B2B conçu et édité par Eliad Garnault. Le site, son code, ses modèles et ses textes sont la propriété de LinkSharp.</p></div>
+    <div><h3>Contact</h3><ul><li>Eliad Garnault</li><li><a href="mailto:egarnault@gmail.com">egarnault@gmail.com</a></li><li><a href="tel:+33607763994">+33 6 07 76 39 94</a></li><li><a href="https://www.linkedin.com/in/eliad-garnault" target="_blank" rel="noopener">linkedin.com/in/eliad-garnault</a></li></ul></div>
+    <div><h3>Le site</h3><ul><li><a href="#comment">Comment ça marche</a></li><li><a href="#acces">Créer mon système</a></li><li><a href="#garde-fous">Garde-fous</a></li><li>Vos données et votre clé restent dans votre navigateur</li></ul></div>
+  </div>
+  <details><summary>Mentions légales</summary><p>Éditeur et directeur de la publication : Eliad Garnault (LinkSharp), France. Contact : egarnault@gmail.com · +33 6 07 76 39 94. Site gratuit : aucune vente, aucun paiement ni abonnement n'y est proposé. Hébergement : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. LinkSharp ne collecte aucune donnée personnelle : les informations saisies et la clé d'API restent dans le navigateur de l'utilisateur, et les appels à l'IA partent directement du navigateur vers Anthropic. Les règles de prospection indiquées dans l'outil sont des repères et ne constituent pas un avis juridique.</p></details>
+  <div class="legal"><span>© 2026 LinkSharp · Eliad Garnault. Tous droits réservés.</span><span>Reproduction du site, du code ou des modèles interdite sans autorisation écrite.</span></div>
+</div></footer>
+
+<script>
+(function(){
+const $ = id => document.getElementById(id);
+const STORE = "kitprosp.v3";
+
+/* ---------- Champs ---------- */
+const TEXT = ["prodDesc","prodMarket","prodNotes","icpDoc","coName","tone","offer","proofs","country","tz","mailbox","lang","sender","postal","cap","cadence","sendMethod","crm","source","sheetName","sheetLink","validator","briefTo","briefTime","aiNotes","slotJ0a","slotJ0b","slotRa","slotRb","prepTime","ctrlTime","owner","phones"];
+const CHECKS = ["warm","secLeads","secMails","secTasks","secAgenda"];
+const DEFAULTS = {tone:"direct",country:"France",tz:"Europe/Paris",lang:"fr",cap:"45",cadence:"0,3,7",sendMethod:"chrome",crm:"HubSpot",source:"Apollo",briefTime:"07:15",slotJ0a:"08:30",slotJ0b:"11:00",slotRa:"14:00",slotRb:"16:00",prepTime:"17:30",ctrlTime:"13:10",warm:false,secLeads:true,secMails:true,secTasks:true,secAgenda:true};
+const LABELS = {icpDoc:"ICP",coName:"Nom de l'entreprise",offer:"Ce que vous vendez",mailbox:"Boîte d'envoi",sender:"Expéditeur",postal:"Adresse postale",sheetName:"Nom du Google Sheet",sheetLink:"Lien du Google Sheet",validator:"Personne qui valide",briefTo:"Adresse du brief",proofs:"Preuves"};
+
+/* ---------- Pays : fuseau, langue, jours fériés, cadre légal ---------- */
+const ALLTZ = ["Europe/Paris","Europe/Brussels","Europe/Zurich","Europe/Luxembourg","Europe/London","Europe/Dublin","Europe/Berlin","Europe/Madrid","Europe/Rome","Europe/Lisbon","America/New_York","America/Chicago","America/Denver","America/Los_Angeles","America/Toronto","America/Vancouver","Asia/Tokyo","Asia/Shanghai","Asia/Singapore","Australia/Sydney"];
+const COUNTRIES = {
+  "France":{tz:["Europe/Paris"],lang:"fr",hol:"FR",legal:"eu"},
+  "Belgique":{tz:["Europe/Brussels"],lang:"fr",legal:"eu"},
+  "Suisse":{tz:["Europe/Zurich"],lang:"fr",legal:"ch"},
+  "Luxembourg":{tz:["Europe/Luxembourg"],lang:"fr",legal:"eu"},
+  "Royaume-Uni":{tz:["Europe/London"],lang:"en-GB",legal:"uk"},
+  "Irlande":{tz:["Europe/Dublin"],lang:"en-GB",legal:"eu"},
+  "Allemagne":{tz:["Europe/Berlin"],lang:"de",legal:"de"},
+  "Espagne":{tz:["Europe/Madrid"],lang:"es",legal:"eu"},
+  "Italie":{tz:["Europe/Rome"],lang:"it",legal:"eu"},
+  "États-Unis":{tz:["America/New_York","America/Chicago","America/Denver","America/Los_Angeles"],lang:"en-US",hol:"US",legal:"us"},
+  "États-Unis – Californie":{tz:["America/Los_Angeles"],lang:"en-US",hol:"USCA",legal:"us"},
+  "Canada – Québec":{tz:["America/Toronto"],lang:"fr",legal:"ca"},
+  "Canada – anglophone":{tz:["America/Toronto","America/Vancouver"],lang:"en-US",legal:"ca"},
+  "Japon":{tz:["Asia/Tokyo"],lang:"en-US",legal:"other"},
+  "Chine":{tz:["Asia/Shanghai"],lang:"en-US",legal:"other"},
+  "Autre pays":{tz:ALLTZ,lang:"en-US",legal:"other"}
+};
+const HOL = {
+  FR:[["2026-11-11","Armistice"],["2026-12-25","Noël"],["2027-01-01","Jour de l'an"],["2027-03-29","Lundi de Pâques"],["2027-05-06","Ascension"],["2027-05-17","Lundi de Pentecôte"],["2027-07-14","Fête nationale"],["2027-11-01","Toussaint"],["2027-11-11","Armistice"]],
+  US:[["2026-11-11","Veterans Day"],["2026-11-26","Thanksgiving"],["2026-12-25","Christmas"],["2027-01-01","New Year's Day"],["2027-01-18","Martin Luther King Jr. Day"],["2027-02-15","Presidents' Day"],["2027-05-31","Memorial Day"],["2027-06-18","Juneteenth (observé)"],["2027-07-05","Independence Day (observé)"],["2027-09-06","Labor Day"],["2027-10-11","Columbus Day"],["2027-11-11","Veterans Day"],["2027-11-25","Thanksgiving"],["2027-12-24","Christmas (observé)"],["2027-12-31","New Year's Day 2028 (observé)"]]
+};
+HOL.USCA = HOL.US.concat([["2026-11-27","Day after Thanksgiving (Californie)"],["2027-03-31","César Chávez Day (Californie)"],["2027-11-26","Day after Thanksgiving (Californie)"]]).sort((a,b)=>a[0]<b[0]?-1:1);
+const LANG = {
+  "fr":{n:"français",opt:"Si ce n'est pas un sujet pour vous, dites-le-moi et je ne vous écrirai plus."},
+  "en-US":{n:"anglais américain",opt:"If this isn't relevant for you, just let me know and I won't reach out again."},
+  "en-GB":{n:"anglais britannique",opt:"If this isn't relevant for you, just let me know and I won't get in touch again."},
+  "es":{n:"espagnol",opt:"Si no es un tema para usted, dígamelo y no volveré a escribirle."},
+  "de":{n:"allemand",opt:"Falls das kein Thema für Sie ist, sagen Sie mir kurz Bescheid, dann schreibe ich Ihnen nicht mehr."},
+  "it":{n:"italien",opt:"Se non è un tema di suo interesse, me lo dica e non le scriverò più."}
+};
+const ctry = d => COUNTRIES[d.country] || COUNTRIES["Autre pays"];
+const needsPostal = d => ["us","ca"].includes(ctry(d).legal);
+
+/* ---------- État ---------- */
+let sample = null, downloads = null, icps = [], chosenIcp = -1;
+let ai = {prosp:null, brief:null};   // {text, sig, status}
+let tab = "prosp", version = "ai", genCtl = null, icpCtl = null;
+
+function fillCountry(){
+  const s = $("country"); s.innerHTML = "";
+  Object.keys(COUNTRIES).forEach(k => { const o = document.createElement("option"); o.textContent = k; s.appendChild(o); });
+}
+function fillTz(country, keep){
+  const s = $("tz"), list = (COUNTRIES[country]||COUNTRIES["Autre pays"]).tz;
+  s.innerHTML = ""; list.forEach(t => { const o = document.createElement("option"); o.textContent = t; s.appendChild(o); });
+  s.value = keep && list.includes(keep) ? keep : list[list.length===4 ? 3 : 0];
+}
+function read(){ const d = {}; TEXT.forEach(k => d[k] = $(k).value); CHECKS.forEach(k => d[k] = $(k).checked); return d; }
+function write(d){
+  fillTz(d.country || DEFAULTS.country, d.tz);
+  TEXT.forEach(k => { if(k==="tz") return; $(k).value = d[k] != null ? d[k] : (DEFAULTS[k] != null ? DEFAULTS[k] : ""); });
+  if($("country").value==="") $("country").value = DEFAULTS.country;
+  CHECKS.forEach(k => { $(k).checked = d[k] != null ? !!d[k] : !!DEFAULTS[k]; });
+}
+function save(){ try{ localStorage.setItem(STORE, JSON.stringify({d:read(), icps, chosenIcp, ai})); }catch(e){} }
+function load(){ try{ return JSON.parse(localStorage.getItem(STORE)||"null"); }catch(e){ return null; } }
+
+/* ---------- Utilitaires ---------- */
+const filled = (d,k) => String(d[k]||"").trim() !== "";
+const fmtH = t => { if(!t) return "?"; const [h,m] = t.split(":"); return parseInt(h,10)+"h"+(m==="00"?"":m); };
+const mins = t => { if(!t) return null; const [h,m] = t.split(":").map(Number); return h*60+m; };
+const slug = s => (s||"entreprise").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,30) || "entreprise";
+const bullets = (s,ind="") => String(s||"").split(/\n+/).map(x=>x.replace(/^\s*[-*•]\s*/,"").trim()).filter(Boolean).map(x=>ind+"- "+x).join("\n");
+const v = (d,k) => filled(d,k) ? String(d[k]).trim() : "[À COMPLÉTER : "+LABELS[k]+"]";
+const cronOf = t => { if(!t) return "?"; const [h,m]=t.split(":").map(Number); return m+" "+h+" * * 1-5"; };
+const sheetIdOf = s => { s = String(s||"").trim(); const m = s.match(/\/d\/([\w-]{20,})/); if(m) return m[1]; return /^[\w-]{20,}$/.test(s) ? s : ""; };
+const lab = o => o===0 ? "J0" : "J+"+o;
+const iso = dt => dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0")+"-"+String(dt.getDate()).padStart(2,"0");
+const isBD = (dt,hol) => { const w=dt.getDay(); return w!==0 && w!==6 && !hol.includes(iso(dt)); };
+function addBD(dt,n,hol){ const x=new Date(dt); let c=0; while(c<n){ x.setDate(x.getDate()+1); if(isBD(x,hol)) c++; } return x; }
+const DAYS = ["dim.","lun.","mar.","mer.","jeu.","ven.","sam."];
+const fd = dt => DAYS[dt.getDay()]+" "+dt.getDate()+"/"+(dt.getMonth()+1);
+const fdate = s => { const [y,m,d] = s.split("-"); return d+"/"+m+"/"+y; };
+const holList = d => HOL[ctry(d).hol] || [];
+function hash(s){ let h=0; for(let i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))|0; } return String(h); }
+const sigOf = d => hash(JSON.stringify(Object.assign({}, d, {prodDesc:"",prodMarket:"",prodNotes:""})));
+
+/* ---------- Capacité ---------- */
+function capacity(d){
+  const cap = parseInt(d.cap,10), off = String(d.cadence).split(",").map(Number);
+  const k = off.length, N = Math.floor(cap/k), last = off[k-1];
+  const r = {cap,off,k,N,last,week:N*5,month:N*21,unused:cap-N*k,notes:[]};
+  r.ramp = []; for(let day=0; day<=last; day++) r.ramp.push(N*off.filter(o=>o<=day).length);
+  r.notes.push({t:"Chaque nouveau prospect reçoit "+k+" mails ("+off.map(lab).join(", ")+"). "+cap+" ÷ "+k+" = "+N+" nouveaux par jour ouvré."});
+  if(d.warm){ const w1=Math.min(cap,15), w2=Math.min(cap,25); r.warm=[w1,w2,cap];
+    r.notes.push({w:true,t:"Domaine récent : "+w1+" mails par jour la 1re semaine, "+w2+" la 2e, puis "+cap+". Vérifiez SPF, DKIM et DMARC avant le premier envoi."}); }
+  const lg = ctry(d).legal;
+  if(lg==="de") r.notes.push({w:true,t:"Allemagne : la loi exige en principe un accord préalable, même entre entreprises. Faites valider ce point avant d'envoyer."});
+  if(lg==="ca") r.notes.push({w:true,t:"Canada : la loi anti-pourriel (LCAP) limite la prospection sans accord. Elle tolère un message lié à la fonction d'une personne dont l'adresse est publiée sans mention de refus."});
+  r.notes.push({t:"Volume réel : les critères se cumulent (zone, signal daté, décideur confirmé, email validé). Le rapport indique chaque jour les prospects écartés par motif."});
+  const mA = mins(d.slotJ0b)-mins(d.slotJ0a), mR = mins(d.slotRb)-mins(d.slotRa);
+  if(mA>0){ const c=Math.floor(mA/2)+1; if(N>c) r.notes.push({w:true,t:"Le créneau des premiers mails ne contient que "+c+" envois à 2 minutes d'écart."}); } else r.notes.push({w:true,t:"Le créneau des premiers mails est vide ou inversé."});
+  if(k>1){ if(mR>0){ const c=Math.floor(mR/2)+1, need=N*(k-1); if(need>c) r.notes.push({w:true,t:"Le créneau relances contient "+c+" envois pour "+need+" relances par jour. Élargissez-le."}); } else r.notes.push({w:true,t:"Le créneau relances est vide ou inversé."}); }
+  if(d.sendMethod==="drafts") r.notes.push({t:"Programmation à la main : environ "+Math.max(1,Math.round(N*k*25/60))+" minutes par jour."});
+  const hl = holList(d), hol = hl.map(h=>h[0]);
+  const now = new Date(); let start = new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  do{ start.setDate(start.getDate()+1); } while(start.getDay()!==1);
+  if(!isBD(start,hol)) start = addBD(start,1,hol);
+  const end = addBD(start,last,hol);
+  r.example = off.map(o => ({l:lab(o), d:fd(o===0?start:addBD(start,o,hol))}));
+  r.exampleHol = hl.filter(h => h[0]>iso(start) && h[0]<iso(end)).map(h => { const [y,m,dd]=h[0].split("-"); return dd+"/"+m+" "+h[1]; });
+  r.holKnown = hl.length>0;
+  return r;
+}
+
+/* ---------- Contexte commun aux modèles ---------- */
+function ctx(d){
+  const c = capacity(d), C = ctry(d), L = LANG[d.lang] || LANG.fr;
+  const noCrm = d.crm==="Aucun", noSource = d.source==="Recherche web";
+  const sl = slug(d.coName), co = v(d,"coName");
+  const validator = v(d,"validator");
+  const icpTitle = ((String(d.icpDoc||"").match(/^#\s+(.+)$/m)||[])[1]||"").replace(/^ICP\s*[–-]\s*/i,"").trim();
+  return {
+    d, c, C, L, noCrm, noSource, co, sl, validator, icpTitle,
+    crm: noCrm ? "le sheet" : d.crm, replies: noCrm ? "Gmail ("+v(d,"mailbox")+")" : d.crm,
+    hubspot: d.crm==="HubSpot", chrome: d.sendMethod==="chrome",
+    prospName:"prospection-du-jour-"+sl, briefName:"brief-du-matin-"+sl,
+    labs:c.off.map(lab).join(", "), rels:c.off.slice(1).map(lab).join(", "),
+    N:c.N, cap:c.cap, mailbox:v(d,"mailbox"), sender:v(d,"sender"),
+    source: noSource ? "la recherche web" : d.source,
+    phones: filled(d,"phones") ? d.phones.trim() : "les sources publiques fiables (site officiel, annuaires professionnels)",
+    sheetName:v(d,"sheetName"), sheetId: sheetIdOf(d.sheetLink) || "ID non renseigné : retrouver le fichier par son nom exact",
+    owner: filled(d,"owner") ? d.owner.trim() : validator, briefTo:v(d,"briefTo"),
+    tz:d.tz, country:d.country,
+    j0:fmtH(d.slotJ0a)+"-"+fmtH(d.slotJ0b), rel:fmtH(d.slotRa)+"-"+fmtH(d.slotRb),
+    prep:fmtH(d.prepTime), ctrl:fmtH(d.ctrlTime), brief:fmtH(d.briefTime)
+  };
+}
+function holidaysText(x){
+  const hl = holList(x.d);
+  if(!hl.length) return "- Jours fériés ("+x.country+") : les vérifier dans le calendrier officiel avant chaque planification. Si le statut d'un jour est incertain, ne pas planifier ce jour-là.";
+  return "- Jours fériés à exclure ("+x.country+", liste indicative) : "+hl.map(h=>fdate(h[0])+" ("+h[1]+")").join(", ")+". Vérifier le calendrier officiel ; au-delà de cette liste ou en cas de doute, ne pas planifier ce jour-là.";
+}
+function legalText(x){
+  const d = x.d, post = filled(d,"postal") ? d.postal.trim() : (needsPostal(d) ? "[À COMPLÉTER : Adresse postale]" : "");
+  const foot = "- Pied de mail (chaque mail, J0 et relances) : "+x.sender+" · "+x.co+(post?" · "+post:"")+".";
+  const rules = {
+    us:"- Cadre légal (États-Unis, CAN-SPAM) : expéditeur et objet exacts ; adresse postale valide dans chaque mail ; moyen simple de refuser la suite ; toute opposition appliquée immédiatement.",
+    ca:"- Cadre légal (Canada, LCAP) : uniquement des personnes dont l'adresse est publiée sans mention de refus, avec un message lié à leur fonction ; identification de l'expéditeur, adresse postale et moyen de refuser dans chaque mail.",
+    de:"- Cadre légal (Allemagne) : la prospection par email sans accord préalable est en principe interdite, même entre entreprises. Ne rien envoyer tant que "+x.validator+" n'a pas confirmé que ce point a été validé.",
+    uk:"- Cadre légal (Royaume-Uni) : message lié à la fonction du destinataire, identification de l'expéditeur, moyen simple de refuser ; toute opposition appliquée immédiatement.",
+    ch:"- Cadre légal (Suisse) : identification exacte de l'expéditeur et moyen simple et gratuit de refuser la suite dans chaque mail.",
+    eu:"- Cadre légal (prospection B2B en Europe) : message lié à la fonction du destinataire, identification de l'expéditeur, moyen simple et gratuit de s'opposer ; toute opposition appliquée immédiatement.",
+    other:"- Cadre légal : vérifier les règles locales de prospection par email avant le premier envoi. Dans tous les cas : expéditeur identifié, moyen simple de refuser, opposition appliquée immédiatement."
+  };
+  return foot+"\n"+rules[x.C.legal];
+}
+
+/* ---------- Modèles déterministes ---------- */
+function frontProsp(x){ return `---
+name: ${x.prospName}
+description: Préparer la prospection ${x.co}${x.icpTitle?" ("+x.icpTitle+")":""} du jour ouvré suivant : relances dues + nouveaux prospects (${x.N} au plus) sans dépasser ${x.cap} mails par jour depuis ${x.mailbox}, prospects vérifiés, lot validé par ${x.validator} (« go ») avant tout envoi, suivi tenu à jour, puis rapport pour le brief du matin.
+---
+`; }
+function frontBrief(x){
+  const secs = ["la prospection du jour"].concat(x.d.secLeads?["les leads à appeler"]:[], x.d.secMails?["les mails à traiter"]:[], x.d.secTasks?["les tâches"]:[], x.d.secAgenda?["l'agenda"]:[]);
+  return `---
+name: ${x.briefName}
+description: Chaque jour ouvré à ${x.brief}, envoyer à ${x.briefTo} un mail unique en français : ${secs.join(", ")}, et la priorité du jour.
+---
+`; }
+
+function bodyProsp(x){
+  const d = x.d, c = x.c;
+  const ex = "Exemple : "+c.example.map(e=>e.l+" "+e.d).join(" → ")+(c.exampleHol.length?" (férié : "+c.exampleHol.join(", ")+")":"")+".";
+  const warm = c.warm ? `\nDomaine récent : plafond effectif de ${c.warm[0]} mails par jour la 1re semaine d'envoi, ${c.warm[1]} la 2e, puis ${c.cap}. La date du premier envoi est notée dans l'onglet « Rapport ».` : "";
+  const send = x.chrome
+    ? `Programmer les mails dans ${x.mailbox} via Gmail avec Claude dans Chrome (« Programmer l'envoi ») : le connecteur Gmail crée des brouillons mais ne programme pas. La session Gmail ouverte dans Chrome doit être celle de ${x.mailbox}. Ne jamais saisir de mot de passe : si la session est déconnectée, s'arrêter et prévenir ${x.validator}.`
+    : `Créer chaque mail en brouillon dans ${x.mailbox} (connecteur Gmail connecté à cette boîte), relances dans le fil du J0, heure prévue notée dans l'onglet. ${x.validator} programme les brouillons à la main. Statut « Brouillon prêt » tant que la programmation n'est pas confirmée.`;
+  const track = x.noCrm ? "Pas de CRM : aucun suivi d'ouverture, le sheet est la seule trace."
+    : `Journalisation obligatoire dans ${x.crm}${x.hubspot?" (options « Log » et « Track » de l'extension HubSpot, ou adresse Cci relevée dans HubSpot et notée ici au premier lancement : « adresse Cci : ______ »)":" (extension ou adresse Cci notée ici au premier lancement : « adresse Cci : ______ »)"}. Ne jamais inventer cette adresse. Sans journalisation possible : ne pas créer les mails concernés et prévenir ${x.validator}.`;
+  const cols = "Heure prévue | Type ("+x.labs+") | Entreprise | Destinataire | Email | Téléphone | Objet | Message | Source du signal (URL) | Date de vérification | Statut"+(x.noCrm?" | Responsable":" | Ouvert ? | Fiche "+x.crm)+" | Accroche d'appel";
+  const angle = {direct:"direct et concret",chaleureux:"chaleureux et proche",formel:"formel"}[d.tone];
+  return `# Prospection du jour – ${x.co}
+
+Objectif : chaque jour ouvré, toutes les relances dues + le maximum de nouveaux prospects (${x.N} au plus) sans jamais dépasser ${x.cap} mails envoyés depuis ${x.mailbox}. Aucun mail n'est créé, programmé ni envoyé avant le « go » explicite de ${x.validator}.
+
+## Paramètres
+- Langue des mails : ${x.L.n}. Ton : ${angle}.
+- Expéditeur (le « je » des mails) : ${x.sender}. Boîte d'envoi : ${x.mailbox}.
+- Pays des prospects : ${x.country}. Fuseau : ${x.tz} (heures d'envoi, jour cible et jours ouvrés).
+- Sheet de suivi : « ${x.sheetName} » (${x.sheetId}). Ne jamais chercher ni créer un fichier sous un autre nom : s'il est introuvable, s'arrêter et demander à ${x.validator}.
+- Phrase d'opposition (fin de chaque mail) : « ${x.L.opt} »
+${legalText(x)}
+
+## Offre
+- ${x.co} : ${v(d,"offer")}
+- Preuves autorisées (à citer telles quelles, jamais d'autres chiffres, clients ou références) :
+${filled(d,"proofs") ? bullets(d.proofs,"  ") : "  - aucune : les mails ne citent ni client ni chiffre"}
+
+## Cible (ICP)
+${filled(d,"icpDoc") ? String(d.icpDoc).trim().slice(0,6000) : "[À COMPLÉTER : ICP]"}
+
+Règles de lecture de l'ICP : la zone et le secteur sont éliminatoires ; la taille est indicative (les effectifs déclarés en ligne sont souvent faux ou absents) ; un prospect n'est retenu qu'avec un signal de la liste, vérifié.
+${filled(d,"aiNotes") ? "\n## Précisions\n"+String(d.aiNotes).trim()+"\n" : ""}
+## Outils
+- ${x.noSource ? "Recherche web (pas d'outil de prospection)" : x.source+" : recherche de prospects et validation des emails"} ; ${x.noCrm ? "pas de CRM, le sheet sert de CRM" : x.crm+" : source de vérité contacts, entreprises, affaires"} ; Google Sheets ; Gmail.
+- Utiliser seulement les outils réellement connectés. Si un accès manque, s'arrêter sur l'étape concernée, ne pas prétendre l'avoir faite et le signaler à ${x.validator}.
+
+## Fichier de suivi
+Onglets : « Suivi global », « À ne pas contacter », « Rapport », un onglet par jour « [Jour] JJ-MM ». Au premier lancement, créer seulement les onglets manquants.
+Colonnes de l'onglet journalier : ${cols}.
+
+## Déroulement en deux temps (pour le jour ouvré suivant)
+Temps 1 – Préparation (tâche planifiée, ${x.prep}) :
+- Étapes 1 à 10. Aucun brouillon, aucune programmation${x.noCrm?"":", aucune modification non urgente dans "+x.crm}.
+- Exception : refus, désinscriptions et rebonds sont appliqués tout de suite.
+- Fin : onglet du jour cible prêt, rapport « Lot prêt, en attente du go », notification à ${x.validator}.
+
+Temps 2 – Validation (${x.validator} présent) :
+- ${x.validator} dit « go » ou corrige le lot. Une correction invalide le go pour les éléments modifiés : présenter la version corrigée et attendre une nouvelle validation.
+- Puis étapes 11 à 19, après une nouvelle vérification des réponses.
+
+Horaires du jour cible (${x.tz}) :
+- Premiers mails (J0) : ${x.j0}.${x.rels ? `\n- Relances (${x.rels}) : ${x.rel}. Le brief du matin et le contrôle de ${x.ctrl} laissent le temps d'annuler une relance si le prospect a répondu.` : ""}
+- Si le lot ne tient pas dans le créneau à 2 minutes d'écart, le reste passe au créneau ouvré suivant ; les relances sont recalculées depuis la date d'envoi réelle.
+- Si le « go » arrive après les heures prévues : recalculer au prochain créneau. Ne jamais garder une heure passée.
+
+## Jours ouvrés et calendrier
+- ${x.labs} se comptent en jours ouvrés après l'envoi réel du J0 : du lundi au vendredi, hors jours fériés. ${ex}
+${holidaysText(x)}
+- Aucun envoi le week-end ni un jour férié.
+
+## Règle de volume (prioritaire sur l'objectif)
+${x.mailbox} n'envoie jamais plus de ${x.cap} mails de prospection par jour.${warm}
+1. Compter les mails de prospection déjà envoyés ce jour depuis ${x.mailbox} ET ceux déjà programmés.
+2. Compter les relances dues (plus les reportées), après retrait de celles annulées.
+3. Nouveaux J0 = le plus petit nombre entre ${x.N}, les prospects qualifiés disponibles, et ${x.cap} − (déjà envoyés ou programmés + relances retenues).
+4. Relances en trop : d'abord les reportées, puis les plus anciennes ; le reste passe au jour ouvré suivant, statut « Reportée (volume) ». Jamais supprimées.
+5. Moins de ${x.N} prospects qualifiés : envoyer moins. Ne jamais assouplir un critère pour atteindre le nombre.
+6. Écrire le calcul dans le rapport.
+
+## Étapes
+1. Lire « Suivi global », « À ne pas contacter », les onglets récents et le dernier rapport. Compléter l'onglet du jour cible s'il existe déjà, ne jamais en créer un second.
+2. Synchroniser les statuts depuis ${x.replies} (voir « Synchronisation »).
+3. Pour chaque relance due : aucune réponse, rebond ou demande d'arrêt depuis le dernier envoi ? Sinon annuler et noter la raison.
+4. Calculer le volume disponible.
+5. Chercher de nouveaux prospects ${x.noSource?"par la recherche web":"dans "+x.source+" et par la recherche web"} selon l'ICP.
+6. Vérifier chaque prospect (règles ci-dessous). Noter le motif de chaque prospect écarté (zone, signal, décideur, email, doublon, exclusion).
+7. Trouver les numéros (règle des numéros).
+8. Remplir l'onglet du jour cible.
+9. Rédiger J0 et relances.
+10. Vérifier chaque mail avec les règles de cohérence.
+11. Présenter le lot à ${x.validator} : total, J0 / relances, destinataires, heures (${x.tz}), calcul de volume, sources, prospects écartés par motif, alertes. Attendre le « go ».
+12. Après le « go »${x.noCrm ? " : compléter « Suivi global »." : " : mettre à jour "+x.crm+" (section dédiée)."}
+13. Revérifier les réponses et demandes d'arrêt ; retirer du lot qui a répondu.
+14. ${send}
+    ${track}
+15. Double-check dans Gmail : destinataire, objet, heure, contenu de chaque mail ; total ≤ ${x.cap} ; 2 minutes au moins entre deux envois. Ne jamais déclarer un mail « programmé » ou « envoyé » sans l'avoir vu dans Gmail.
+16. ${x.noCrm ? "Vérifier dans « Envoyés » que les mails de la veille sont partis." : "Vérifier que les mails de la veille apparaissent dans "+x.crm+"."}
+17. Statut exact dans le sheet : « Préparé », « Brouillon prêt », « Programmé le JJ/MM à HH:MM », « Envoyé le JJ/MM à HH:MM », « Reportée (volume) », « Annulée (motif) ». Nouveaux prospects ajoutés à « Suivi global » avec leurs dates de relance.
+18. Contrôle de cohérence final.
+19. Rapport, et même résumé dans la conversation.
+
+## Règles de vérification des prospects
+- Zone et secteur conformes à l'ICP, aucune exclusion.
+- Signal de la liste de l'ICP, concret, sourcé (URL) et daté ; fait observé et date de vérification notés. Annonce ou offre : encore en ligne. Événement : moins de 30 jours, sauf besoin toujours actif. Les impressions générales (« mauvais avis », « peu actif ») ne suffisent jamais seules. Pas de signal vérifiable = pas de prospect.
+- Décideur toujours en poste, confirmé par une source publique récente (site officiel, page équipe, presse, registre). ${x.chrome?"Si c'est incertain et que Chrome est disponible : consulter son profil LinkedIn (5 au plus par lancement, simple consultation, aucune autre action).":"Pas de session LinkedIn ni d'action automatisée sur LinkedIn."} Doute persistant : écarter.
+- Email ${x.noSource?"publié sur une source officielle ou validé par un outil de validation":"validé (« verified » dans "+x.source+" ou outil de validation)"}. Jamais deviné. Sinon : « email à trouver », pas d'envoi.
+- Domaine absent de « À ne pas contacter », de « Suivi global »${x.noCrm?"":" et de "+x.crm}. Dédoublonner par domaine et par email. Une seule personne par entreprise à la fois.
+
+## Règle des numéros
+Dans l'ordre : sheet ; ${x.noCrm?"":"fiche "+x.crm+" ; "}${x.phones} ; sinon « numéro à trouver ». Le mail part quand même. Jamais inventé.
+
+## Rédaction des mails
+- En ${x.L.n}, au nom de ${x.sender}, ton ${angle}.
+- Première phrase sur le fait observé (exact), deuxième sur le lien avec l'offre, puis une seule demande : 15 minutes d'échange.
+- Prénom et nom de l'entreprise exacts dans l'objet et le corps. Seules les preuves autorisées. Aucune comparaison familière ou réductrice.
+- Moins de 120 mots hors phrase d'opposition et pied de mail. Aucun crochet ni texte d'un autre prospect.
+- Chaque mail se termine par la phrase d'opposition puis le pied de mail.
+- Relance : courte, dans le fil du J0, jamais après une réponse ou une demande d'arrêt.
+
+## Synchronisation
+- Réponse positive ou demande d'info : « Répondu », relances annulées, très prioritaire.
+- Refus ou demande d'arrêt : « Refus » ou « Désinscrit », relances annulées, domaine ajouté à « À ne pas contacter »${x.noCrm?"":", "+x.crm+" mis à jour le jour même"}.
+- Rebond : « Email invalide », relances annulées, adresse jamais réessayée.
+- Absence automatique : pas une réponse ; relance décalée après la date de retour, ou suspendue si la date est inconnue.${x.noCrm?"":`\n- Ouvertures lues dans ${x.crm} : colonne « Ouvert ? ». Une ouverture ou un clic seuls ne sont jamais un signe d'intérêt.`}
+- Annuler une relance programmée = « Annuler l'envoi » dans Gmail. Ne jamais supprimer le message.
+${x.noCrm ? "" : `
+## Mise à jour de ${x.crm} (après le « go »)
+- Entreprise cherchée par domaine, contact par email ; mise à jour ou création, association.
+- Note : signal, URL, date de vérification, date d'envoi prévue.
+- Propriétaire : ${x.owner} pour les fiches créées ou sans propriétaire ; jamais modifié sinon (le signaler).
+- Statuts : uniquement les valeurs existantes ; au premier lancement, faire valider la correspondance par ${x.validator}. Aucune propriété créée.
+- Aucune suppression ni fusion de fiche.
+`}
+## Contrôle de cohérence final
+1. Données vérifiées (nom, rôle, email, téléphone, entreprise) ; introuvable = « à trouver », jamais inventé.
+2. Statuts identiques entre l'onglet du jour, « Suivi global »${x.noCrm?"":" et "+x.crm}.
+3. Chaque mail programmé correspond à une ligne de l'onglet.
+4. Total du jour ≤ ${x.cap}, 2 minutes au moins entre deux envois.
+5. Aucun domaine contacté deux fois ; refus présents dans « À ne pas contacter ».
+Résultat dans le rapport : « Cohérence : X/X contrôles conformes ». Le lot n'est pas déclaré complet si un contrôle essentiel n'a pas pu être fait.
+
+## Rapport (onglet « Rapport », entrée datée, moins de 3 000 caractères)
+- Date et heure (${x.tz}) ; mails préparés, brouillons, programmés, envoyés ; calcul de volume.
+- Prospects écartés par motif, pour voir quel critère limite le volume.
+- Relances reportées ou annulées, avec la raison.
+- Jusqu'à 3 leads prioritaires, raison et numéro.
+- Appels à passer ; résultat du contrôle de cohérence ; alertes.
+
+## Lead chaud
+- Très prioritaire : réponse positive, demande d'info, ou appel avec intérêt confirmé.
+- Chaud : signal fort toujours actif et ${x.noCrm?"numéro disponible ou échange engagé":"échange engagé ou plusieurs ouvertures"}. Une ouverture ou un clic seuls ne suffisent jamais.
+`;
+}
+
+function guardProsp(x){
+  return `
+## Garde-fous non négociables (bloc fixe, prioritaire sur tout le reste)
+- Aucun brouillon, aucune programmation, aucun envoi avant le « go » explicite de ${x.validator}. Une correction invalide le go pour les éléments modifiés.
+- Jamais plus de ${x.cap} mails de prospection par jour depuis ${x.mailbox}${x.c.warm?" (plafond réduit la 1re et la 2e semaine : "+x.c.warm[0]+" puis "+x.c.warm[1]+")":""} ; au moins 2 minutes entre deux envois ; jours ouvrés seulement (${x.tz}).
+- Chaque mail se termine par : « ${x.L.opt} », puis le pied de mail.
+- Ne jamais inventer d'email, de numéro, de signal, de preuve ou de vérification. En cas de doute, écarter le prospect et le signaler.
+- Dédoublonnage par domaine ; une seule personne par entreprise à la fois.
+- Refus, désinscriptions et rebonds appliqués immédiatement.
+- Contrôle de cohérence final${x.noCrm?" du sheet":" "+x.crm+" ↔ sheet"} avant de déclarer le lot terminé.
+- Ne rien supprimer dans le sheet, Gmail${x.noCrm?"":" ou "+x.crm}.
+- Si un accès manque, s'arrêter et le dire ; ne jamais prétendre avoir fait une étape.
+`;
+}
+
+function bodyBrief(x){
+  const d = x.d; let n = 0;
+  const secs = [];
+  if(d.secLeads) secs.push(["Leads à appeler",`Sélection (même définition que le skill de prospection), 5 au maximum :
+- Très prioritaire : réponse positive, demande d'info, ou appel avec intérêt confirmé.
+- Chaud : signal fort toujours actif et ${x.noCrm?"numéro disponible ou échange engagé":"échange engagé ou plusieurs ouvertures dans "+x.crm}.
+- Exclure refus, demandes d'arrêt, rendez-vous obtenus, leads appelés hier (une ligne à part).
+
+Fiche par lead : entreprise, ville · nom, rôle · numéro (ou « numéro à trouver ») · signal avec date et source · historique (mails, appels) · heure locale du prospect (${x.tz}) · pitch en 3 temps (accroche sur le signal, valeur de ${x.co} en une phrase, demande de 15 minutes) + réponse à l'objection la plus probable.`]);
+  secs.push(["Prospection du jour",`D'après l'onglet « Rapport » : mails préparés, programmés ou envoyés aujourd'hui (nombre, heures en ${x.tz}), relances reportées, prospects écartés par motif, alertes.
+Relances à annuler (en tête si la liste n'est pas vide) : réponses, rebonds et demandes d'arrêt reçus dans ${x.replies} sur les leads qui ont une relance aujourd'hui → « à annuler avant ${fmtH(d.slotRa)} (${x.tz}) dans Gmail : Annuler l'envoi ».
+Finir par : « Ce soir : préparation automatique à ${x.prep}, go à donner par ${x.validator}. »`]);
+  if(d.secMails) secs.push(["Mails qui demandent une action",`Dans ${x.briefTo}, depuis le brief précédent, 5 au maximum : uniquement les mails d'une vraie personne ou d'un organisme qui demandent une réponse, un document, un paiement ou contiennent une échéance. Pour chacun : expéditeur, sujet, action attendue, échéance. Ne jamais résumer un mail non ouvert.`]);
+  if(d.secTasks) secs.push(["Tâches du jour",`3 au maximum par projet, chacune avec sa source entre parenthèses (${x.noCrm?"":"CRM, "}Agenda, Mail, Rapport). Une tâche sans source n'est pas listée. D'abord ce qui rapporte de l'argent ou débloque un rendez-vous.`]);
+  if(d.secAgenda) secs.push(["Agenda",`Aujourd'hui : meetings (heure, avec qui, objectif) et créneaux libres pour appeler pendant les heures de bureau des prospects (${x.tz}). 7 prochains jours : seulement ce qui demande une préparation.`]);
+  return `# Brief du matin – ${x.co}
+
+Objectif : à ${x.brief}, ${x.validator} ouvre un seul mail et sait qui appeler, quoi leur dire, à quels mails répondre et quoi préparer. Le brief lit, vérifie, trie et envoie un seul mail. Il ne fait aucune autre action.
+
+## Mise en place
+- Tâche planifiée du lundi au vendredi à ${x.brief} (heure de ${x.validator}), en approbation automatique.
+- Tout passe par les connecteurs (Gmail, Google Sheets, Google Calendar${x.noCrm?"":", "+x.crm}). Aucune étape dans Chrome.
+- Jour férié (${x.country}) : brief allégé, sans la prospection.
+
+## Coordination avec « ${x.prospName} »
+- Le rapport de prospection est dans l'onglet « Rapport » du sheet « ${x.sheetName} ». Le lire en premier. Absent, périmé ou « en attente du go » : l'écrire en haut du mail.
+- Même définition du lead chaud que le skill de prospection.
+
+## Sources
+1. Onglet « Rapport », puis « Suivi global » et onglets journaliers.
+2. ${x.noCrm ? "Gmail ("+x.mailbox+") : réponses, rebonds, demandes d'arrêt." : x.crm+" : contacts, tâches de "+x.owner+", activité email."}
+${d.secMails?"3. Gmail ("+x.briefTo+") : mails reçus depuis le brief précédent.\n":""}${(d.secAgenda||d.secTasks)?"4. Google Calendar : aujourd'hui et 7 jours.\n":""}
+${secs.map(s => "## "+(++n)+". "+s[0]+"\n"+s[1]).join("\n\n")}
+
+## ${++n}. Priorité du jour
+Une phrase, en fin de mail.
+
+## Envoi
+- De ${x.briefTo} vers ${x.briefTo} uniquement. Objet : « Brief [jour JJ/MM] – [N] leads · [N] mails · [N] meetings ». Court, lisible sur téléphone, en français.
+`;
+}
+function guardBrief(x){
+  return `
+## Garde-fous non négociables (bloc fixe)
+- Un seul mail, de ${x.briefTo} vers ${x.briefTo}. Aucune autre action, aucune écriture dans le sheet${x.noCrm?"":" ni dans "+x.crm}.
+- Noms, numéros, signaux et ${x.noCrm?"réponses":"ouvertures"} : uniquement depuis les sources. Jamais estimés ni inventés.
+- Source inaccessible : l'écrire en haut du mail et envoyer quand même le reste.
+`;
+}
+
+function genTasks(d){
+  const x = ctx(d);
+  return `# Tâches planifiées – ${x.co}
+
+Trois tâches, du lundi au vendredi, à l'heure de ${x.validator} (fuseau de son compte Claude). Les heures d'envoi aux prospects restent en ${x.tz}. Chaque prompt est autonome.
+
+────────────────────────────────────────
+## 1. Préparation du lot – ${x.prep}
+Planification : lundi-vendredi ${x.prep} (cron « ${cronOf(d.prepTime)} »). Approbation automatique possible : la tâche ne crée aucun mail.
+
+Prompt :
+Utilise le skill « ${x.prospName} » en Temps 1 (préparation) pour le prochain jour ouvré (fuseau ${x.tz}, jours fériés ${x.country}). Exécute uniquement les étapes 1 à 10. Ne crée aucun brouillon, ne programme rien, n'envoie rien aux prospects, ne supprime rien. Seule exception : applique tout de suite les refus, désinscriptions et rebonds. Respecte la règle de volume (${x.cap} mails par jour au maximum depuis ${x.mailbox}) et les règles de vérification : en cas de doute, écarte le prospect. Si un accès manque, arrête l'étape et dis-le. À la fin, ajoute l'entrée « Lot prêt, en attente du go » dans l'onglet « Rapport », puis envoie un seul mail à ${x.briefTo} : « Lot du [JJ/MM] prêt – [N] mails, en attente du go », avec le calcul de volume, les destinataires, les heures et les prospects écartés par motif.
+
+────────────────────────────────────────
+## 2. Brief du matin – ${x.brief}
+Planification : lundi-vendredi ${x.brief} (cron « ${cronOf(d.briefTime)} »). Approbation automatique : le mail ne part que vers ${x.briefTo}.
+
+Prompt :
+Utilise le skill « ${x.briefName} ». Lis d'abord l'onglet « Rapport » du sheet « ${x.sheetName} », puis les autres sources. N'écris rien dans le sheet${x.noCrm?"":" ni dans "+x.crm}. Envoie un seul mail de ${x.briefTo} à ${x.briefTo}, au format du skill. Si une source est inaccessible, écris-le en haut du mail et envoie le reste.
+
+────────────────────────────────────────
+## 3. Contrôle des relances – ${x.ctrl}
+Planification : lundi-vendredi ${x.ctrl} (cron « ${cronOf(d.ctrlTime)} »). Approbation automatique : le mail ne part que vers ${x.briefTo}.
+
+Prompt :
+Pour la prospection ${x.co} : dans le sheet « ${x.sheetName} », lis l'onglet du jour et liste les relances prévues aujourd'hui (${x.rel}, ${x.tz}). Pour chacune, cherche dans ${x.replies} une réponse, un rebond ou une demande d'arrêt depuis le dernier envoi. S'il y en a : envoie un seul mail à ${x.briefTo}, objet « Relances à annuler avant ${fmtH(d.slotRa)} (${x.tz}) », avec le lead, l'heure et la raison, et le rappel « Annuler l'envoi dans Gmail, ne jamais supprimer ». Sinon : n'envoie rien. Ne modifie rien. Jour férié (${x.country}) : ne fais rien.
+`;
+}
+
+function genChecklist(d){
+  const x = ctx(d), c = x.c;
+  const conns = [].concat(x.noCrm?[]:[x.crm], x.noSource?[]:[x.source], ["Gmail, connecté à "+x.mailbox, "Google Sheets et Google Drive", "Google Calendar"]);
+  return `# Checklist d'installation – ${x.co}
+
+## 1. Avant de commencer
+- [ ] Domaine de ${x.mailbox} : SPF, DKIM et DMARC configurés${c.warm?" ; montée progressive "+c.warm.join(" → ")+" mails par jour":""}
+- [ ] Pied de mail : ${x.sender}${needsPostal(d)?" + adresse postale (obligatoire pour "+x.country+")":""}
+- [ ] Preuves et phrase d'opposition validées en ${x.L.n} : « ${x.L.opt} »${x.C.legal==="de"?"\n- [ ] Allemagne : faire valider le cadre légal de la prospection par email avant tout envoi":""}
+
+## 2. Connecteurs à brancher dans Claude
+${conns.map(s=>"- [ ] "+s).join("\n")}
+${x.chrome ? "- [ ] Claude dans Chrome, avec "+x.mailbox+" ouverte dans ce Chrome (le connecteur Gmail ne programme pas les envois)" : "- [ ] Prévoir environ "+Math.max(1,Math.round(c.N*c.k*25/60))+" minutes par jour pour programmer les brouillons à la main"}
+
+## 3. Sheet de suivi
+- [ ] Le sheet « ${x.sheetName} » existe et le compte connecté à Claude peut le modifier
+- [ ] Ajouter dans « À ne pas contacter » les clients actuels, partenaires et exclusions connues
+
+## 4. Skills
+- [ ] « ${x.prospName} » : envoyer le fichier à Claude et demander « crée ce skill »
+- [ ] « ${x.briefName} » : même méthode
+- [ ] Relire les deux fichiers et remplacer tout « [À COMPLÉTER] »
+
+## 5. Tâches planifiées
+- [ ] Préparation : ${x.prep} · Brief : ${x.brief} (approbation automatique) · Contrôle : ${x.ctrl} (approbation automatique)
+Coller chaque prompt de l'onglet « Tâches planifiées » et demander à Claude de créer la tâche.
+
+## 6. Premier test
+- [ ] Lancer le skill à la main : « premier test, 3 nouveaux prospects au maximum »
+- [ ] Contrôler chaque prospect : signal sourcé et daté, décideur confirmé, email validé
+- [ ] Relire les mails : langue, phrase d'opposition, pied de mail, moins de 120 mots
+- [ ] Donner le « go », vérifier Gmail et le sheet${x.noCrm?"":" et "+x.crm}
+- [ ] Lancer le brief à la main, puis activer les trois tâches
+
+## 7. Après une semaine
+- [ ] Lire les prospects écartés par motif et décider s'il faut ajuster un critère (jamais l'agent seul)
+`;
+}
+
+function genCapacity(d){
+  const x = ctx(d), c = x.c;
+  const ramp = []; let prev = -1;
+  c.ramp.forEach((val,i)=>{ if(val!==prev){ ramp.push("- Jour ouvré "+(i+1)+" : "+val+" mails"); prev=val; } });
+  return `# Estimation de capacité – ${x.co}
+
+Paramètres : ${c.cap} mails par jour · séquence ${x.labs} (jours ouvrés) · ${x.country} (${x.tz})
+
+## Maximum théorique, régime établi
+- ${c.N} nouveaux prospects par jour ouvré
+- ${c.week} par semaine
+- Environ ${c.month} par mois
+- ${c.N*c.k} mails par jour sur ${c.cap}
+
+## Montée en charge
+${ramp.join("\n")}${c.warm?"\nDomaine récent : plafond "+c.warm.join(" → ")+" mails par jour sur trois semaines.":""}
+
+Exemple : ${c.example.map(e=>e.l+" "+e.d).join(" → ")}${c.exampleHol.length?" (férié : "+c.exampleHol.join(", ")+")":""}${c.holKnown?"":" — jours fériés de ce pays non inclus"}.
+
+## Lecture
+${c.notes.map(n=>"- "+n.t).join("\n")}
+`;
+}
+
+const tplProsp = d => { const x = ctx(d); return frontProsp(x)+"\n"+bodyProsp(x)+guardProsp(x); };
+const tplBrief = d => { const x = ctx(d); return frontBrief(x)+"\n"+bodyBrief(x)+guardBrief(x); };
+
+const SIGN = "\n---\nGénéré avec LinkSharp · Eliad Garnault · egarnault@gmail.com\n";
+const TABS = [
+  {id:"prosp",l:"Skill prospection",ai:true,gen:tplProsp,file:d=>"prospection-du-jour-"+slug(d.coName)+"-SKILL.md"},
+  {id:"brief",l:"Skill brief",ai:true,gen:tplBrief,file:d=>"brief-du-matin-"+slug(d.coName)+"-SKILL.md"},
+  {id:"tasks",l:"Tâches planifiées",gen:d=>genTasks(d)+SIGN,file:d=>"taches-planifiees-"+slug(d.coName)+".md"},
+  {id:"check",l:"Installation",gen:d=>genChecklist(d)+SIGN,file:d=>"installation-"+slug(d.coName)+".md"},
+  {id:"cap",l:"Capacité",gen:d=>genCapacity(d)+SIGN,file:d=>"capacite-"+slug(d.coName)+".md"}
+];
+
+/* ---------- IA : appel direct à Anthropic avec la clé et le plafond de l'utilisateur ---------- */
+const PRICES = {
+  "claude-haiku-5-5":{in:0.10,out:0.50,label:"Haiku 5.5 · économique"},
+  "claude-sonnet-5-5":{in:2.00,out:10.00,label:"Sonnet 5.5 · plus fin"}
+};
+const LSget = k => { try{ return localStorage.getItem("kp."+k) || ""; }catch(e){ return ""; } };
+const LSset = (k,v) => { try{ localStorage.setItem("kp."+k, v); }catch(e){} };
+let mem = {};  // repli si le navigateur bloque le stockage
+const getK = k => LSget(k) || mem[k] || "";
+const setK = (k,v) => { mem[k] = v; LSset(k,v); };
+let aiReady = false;
+const capOf = () => parseFloat(getK("cap")) || 1;
+const spentOf = () => parseFloat(getK("spent")) || 0;
+const modelOf = () => PRICES[getK("model")] ? getK("model") : "claude-haiku-5-5";
+const usd = n => n < 0.01 ? n.toFixed(4).replace(".",",")+" $" : n.toFixed(2).replace(".",",")+" $";
+
+function refreshAccess(){
+  aiReady = !!getK("key");
+  const cap = capOf(), sp = spentOf();
+  $("spentLine").textContent = "Dépensé : "+usd(sp)+" sur "+usd(cap);
+  $("spentBar").style.width = Math.min(100, sp/cap*100)+"%";
+  $("spentBar").classList.toggle("full", sp >= cap*0.9);
+  const pill = $("aiPill");
+  if(aiReady){ pill.textContent = "IA prête · "+PRICES[modelOf()].label; pill.className = "pill on"; $("keyMsg").textContent = "Clé enregistrée dans ce navigateur."; }
+  else { pill.textContent = "Ajoutez votre clé d'API pour activer l'IA"; pill.className = "pill off"; }
+  $("btnIcp").disabled = !aiReady; $("btnGen").disabled = !aiReady;
+}
+
+async function callAI(prompt, maxTokens, onText, signal){
+  const key = getK("key"); if(!key) throw {code:"no_key"};
+  const model = modelOf(), p = PRICES[model];
+  const inEst = Math.ceil(prompt.length/3);
+  const left = capOf() - spentOf();
+  const mt = Math.min(maxTokens, Math.floor((left - inEst*p.in/1e6) * 1e6 / p.out));
+  if(mt < 1000) throw {code:"budget"};
+  let res;
+  try{
+    res = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST", signal,
+      headers:{"x-api-key":key,"anthropic-version":"2023-06-01","content-type":"application/json","anthropic-dangerous-direct-browser-access":"true"},
+      body: JSON.stringify({model, max_tokens:mt, stream:true, messages:[{role:"user",content:prompt}]})
+    });
+  }catch(e){ throw {code: e && e.name==="AbortError" ? "cancelled" : "network"}; }
+  if(!res.ok){
+    let msg = ""; try{ const j = await res.json(); msg = (j.error && j.error.message) || ""; }catch(e){}
+    if(res.status===401 || res.status===403) throw {code:"bad_key"};
+    if(/credit|billing|balance/i.test(msg)) throw {code:"no_credit"};
+    if(res.status===429 || res.status===529) throw {code:"rate_limited"};
+    if(res.status===404 || /model/i.test(msg)) throw {code:"bad_model"};
+    throw {code:"upstream_error"};
+  }
+  const reader = res.body.getReader(), dec = new TextDecoder();
+  let buf = "", text = "", inTok = 0, outTok = 0, truncated = false, failed = false;
+  const bill = () => { const cost = ((inTok || (outTok ? inEst : 0)) * p.in + outTok * p.out) / 1e6; setK("spent", String(spentOf() + cost)); refreshAccess(); };
+  try{
+    for(;;){
+      const {done, value} = await reader.read(); if(done) break;
+      buf += dec.decode(value, {stream:true});
+      let i;
+      while((i = buf.indexOf("\n\n")) >= 0){
+        const evt = buf.slice(0,i); buf = buf.slice(i+2);
+        for(const line of evt.split("\n")){
+          if(!line.startsWith("data:")) continue;
+          let m; try{ m = JSON.parse(line.slice(5)); }catch(e){ continue; }
+          if(m.type==="message_start" && m.message && m.message.usage) inTok = m.message.usage.input_tokens || 0;
+          else if(m.type==="content_block_delta" && m.delta && m.delta.type==="text_delta"){ text += m.delta.text; if(onText) onText(text); }
+          else if(m.type==="message_delta"){ if(m.usage) outTok = m.usage.output_tokens || outTok; if(m.delta && m.delta.stop_reason==="max_tokens") truncated = true; }
+          else if(m.type==="error") failed = true;
+        }
+      }
+    }
+  }catch(e){ if(!outTok) outTok = Math.ceil(text.length/3); bill(); throw {code: e && e.name==="AbortError" ? "cancelled" : "network", text}; }
+  if(!outTok) outTok = Math.ceil(text.length/3);
+  bill();
+  if(failed) throw {code:"upstream_error", text};
+  return {text, truncated};
+}
+
+const cut = (s, n) => String(s ?? "").slice(0, n).trim();
+function icpPrompt(d){
+  return `Tu es un stratège commercial B2B. À partir de la description ci-dessous, propose exactement 3 profils de clients idéaux (ICP) distincts, classés du plus prometteur au moins prometteur pour une prospection par email et par téléphone.
+
+Produit ou service :
+<<<
+${cut(d.prodDesc, 4000)}
+>>>
+Marché ou zone visée : ${cut(d.prodMarket, 300) || "non précisé (propose la zone la plus logique)"}
+Ce que l'utilisateur sait déjà : ${cut(d.prodNotes, 1000) || "rien de plus"}
+
+Règles :
+- Trois segments vraiment différents (type d'acheteur, taille ou situation), pas trois variantes du même.
+- Zone précise (pays, régions, villes).
+- Décideurs : les intitulés réellement utilisés dans ce secteur.
+- Signaux d'achat : 4 à 6 faits publics, observables et datables, chacun avec l'endroit précis où le vérifier et sa durée de validité. Jamais d'impression vague.
+- Exclusions : qui ne pas contacter et pourquoi.
+- Aucune statistique, aucun chiffre de marché, aucun nom de client inventé.
+- En français, phrases courtes.
+
+Réponds uniquement avec ce JSON, sans texte autour :
+{"icps":[{"titre":"nom court du segment","resume":"2 phrases","secteur":"…","zone":"…","taille":"…","decideurs":["…"],"signaux":[{"signal":"…","ou_verifier":"…","validite":"…"}],"exclusions":["…"],"douleur":"problème principal","angle":"angle du premier message","pourquoi":"pourquoi ce segment est prometteur"}]}`;
+}
+function skillsPrompt(d){
+  return `Tu es expert en prospection B2B et en rédaction de skills pour Claude (fichiers SKILL.md qu'un agent suit à la lettre, chaque jour, sans supervision).
+
+Voici deux SKILL.md de référence générés à partir d'un modèle. Ils sont corrects mais génériques. Réécris-les pour qu'ils soient le plus efficaces possible pour CE cas précis.
+
+CAS
+- Entreprise : ${cut(d.co, 200)}
+- Offre : ${cut(d.offer, 1500)}
+- Preuves autorisées : ${cut(d.proofs, 1500) || "aucune"}
+- Ton des mails : ${cut(d.tone, 30)} ; langue des mails : ${cut(d.lang, 40)}
+- Pays et fuseau des prospects : ${cut(d.country, 60)}, ${cut(d.tz, 40)}
+- Outils de recherche : ${cut(d.source, 60)}
+- ICP :
+<<<
+${cut(d.icpDoc, 6000)}
+>>>
+- Précisions de l'utilisateur :
+<<<
+${cut(d.aiNotes, 3000) || "aucune"}
+>>>
+
+À ADAPTER DANS LE SKILL PROSPECTION
+1. Cible : segment, zone et décideurs avec les intitulés réels du secteur (et leur équivalent dans la langue des prospects quand cela aide à chercher).
+2. Signaux : 5 à 8 signaux concrets propres à ce secteur, chacun avec OÙ le vérifier (sites, annuaires professionnels, salons, presse spécialisée, registres…) et sa durée de validité. Uniquement des faits observables et datables.
+3. Recherche : comment trouver ces entreprises avec les outils disponibles : requêtes types, mots-clés dans la langue locale, annuaires et événements du secteur.
+4. Vérification du décideur adaptée au secteur.
+5. Rédaction : principes d'écriture pour ce public, puis 2 modèles de premier mail et 1 modèle de relance dans la langue des mails, titrés « Modèle – ne jamais envoyer tel quel », chacun terminé par la phrase d'opposition et le pied de mail exacts du skill.
+6. Les 3 objections les plus probables, avec une réponse d'une phrase.
+7. Définition du lead chaud adaptée au secteur.
+8. Exclusions déduites de l'ICP et des précisions.
+
+À ADAPTER DANS LE SKILL BRIEF
+Le pitch d'appel (accroches liées aux signaux), les 3 objections probables avec leur réponse, ce qui compte pour choisir qui appeler en premier, les meilleurs moments pour appeler en heure locale.
+
+À NE PAS CHANGER
+- Chiffres et réglages : plafond, séquence, créneaux, fuseau, jours fériés, heures, noms des fichiers, onglets, skills, adresses, noms des personnes.
+- Le déroulement en deux temps et le « go », la règle de volume, le contrôle de cohérence, la synchronisation, le rapport : tu peux les préciser, jamais les assouplir ni les retirer.
+- Aucun client, chiffre, résultat ou preuve inventé. Une information manque : écris [À COMPLÉTER : …].
+- Ne réécris pas les blocs « Garde-fous » : ils sont ajoutés automatiquement.
+
+FORMAT (strict)
+Réponds uniquement avec les deux corps de SKILL.md en Markdown, en français (sauf les modèles de mail), sans frontmatter ni commentaire, exactement sous cette forme :
+=====PROSPECTION=====
+# …
+=====BRIEF=====
+# …
+Phrases courtes et directes. Reste concis : pas de répétition entre sections.
+
+SKILL PROSPECTION DE RÉFÉRENCE
+<<<
+${cut(d.refProsp, 22000)}
+>>>
+
+SKILL BRIEF DE RÉFÉRENCE
+<<<
+${cut(d.refBrief, 8000)}
+>>>`;
+}
+
+function parseJsonLoose(t){
+  t = String(t||"").trim().replace(/^```(?:json)?\s*/,"").replace(/```\s*$/,"");
+  try{ return JSON.parse(t); }catch(e){}
+  const a = t.indexOf("{"), b = t.lastIndexOf("}");
+  if(a>=0 && b>a){ try{ return JSON.parse(t.slice(a,b+1)); }catch(e){} }
+  return null;
+}
+
+/* ---------- IA : ICP ---------- */
+function icpToMd(icp, d, i){
+  const L = a => (Array.isArray(a)?a:[]).map(s=>"- "+String(s)).join("\n");
+  return `# ICP – ${icp.titre||"Segment "+(i+1)}
+
+Produit : ${d.prodDesc.trim().split(/\n/)[0].slice(0,200)}
+
+## Résumé
+${icp.resume||""}
+
+## Secteur
+${icp.secteur||""}
+
+## Zone
+${icp.zone||""}
+
+## Taille
+${icp.taille||""}
+
+## Décideurs
+${L(icp.decideurs)}
+
+## Signaux d'achat
+${(Array.isArray(icp.signaux)?icp.signaux:[]).map(s=>"- "+(s.signal||s)+(s.ou_verifier?" — où le vérifier : "+s.ou_verifier:"")+(s.validite?" — validité : "+s.validite:"")).join("\n")}
+
+## Exclusions
+${L(icp.exclusions)}
+
+## Problème principal
+${icp.douleur||""}
+
+## Angle du premier message
+${icp.angle||""}
+
+## Pourquoi ce segment
+${icp.pourquoi||""}
+`;
+}
+function renderIcps(){
+  const box = $("icpCards"); box.innerHTML = "";
+  if(!icps.length) return;
+  const wrap = document.createElement("div"); wrap.className = "cards";
+  icps.forEach((icp,i) => {
+    const c = document.createElement("article"); c.className = "panel card"+(i===chosenIcp?" chosen":"");
+    const add = (tag,cls,txt) => { const e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; c.appendChild(e); return e; };
+    add("span","rank","ICP "+(i+1)+(i===0?" · le plus prometteur":""));
+    add("h3",null,icp.titre||"Segment "+(i+1));
+    add("p","hint",icp.resume||"");
+    const dl = add("dl");
+    [["Zone",icp.zone],["Décideurs",(icp.decideurs||[]).join(", ")],["Problème",icp.douleur]].forEach(([k,val])=>{ if(!val) return; const dt=document.createElement("dt"); dt.textContent=k; const dd=document.createElement("dd"); dd.textContent=val; dl.append(dt,dd); });
+    const sigT = document.createElement("dt"); sigT.textContent = "Signaux"; dl.appendChild(sigT);
+    const ul = document.createElement("ul"); (icp.signaux||[]).slice(0,4).forEach(s=>{ const li=document.createElement("li"); li.textContent = s.signal||String(s); ul.appendChild(li); }); dl.appendChild(ul);
+    const acts = add("div","acts");
+    const b1 = document.createElement("button"); b1.type="button"; b1.className = i===chosenIcp?"":"primary"; b1.textContent = i===chosenIcp?"ICP utilisé":"Utiliser cet ICP";
+    b1.onclick = () => { $("icpDoc").value = icpToMd(icp,read(),i); chosenIcp = i; changed(); renderIcps(); $("reglages").scrollIntoView(); };
+    const b2 = document.createElement("button"); b2.type="button"; b2.textContent = "Télécharger";
+    b2.onclick = () => saveFile("ICP-"+(i+1)+"-"+slug(icp.titre)+".md", icpToMd(icp,read(),i)+SIGN);
+    acts.append(b1,b2);
+    wrap.appendChild(c);
+  });
+  box.appendChild(wrap);
+}
+async function runIcp(){
+  const d = read();
+  if(!d.prodDesc.trim()){ setStatus("icpStatus","Décrivez d'abord votre produit ou service.",true); $("prodDesc").focus(); return; }
+  if(!aiReady){ setStatus("icpStatus","Ajoutez d'abord votre clé d'API en haut de page.",true); return; }
+  icpCtl = new AbortController();
+  $("btnIcp").disabled = true; $("btnIcpStop").hidden = false;
+  setStatus("icpStatus","L'IA analyse votre produit… (20 à 60 secondes)");
+  try{
+    const {text} = await callAI(icpPrompt(d), 3000, null, icpCtl.signal);
+    const res = parseJsonLoose(text);
+    const list = res && Array.isArray(res.icps) ? res.icps.filter(x=>x && typeof x==="object").slice(0,3) : [];
+    if(!list.length) throw {code:"invalid_json"};
+    icps = list; chosenIcp = -1; renderIcps(); save();
+    setStatus("icpStatus","Trois ICP prêts. Choisissez-en un ou téléchargez-les.");
+  }catch(e){ setStatus("icpStatus", errText(e), e.code!=="cancelled"); }
+  finally{ $("btnIcp").disabled = false; $("btnIcpStop").hidden = true; icpCtl = null; }
+}
+
+/* ---------- IA : skills (un seul appel pour les deux) ---------- */
+function cleanAi(t){
+  t = String(t||"").trim().replace(/^```(?:markdown|md)?\s*\n/,"").replace(/\n```\s*$/,"");
+  t = t.replace(/^---\n[\s\S]*?\n---\n/,"");
+  const i = t.indexOf("# "); if(i>0) t = t.slice(i);
+  return t.trim()+"\n";
+}
+function assemble(kind, d, body){
+  const x = ctx(d);
+  return (kind==="prosp"?frontProsp(x):frontBrief(x))+"\n"+body+(kind==="prosp"?guardProsp(x):guardBrief(x));
+}
+function splitSkills(t){
+  const a = String(t).split(/=====\s*BRIEF\s*=====/i);
+  return [a[0].replace(/^[\s\S]*?=====\s*PROSPECTION\s*=====/i,""), a[1]||""];
+}
+async function runGen(){
+  const d = read();
+  if(!aiReady){ toast("Ajoutez d'abord votre clé d'API en haut de page."); return; }
+  const miss = missingReq(d);
+  if(miss.length){ toast("À compléter d'abord : "+miss.map(k=>LABELS[k]).join(", ")+"."); $("reglages").scrollIntoView(); return; }
+  const x = ctx(d), sig = sigOf(d);
+  genCtl = new AbortController();
+  $("btnGen").disabled = true; $("btnGenStop").hidden = false;
+  const apply = (t, status, note) => {
+    const [p,b] = splitSkills(t);
+    const st = (s, part) => s==="done" && !part.trim() ? "err" : s;
+    ai.prosp = {text: p.trim() ? assemble("prosp",d,cleanAi(p)) : "", sig, status: st(status,p), note: status==="done"&&!p.trim()?"réponse vide":note};
+    ai.brief = {text: b.trim() ? assemble("brief",d,cleanAi(b)) : "", sig, status: st(status,b), note: status==="done"&&!b.trim()?"réponse incomplète":note};
+  };
+  apply("", "run"); version = "ai"; renderProg(); renderOut();
+  const payload = {co:x.co, offer:d.offer, proofs:d.proofs, tone:d.tone, lang:x.L.n, country:x.country, tz:x.tz, source:x.noSource?"recherche web":x.source+" et recherche web", icpDoc:d.icpDoc, aiNotes:d.aiNotes, refProsp:bodyProsp(x), refBrief:bodyBrief(x)};
+  try{
+    const {text, truncated} = await callAI(skillsPrompt(payload), 10000, t => { apply(t,"run"); if(tab==="prosp"||tab==="brief") renderOut(); }, genCtl.signal);
+    apply(text, truncated ? "err" : "done", truncated ? "réponse coupée" : "");
+  }catch(e){ apply(e.text||"", e.code==="cancelled" ? "stop" : "err", errText(e)); }
+  renderProg(); renderOut(); save();
+  $("btnGen").disabled = false; $("btnGenStop").hidden = true; genCtl = null;
+  toast(ai.prosp.status==="done" && ai.brief.status==="done" ? "Skills personnalisés. Relisez-les avant de les installer." : "Génération incomplète : voir l'état au-dessus des onglets.");
+}
+function errText(e){
+  return ({cancelled:"Arrêté.",no_key:"Ajoutez votre clé d'API en haut de page.",bad_key:"Clé d'API refusée par Anthropic. Vérifiez-la.",budget:"Plafond atteint : augmentez-le ou remettez le compteur à zéro (en haut de page).",no_credit:"Crédit Anthropic épuisé : rechargez-le sur console.anthropic.com.",bad_model:"Modèle indisponible pour cette clé : choisissez l'autre modèle.",rate_limited:"Anthropic limite les appels pour le moment. Réessayez dans une minute.",network:"Connexion impossible. Vérifiez votre réseau.",invalid_json:"Réponse illisible. Relancez."})[e && e.code] || "Erreur du service d'IA. Relancez.";
+}
+
+/* ---------- Rendu ---------- */
+function setStatus(id,msg,err){ const el=$(id); el.textContent=msg; el.classList.toggle("err",!!err); }
+function missingReq(d){
+  const r = ["icpDoc","coName","offer","mailbox","sender","sheetName","validator","briefTo"];
+  if(needsPostal(d)) r.push("postal");
+  return r.filter(k=>!filled(d,k));
+}
+function renderMissing(d){
+  const box = $("missingBox"); box.innerHTML = "";
+  const req = missingReq(d), rec = [];
+  if(!filled(d,"proofs")) rec.push("proofs");
+  if(!sheetIdOf(d.sheetLink)) rec.push("sheetLink");
+  document.querySelectorAll("label.f[data-k]").forEach(l => l.classList.toggle("missing", req.includes(l.dataset.k)));
+  const h = document.createElement("span"); h.className = "eyebrow"; h.textContent = "À compléter"; box.appendChild(h);
+  if(!req.length && !rec.length){ const p=document.createElement("p"); p.className="ok-line"; p.textContent="Tout est rempli. Passez à l'étape 3."; box.appendChild(p); return; }
+  const mk = (arr,title) => {
+    if(!arr.length) return;
+    const t = document.createElement("p"); t.className="hint"; t.textContent = title; box.appendChild(t);
+    const ul = document.createElement("ul");
+    arr.forEach(k => { const li=document.createElement("li"); const b=document.createElement("button"); b.type="button"; b.textContent=LABELS[k]; b.onclick=()=>$(k).focus(); li.appendChild(b); ul.appendChild(li); });
+    box.appendChild(ul);
+  };
+  mk(req,"Obligatoires :"); mk(rec,"Recommandés :");
+}
+function renderCap(d){
+  const c = capacity(d);
+  $("kpis").innerHTML = "";
+  [[c.N,"nouveaux / jour"],[c.week,"par semaine"],["≈ "+c.month,"par mois"]].forEach(([val,k])=>{
+    const div=document.createElement("div"); div.className="kpi"; div.innerHTML='<span class="v"></span><span class="k"></span>';
+    div.querySelector(".v").textContent=val; div.querySelector(".k").textContent=k; $("kpis").appendChild(div);
+  });
+  const cl = $("cadenceLine"); cl.innerHTML = "";
+  c.example.forEach((e,i)=>{ if(i){ const a=document.createElement("span"); a.textContent="→"; cl.appendChild(a);} const s=document.createElement("span"); s.innerHTML="<b></b> "; s.querySelector("b").textContent=e.l; s.appendChild(document.createTextNode(e.d)); cl.appendChild(s); });
+  if(c.exampleHol.length){ const s=document.createElement("span"); s.textContent="(férié : "+c.exampleHol.join(", ")+")"; cl.appendChild(s); }
+  else if(!c.holKnown){ const s=document.createElement("span"); s.textContent="(fériés non inclus)"; cl.appendChild(s); }
+  const bars = $("bars"); bars.innerHTML = "";
+  const days = Math.min(Math.max(c.last+3,8),20);
+  for(let i=0;i<days;i++){ const val=c.ramp[Math.min(i,c.ramp.length-1)]; const s=document.createElement("span"); s.style.height=Math.max(3,val/c.cap*100)+"%"; s.title="Jour "+(i+1)+" : "+val+" mails"; bars.appendChild(s); }
+  bars.setAttribute("aria-label","Montée en charge : "+c.ramp[0]+" mails le premier jour, "+c.ramp[c.ramp.length-1]+" à partir du jour "+(c.last+1)+", plafond "+c.cap);
+  $("barsAxis").innerHTML = "<span>J1 · "+c.ramp[0]+"</span><span>J"+(c.last+1)+" · "+c.ramp[c.ramp.length-1]+" / "+c.cap+"</span>";
+  const ul = $("capNotes"); ul.innerHTML = "";
+  c.notes.slice().sort((a,b)=>(b.w?1:0)-(a.w?1:0)).slice(0,6).forEach(n=>{ const li=document.createElement("li"); if(n.w) li.className="w"; li.textContent=n.t; ul.appendChild(li); });
+}
+function renderProg(){
+  const p = $("prog"); p.innerHTML = ""; const sig = sigOf(read());
+  [["prosp","Skill prospection"],["brief","Skill brief"]].forEach(([k,l])=>{
+    const a = ai[k]; const s = document.createElement("span");
+    if(!a){ s.textContent = l+" : modèle"; }
+    else if(a.status==="run"){ s.className="run"; s.textContent = l+" : en cours…"; }
+    else if(a.status==="done" && a.sig!==sig){ s.className="old"; s.textContent = l+" : à régénérer (réglages modifiés)"; }
+    else if(a.status==="done"){ s.className="done"; s.textContent = l+" : personnalisé"; }
+    else { s.className="err"; s.textContent = l+" : "+(a.note||"interrompu"); }
+    p.appendChild(s);
+  });
+}
+function renderTabs(){
+  const t = $("tabs"); t.innerHTML = "";
+  TABS.forEach(x => { const b=document.createElement("button"); b.type="button"; b.className="tab"; b.setAttribute("role","tab"); b.textContent=x.l; b.setAttribute("aria-selected", x.id===tab?"true":"false"); b.onclick=()=>{ tab=x.id; version="ai"; renderTabs(); renderOut(); }; t.appendChild(b); });
+}
+let current = {text:"",file:""};
+function renderOut(){
+  const d = read(), t = TABS.find(x=>x.id===tab);
+  const a = t.ai ? ai[tab] : null, hasAi = !!(a && a.text);
+  $("verSeg").hidden = !hasAi;
+  const useAi = hasAi && version==="ai";
+  $("verSeg").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String((b.dataset.v==="ai")===useAi)));
+  const text = useAi ? a.text : t.gen(d), file = t.file(d);
+  current = {text,file};
+  $("out").textContent = text;
+  const todo = (text.match(/\[À COMPLÉTER/g)||[]).length;
+  $("outMeta").textContent = file+" · "+(useAi?"version IA":"modèle")+" · "+text.split(/\s+/).filter(Boolean).length+" mots"+(todo?" · "+todo+" à compléter":"");
+}
+function renderPostal(d){ $("postalHint").textContent = needsPostal(d) ? "Obligatoire pour "+d.country : "Pied de mail, recommandé"; }
+function changed(){ const d = read(); save(); renderMissing(d); renderCap(d); renderProg(); renderOut(); renderPostal(d); }
+
+/* ---------- Actions ---------- */
+let toastT;
+function toast(msg){ $("toast").textContent = msg; clearTimeout(toastT); toastT = setTimeout(()=>$("toast").textContent="",5000); }
+async function saveFile(name, text){
+  try{
+    const url = URL.createObjectURL(new Blob([text],{type:"text/markdown;charset=utf-8"}));
+    const el = document.createElement("a"); el.href = url; el.download = name; document.body.appendChild(el); el.click(); el.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1500); toast("Fichier téléchargé : "+name);
+  }catch(e){ toast("Téléchargement impossible. Utilisez Copier."); }
+}
+$("btnCopy").onclick = () => {
+  const fallback = () => { const r=document.createRange(); r.selectNodeContents($("out")); const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast("Texte sélectionné : copiez-le avec Ctrl+C ou Cmd+C."); };
+  try{ navigator.clipboard.writeText(current.text).then(()=>toast("Copié : "+current.file), fallback); }catch(e){ fallback(); }
+};
+$("btnDl").onclick = () => saveFile(current.file, current.text);
+$("verSeg").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; version = b.dataset.v; renderOut(); });
+$("btnIcp").onclick = runIcp;
+$("btnIcpStop").onclick = () => icpCtl && icpCtl.abort();
+$("btnGen").onclick = runGen;
+$("btnGenStop").onclick = () => genCtl && genCtl.abort();
+$("btnReset").onclick = () => {
+  const b = $("btnReset");
+  if(b.dataset.armed!=="1"){ b.dataset.armed="1"; b.textContent="Confirmer : tout effacer"; setTimeout(()=>{ b.dataset.armed=""; b.textContent="Tout effacer"; },4000); return; }
+  b.dataset.armed=""; b.textContent="Tout effacer";
+  const blank = {}; TEXT.forEach(k=>blank[k]=DEFAULTS[k]!=null?DEFAULTS[k]:""); CHECKS.forEach(k=>blank[k]=DEFAULTS[k]);
+  write(blank); icps = []; chosenIcp = -1; ai = {prosp:null,brief:null}; renderIcps(); changed(); toast("Tout est effacé.");
+};
+$("country").addEventListener("change", () => { const C = ctry(read()); fillTz($("country").value); $("lang").value = C.lang; changed(); });
+$("icpFile").onchange = e => {
+  const f = e.target.files && e.target.files[0]; if(!f) return;
+  const r = new FileReader(); r.onload = () => { $("icpDoc").value = String(r.result||""); chosenIcp = -1; renderIcps(); $("icpFileMsg").textContent = "ICP chargé : "+f.name; changed(); }; r.readAsText(f); e.target.value="";
+};
+document.addEventListener("input", e => { if(e.target.closest("#f") || e.target.closest("#cible")) changed(); });
+document.addEventListener("change", e => { if(e.target.closest("#f")) changed(); });
+$("f").addEventListener("submit", e => e.preventDefault());
+
+/* ---------- Démarrage ---------- */
+fillCountry();
+const saved = load();
+if(saved && saved.d){ write(saved.d); icps = Array.isArray(saved.icps)?saved.icps:[]; chosenIcp = saved.chosenIcp ?? -1; ai = saved.ai || {prosp:null,brief:null};
+  ["prosp","brief"].forEach(k => { if(ai[k] && ai[k].status==="run") ai[k].status = "err", ai[k].note = "interrompu"; }); }
+else { const blank = {}; TEXT.forEach(k=>blank[k]=DEFAULTS[k]!=null?DEFAULTS[k]:""); CHECKS.forEach(k=>blank[k]=DEFAULTS[k]); write(blank); }
+renderIcps(); renderTabs(); changed();
+
+$("keyInput").value = getK("key") ? "••••••••" : "";
+$("capSel").value = ["0.5","1","2","5","10"].includes(getK("cap")) ? getK("cap") : (getK("cap") ? "custom" : "1");
+$("capCustom").hidden = $("capSel").value !== "custom"; $("capCustom").value = getK("cap");
+$("modelSel").value = modelOf();
+$("keySave").onclick = () => { const k = $("keyInput").value.trim(); if(!/^sk-ant-/.test(k)){ setStatus("keyMsg","Une clé d'API Anthropic commence par « sk-ant- ».",true); return; } setK("key",k); $("keyInput").value = "••••••••"; setStatus("keyMsg","Clé enregistrée dans ce navigateur."); refreshAccess(); };
+$("keyForget").onclick = () => { setK("key",""); try{ localStorage.removeItem("kp.key"); }catch(e){} $("keyInput").value = ""; setStatus("keyMsg","Clé effacée de ce navigateur."); refreshAccess(); };
+$("keyInput").addEventListener("focus", () => { if($("keyInput").value.startsWith("•")) $("keyInput").value = ""; });
+$("capSel").onchange = () => { const v = $("capSel").value; $("capCustom").hidden = v !== "custom"; if(v !== "custom") setK("cap", v); refreshAccess(); };
+$("capCustom").oninput = () => { const n = parseFloat($("capCustom").value.replace(",",".")); if(n > 0) setK("cap", String(n)); refreshAccess(); };
+$("modelSel").onchange = () => { setK("model", $("modelSel").value); refreshAccess(); };
+$("spentReset").onclick = () => { const b = $("spentReset"); if(b.dataset.armed!=="1"){ b.dataset.armed="1"; b.textContent="Confirmer la remise à zéro"; setTimeout(()=>{ b.dataset.armed=""; b.textContent="Remettre le compteur à zéro"; },4000); return; } b.dataset.armed=""; b.textContent="Remettre le compteur à zéro"; setK("spent","0"); refreshAccess(); };
+refreshAccess();
+(async () => {
+})();
+})();
+</script>
+</body>
+</html>
