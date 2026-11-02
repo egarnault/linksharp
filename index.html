@@ -436,6 +436,8 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
 .gstat.opt{background:var(--sunk);color:var(--muted)}
 .gbody{display:grid;gap:14px;padding:4px 16px 18px}
 .arb{border-left:3px solid var(--signal);margin-bottom:12px;padding:18px 22px;font-size:14px}.arb h3{margin:0 0 4px}.arb ul{margin:8px 0 0;padding-left:18px}.arb li{margin:4px 0}
+.privopt{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted,#666);cursor:pointer}.privli{list-style:none}
+.need{margin-top:20px}.need table{width:100%;border-collapse:collapse;font-size:14px}.need th,.need td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line,#ddd);vertical-align:top}
 </style>
 </head>
 <body>
@@ -702,6 +704,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
         <p class="hint">Votre IA fouille vos mails, vos documents et vos conversations, remplit tout à votre place et vous donne directement un fichier : vous le déposez ici, tout se remplit. Rien à écrire.</p>
         <ol class="qsteps">
           <li><button type="button" class="primary" id="btnAsk">1. Copier la demande</button></li>
+          <li class="privli"><label class="privopt"><input type="checkbox" id="privacy"> Protéger mes données : l'IA ne fouille ni mes mails ni mon Drive</label></li>
           <li><a class="btn" id="openAI2" href="https://claude.ai/new" target="_blank" rel="noopener">2. L'envoyer à mon IA</a></li>
           <li><span class="btn filebtn">3. Déposer le fichier .txt<input type="file" id="ansFile" accept=".txt,.md,text/plain,text/markdown"></span></li>
         </ol>
@@ -872,6 +875,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
             </div>
             <div class="row">
               <label class="f">Propriétaire des fiches<small>Par défaut : la personne qui valide</small><input type="text" id="owner"></label>
+              <label class="f">Numéros de téléphone<small>Pour les appels du brief</small><select id="phoneMode"><option value="outils">Ma méthode : mes outils ci-dessous, puis sources publiques</option><option value="public">Sources publiques uniquement (sans outil payant)</option><option value="aucun">Pas de numéros : email seulement</option></select></label>
               <label class="f">Sources de numéros, dans l'ordre<small>Une par ligne, avec le mode d'accès (ex. « Pipecorn, via Chrome »)</small><textarea id="phones" rows="3"></textarea></label>
             </div>
             <div class="row3">
@@ -1092,6 +1096,9 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
       <li>Option clé d'API : la clé reste dans votre navigateur, les appels partent directement vers Anthropic, avec un plafond de dépense.</li>
       <li>Le système installé agit avec vos propres connecteurs, dans vos propres outils.</li>
       <li>La dictée vocale utilise la reconnaissance vocale de votre navigateur.</li>
+      <li>Pas de compte LinkSharp, donc pas de mot de passe à voler. La sécurité se joue sur vos propres comptes : activez la double authentification sur Google, Claude et votre CRM.</li>
+      <li>Option « Protéger mes données » : l'IA remplit le formulaire sans ouvrir vos mails, votre Drive ni votre agenda.</li>
+      <li>Aucune donnée inventée : chaque email, numéro et signal doit venir d'une source vérifiable. C'est écrit dans les consignes et dans le bloc de garde-fous.</li>
     </ul>
   </section>
 
@@ -1122,13 +1129,25 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
       <article><span class="badge">Inclus</span><h3>Google Calendar</h3><p>Un créneau d'appels réservé chaque jour, et chaque rendez-vous obtenu ajouté tout seul.</p></article>
       <article><span class="badge">Inclus</span><h3>Google Sheets</h3><p>Un tableau clair : qui a été contacté, quand, et ce qu'il a répondu.</p></article>
       <article><span class="badge">Inclus</span><h3>Google Drive</h3><p>Vos documents restent rangés au même endroit.</p></article>
-      <article><span class="badge">Facultatif</span><h3>Votre fichier clients</h3><p>Si vous avez un fichier clients, il se remplit tout seul. Sinon, le tableau Google suffit.</p></article>
-      <article><span class="badge">Facultatif</span><h3>Apollo</h3><p>Pour trouver plus vite les bonnes entreprises. Sans lui, la recherche sur Internet prend le relais.</p></article>
+      <article><span class="badge">Recommandé</span><h3>HubSpot</h3><p>Suit chaque mail envoyé : ouvertures, réponses, historique. C'est lui qui dit qui rappeler en premier.</p></article>
+      <article><span class="badge">Recommandé</span><h3>Apollo</h3><p>Trouve les bonnes entreprises et vérifie les adresses email avant l'envoi. Sans lui, la recherche sur Internet prend le relais.</p></article>
+      <article><span class="badge">Recommandé</span><h3>Pipecorn</h3><p>Trouve les numéros de téléphone des décideurs, via Chrome. Sans lui : sources publiques, ou email seulement (au choix dans les réglages).</p></article>
       <article><span class="badge">Navigateur</span><h3>Claude dans Chrome</h3><p>Pour programmer vos messages à la bonne heure dans Gmail.</p></article>
       <article><span class="badge muted">Lecture seule</span><h3>LinkedIn</h3><p>Juste pour vérifier qu'une personne occupe toujours son poste. Aucun message, aucune action.</p></article>
     </div>
   </section>
   
+  <section class="sec need">
+    <div class="intro"><span class="eyebrow">Pour un fonctionnement à 100 %</span><h2>Ce qu'il faut, et ce qui se passe sans</h2><p class="hint">LinkSharp marche avec Gmail et un Google Sheet seulement. Chaque outil en plus rend le système plus rapide et plus précis.</p></div>
+    <table><thead><tr><th>Besoin</th><th>Avec l'outil</th><th>Sans</th></tr></thead><tbody>
+      <tr><td>Suivre les mails</td><td>HubSpot (extension Gmail) : ouvertures, réponses, historique</td><td>Le Google Sheet sert de fichier clients, sans suivi des ouvertures</td></tr>
+      <tr><td>Emails des décideurs</td><td>Apollo : adresses vérifiées</td><td>Adresses publiées sur des sources officielles seulement : moins de prospects par jour</td></tr>
+      <tr><td>Numéros de téléphone</td><td>Pipecorn, via Chrome</td><td>Sources publiques (site, annuaires), ou email seulement</td></tr>
+      <tr><td>Envoi à la bonne heure</td><td>Claude dans Chrome programme les mails dans Gmail</td><td>Brouillons prêts, vous les programmez à la main</td></tr>
+    </tbody></table>
+    <p class="hint">Dans tous les cas, une règle ne change pas : rien n'est inventé. Un email, un numéro ou un signal introuvable reste « à trouver », et le prospect est écarté s'il y a un doute.</p>
+  </section>
+
   <section class="sec two">
     <div class="intro"><span class="eyebrow">Votre agenda</span><h2>Ajoutez votre routine à votre agenda</h2><p class="hint">Les rappels du soir et du matin, du lundi au vendredi. Dans Google Agenda : Paramètres → Importer et exporter → Importer.</p></div>
     <div class="formula"><ul class="ticks" id="icsList"></ul><div class="cta"><button type="button" class="primary" id="btnIcs">Télécharger ma routine</button><a class="btn ghost" href="#reglages">Changer les heures</a></div></div>
@@ -1204,9 +1223,9 @@ const $ = id => document.getElementById(id);
 const STORE = "kitprosp.v3";
 
 /* ---------- Champs ---------- */
-const TEXT = ["footer","sendAccess","rdvCal","rdvLink","j0max","volPrio","reportMax","existing","existingDetails","reportLoc","reportName","tabTrack","tabExcl","tabDay","tabNums","prodDesc","prodMarket","prodNotes","icpDoc","coName","tone","offer","proofs","country","tz","mailbox","lang","sender","postal","cap","cadence","sendMethod","crm","source","sheetName","sheetLink","validator","briefTo","briefTime","aiNotes","slotJ0a","slotJ0b","slotRa","slotRb","prepTime","ctrlTime","owner","phones"];
+const TEXT = ["phoneMode","footer","sendAccess","rdvCal","rdvLink","j0max","volPrio","reportMax","existing","existingDetails","reportLoc","reportName","tabTrack","tabExcl","tabDay","tabNums","prodDesc","prodMarket","prodNotes","icpDoc","coName","tone","offer","proofs","country","tz","mailbox","lang","sender","postal","cap","cadence","sendMethod","crm","source","sheetName","sheetLink","validator","briefTo","briefTime","aiNotes","slotJ0a","slotJ0b","slotRa","slotRb","prepTime","ctrlTime","owner","phones"];
 const CHECKS = ["warm","secLeads","secMails","secTasks","secAgenda","calCall","calRdv"];
-const DEFAULTS = {tone:"direct",country:"France",tz:"Europe/Paris",lang:"fr",cap:"45",cadence:"0,3,7",sendMethod:"chrome",crm:"HubSpot",source:"Apollo",briefTime:"07:15",slotJ0a:"08:30",slotJ0b:"11:00",slotRa:"14:00",slotRb:"16:00",prepTime:"17:30",ctrlTime:"13:10",warm:false,secLeads:true,secMails:true,secTasks:true,secAgenda:true,calCall:true,calRdv:true,sendAccess:"connecteur",volPrio:"j0",reportMax:"3",existing:"aucun",reportLoc:"sheet",reportName:"Rapport",tabTrack:"Suivi global",tabExcl:"À ne pas contacter",tabDay:"{Jour} {JJ-MM}"};
+const DEFAULTS = {phoneMode:"outils",tone:"direct",country:"France",tz:"Europe/Paris",lang:"fr",cap:"45",cadence:"0,3,7",sendMethod:"chrome",crm:"HubSpot",source:"Apollo",briefTime:"07:15",slotJ0a:"08:30",slotJ0b:"11:00",slotRa:"14:00",slotRb:"16:00",prepTime:"17:30",ctrlTime:"13:10",warm:false,secLeads:true,secMails:true,secTasks:true,secAgenda:true,calCall:true,calRdv:true,sendAccess:"connecteur",volPrio:"j0",reportMax:"3",existing:"aucun",reportLoc:"sheet",reportName:"Rapport",tabTrack:"Suivi global",tabExcl:"À ne pas contacter",tabDay:"{Jour} {JJ-MM}"};
 const LABELS = {icpDoc:"Vos clients idéaux",coName:"Nom de l'entreprise",offer:"Ce que vous vendez",mailbox:"Boîte d'envoi",sender:"Expéditeur",postal:"Adresse postale",sheetName:"Nom du Google Sheet",sheetLink:"Lien du Google Sheet",validator:"Personne qui valide",briefTo:"Adresse du brief",proofs:"Preuves"};
 
 /* ---------- Pays : fuseau, langue, jours fériés, cadre légal ---------- */
@@ -1548,12 +1567,13 @@ function bodyProsp(x){
   const angle = {direct:"direct et concret",chaleureux:"chaleureux et proche",formel:"formel"}[d.tone];
   const sig = signalLines(d), noDur = sig.filter(s => !HAS_DURATION.test(s));
   const proofs = x.A.proofs;
-  const userNums = String(d.phones||"").split(/\n+/).map(s=>s.replace(/^\s*(\d+[.)]|[-*•])\s*/,"").trim()).filter(Boolean), uTxt = userNums.join(" ").toLowerCase();
+  const pm = d.phoneMode || "outils";
+  const userNums = pm !== "outils" ? [] : String(d.phones||"").split(/\n+/).map(s=>s.replace(/^\s*(\d+[.)]|[-*•])\s*/,"").trim()).filter(Boolean), uTxt = userNums.join(" ").toLowerCase();
   const nums = [];
   if(!x.tabNums.length || !x.tabNums.some(t => uTxt.includes(t.toLowerCase()))) nums.push("le sheet"+(x.tabNums.length ? " (onglets « "+x.tabNums.join(" », « ")+" », colonne Téléphone)" : ", colonne Téléphone"));
   nums.push(...userNums);
   if(!x.noCrm && !uTxt.includes(String(x.crm).toLowerCase())) nums.push("la fiche "+x.crm);
-  if(!userNums.length) nums.push("les sources publiques fiables (site officiel, annuaires professionnels)");
+  nums.push(pm === "public" ? "les sources publiques uniquement (site officiel, page contact, annuaires professionnels, registres) : aucun outil payant" : "les sources publiques fiables (site officiel, annuaires professionnels)");
   const emailRule = x.noSource ? "publié sur une source officielle ou validé par un outil de validation" : "validé (« verified » dans "+x.source+" ou outil de validation)";
   return `# Prospection du jour – ${x.co}
 
@@ -1643,9 +1663,9 @@ ${volumeText(x)}
 - Domaine absent de « ${x.tabExcl} », de « ${x.tabTrack} »${x.noCrm?"":" et de "+x.crm}${x.coexist?" et du suivi de l'autre système":""}. Dédoublonner par domaine et par email. Une seule personne par entreprise à la fois.
 
 ## Règle des numéros
-Dans cet ordre :
+${pm === "aucun" ? "Pas de recherche de numéros : prospection par email seulement. Ne noter un numéro que s'il figure déjà dans le sheet"+(x.noCrm?"":" ou dans "+x.crm)+" ou dans la signature d'une réponse. Jamais inventé." : `Dans cet ordre :
 ${nums.map((s,i)=>(i+1)+". "+s).join("\n")}
-${nums.length+1}. Sinon « numéro à trouver ». Le mail part quand même. Jamais inventé. Tout numéro trouvé est ajouté au sheet${x.noCrm?"":" et à "+x.crm} après le « go ».
+${nums.length+1}. Sinon « numéro à trouver ». Le mail part quand même. Jamais inventé. Tout numéro trouvé est ajouté au sheet${x.noCrm?"":" et à "+x.crm} après le « go ».`}
 
 ## Rédaction des mails [À ADAPTER : n°5]
 - En ${x.L.n}, au nom de ${x.sender}, ton ${angle}.
@@ -2647,12 +2667,13 @@ route();
 
 /* ---------- Votre IA remplit le formulaire ---------- */
 function askPrompt(){
+  const priv = !!($("privacy") && $("privacy").checked);
   const countries = Object.keys(COUNTRIES).join(", ");
   return `Je configure LinkSharp, un assistant qui m'aide à trouver de nouveaux clients. Remplis son formulaire entièrement à ma place, d'un seul coup, sans me poser de question.
 
 1. CHERCHE TOI-MÊME
-Fouille tout ce à quoi tu as accès : ta mémoire et nos conversations passées, mes emails, mon Drive et mes documents (CV, présentations, propositions commerciales, devis, factures, fiches produit), mon agenda, mon site web et mes profils publics. Repère ce que je vends, à qui, mes clients et mes résultats réels, mon adresse email professionnelle, ma signature, les outils que j'utilise.
-Si j'ai déjà un Google Sheet de prospection : lis la liste exacte de ses onglets et dis à quoi sert chacun (suivi, exclusions, onglet du jour, numéros, rapport).
+${priv ? "Confidentialité : n'ouvre PAS mes emails, mon Drive, mes documents ni mon agenda, et n'utilise pas ta mémoire de mes autres conversations. Utilise uniquement ce que je t'écris dans cette conversation et les informations publiques (mon site web, mes profils publics, les annuaires d'entreprises)." : "Fouille tout ce à quoi tu as accès : ta mémoire et nos conversations passées, mes emails, mon Drive et mes documents (CV, présentations, propositions commerciales, devis, factures, fiches produit), mon agenda, mon site web et mes profils publics."} Repère ce que je vends, à qui, mes clients et mes résultats réels, mon adresse email professionnelle, ma signature, les outils que j'utilise.
+${priv ? "Si je t'ai donné le lien d'un Google Sheet de prospection" : "Si j'ai déjà un Google Sheet de prospection"} : lis la liste exacte de ses onglets et dis à quoi sert chacun (suivi, exclusions, onglet du jour, numéros, rapport).
 Si j'ai déjà un système de prospection (skills, instructions de projet, tâches planifiées ou programmées, brief du matin) : liste-les avec leur nom exact et leur heure.
 
 2. DÉDUIS TOUT, NE DEMANDE RIEN
@@ -2703,6 +2724,7 @@ heure_controle: (ex. 13:10)
 crm: HubSpot | Pipedrive | Salesforce | Folk | Aucun
 proprietaire_fiches: (propriétaire des fiches créées dans le CRM)
 source_prospects: Apollo | Recherche web | Lemlist | Kaspr
+numeros_telephone: outils | public | aucun
 sources_numeros: <<<
 (une source de numéros de téléphone par ligne, dans l'ordre, avec le mode d'accès : connecteur ou Chrome)
 >>>
@@ -2732,7 +2754,7 @@ precisions: <<<
 Règle absolue : n'invente jamais un client, un chiffre ou un résultat ; pour les preuves, garde uniquement ce que tu as réellement trouvé. Tout le reste, tu peux le déduire raisonnablement.`;
 }
 const ANS_MAP = {produit:"prodDesc", marche:"prodMarket", entreprise:"coName", offre:"offer", preuves:"proofs", clients_ideaux:"icpDoc", ton:"tone", pays_prospects:"country", langue_mails:"lang", boite_envoi:"mailbox", expediteur:"sender", adresse_postale:"postal", mails_par_jour:"cap", crm:"crm", source_prospects:"source", nom_sheet:"sheetName", lien_sheet:"sheetLink", validateur:"validator", email_brief:"briefTo", boite_brief:"briefTo", heure_brief:"briefTime", precisions:"aiNotes",
-  sequence:"cadence", programmation:"sendMethod", fuseau_prospects:"tz", pied_de_mail:"footer", domaine_recent:"warm", creneau_j0:"_slotJ0", creneau_relances:"_slotR", heure_preparation:"prepTime", heure_controle:"ctrlTime", j0_max_par_jour:"j0max", priorite_volume:"volPrio", report_max_relance:"reportMax", sources_numeros:"phones", proprietaire_fiches:"owner", acces_boite_envoi:"sendAccess", agenda_rdv:"rdvCal", lien_rdv:"rdvLink", emplacement_rapport:"_report", onglets:"_tabs", systeme_existant:"existing", systeme_existant_details:"existingDetails"};
+  sequence:"cadence", programmation:"sendMethod", fuseau_prospects:"tz", pied_de_mail:"footer", domaine_recent:"warm", creneau_j0:"_slotJ0", creneau_relances:"_slotR", heure_preparation:"prepTime", heure_controle:"ctrlTime", j0_max_par_jour:"j0max", priorite_volume:"volPrio", report_max_relance:"reportMax", sources_numeros:"phones", numeros_telephone:"phoneMode", proprietaire_fiches:"owner", acces_boite_envoi:"sendAccess", agenda_rdv:"rdvCal", lien_rdv:"rdvLink", emplacement_rapport:"_report", onglets:"_tabs", systeme_existant:"existing", systeme_existant_details:"existingDetails"};
 const EMPTY_KEEP = ["footer"];
 function parseAnswers(text){
   const out = {}; const ls = String(text||"").replace(/\r/g,"").split("\n");
@@ -2764,6 +2786,7 @@ function normAnswers(a){
   if(r.warm != null) r.warm = /^(oui|yes|true|1)/i.test(r.warm);
   if(r.volPrio) r.volPrio = /relance/i.test(r.volPrio) ? "relances" : "j0";
   if(r.sendAccess) r.sendAccess = /crm|hubspot|pipedrive|salesforce|folk/i.test(r.sendAccess) ? "crm" : /chrome/i.test(r.sendAccess) ? "chrome" : "connecteur";
+  if(r.phoneMode) r.phoneMode = /aucun|pas de|non/i.test(r.phoneMode) ? "aucun" : /public/i.test(r.phoneMode) ? "public" : "outils";
   if(r.existing) r.existing = /rempla/i.test(r.existing) ? "remplacer" : /coexist|garder|les deux/i.test(r.existing) ? "coexister" : "aucun";
   ["prepTime","ctrlTime","briefTime"].forEach(k => { if(r[k]){ const h = HM(r[k]); if(h) r[k] = h; else delete r[k]; } });
   [["_slotJ0","slotJ0a","slotJ0b"],["_slotR","slotRa","slotRb"]].forEach(([k,a1,b1]) => { if(r[k]){ const t = String(r[k]).match(/\d{1,2}\s*[h:]\s*\d{0,2}/g)||[]; if(t[0]) r[a1] = HM(t[0]); if(t[1]) r[b1] = HM(t[1]); delete r[k]; } });
@@ -2821,6 +2844,8 @@ function applyAnswers(text){
   setStatus("ansMsg", n+" champs remplis."+(miss.length ? " Encore à compléter : "+miss.map(k=>LABELS[k]).join(", ")+"." : " Tout est prêt : passez à l'étape 3.")+(cf.length ? " "+cf.length+" arbitrage"+(cf.length>1?"s":"")+" fait"+(cf.length>1?"s":"")+" automatiquement : voir l'étape 3." : ""));
   $("reglages").scrollIntoView();
 }
+try{ $("privacy").checked = LSget("privacy") === "1"; }catch(e){}
+$("privacy").onchange = () => LSset("privacy", $("privacy").checked ? "1" : "");
 $("btnAsk").onclick = async () => { const ok = await copyText(askPrompt()); setStatus("ansMsg", (ok ? "Demande copiée. " : "")+"Envoyez-la à "+(aiKey()==="autre"?"votre IA":aiName())+", puis déposez le fichier qu'elle vous donne."); };
 $("ansFile").onchange = e => { const f = e.target.files && e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = () => applyAnswers(String(r.result||"")); r.readAsText(f); e.target.value = ""; };
 $("ansApply").onclick = () => applyAnswers($("ansPaste").value);
