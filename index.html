@@ -234,22 +234,126 @@ footer.site a.brand{border-bottom:0}
 footer.site .legal{border-top:1px solid var(--inv-line);padding-top:18px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:.82rem;color:var(--inv-muted)}
 footer.site details summary{cursor:pointer;color:var(--inv-ink)}
 footer.site details p{margin-top:8px;max-width:80ch}
+
+/* Pages */
+.page{animation:fadein .25s ease}
+@keyframes fadein{from{opacity:.4}to{opacity:1}}
+.pagehead{padding-block:56px 32px;display:grid;gap:16px;max-width:780px}
+.pagehead h1{font-size:clamp(2rem,4.6vw,3.3rem)}
+.nav .links a[aria-current="page"]{color:var(--ink);font-weight:600}
+.tiny{font-family:var(--f-mono);font-size:.62rem;padding:.05rem .35rem;border-radius:99px;background:var(--signal);color:#1B1300;vertical-align:2px;margin-left:2px}
+.menu{display:none;padding:.45rem .7rem}
+@media (max-width:980px){
+  .nav .links{display:none;position:absolute;left:0;right:0;top:100%;background:var(--bg);border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:8px max(16px,env(safe-area-inset-left,0px)) 14px;margin:0}
+  .nav .links.open{display:flex}
+  .nav .links a{padding:.6rem 0;border-bottom:1px solid var(--line)}
+  .menu{display:inline-flex;margin-left:auto}
+  .navcta{display:none}
+}
+.nav .in{position:relative}
+.teasers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:980px){.teasers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.teasers{grid-template-columns:minmax(0,1fr)}}
+.teasers a{display:grid;gap:10px;align-content:space-between;padding:20px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);text-decoration:none;min-height:180px;transition:border-color .15s,transform .15s}
+.teasers a:hover{border-color:var(--accent);transform:translateY(-2px)}
+.teasers .k{font-family:var(--f-mono);font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.teasers .go{font-weight:600;font-size:.9rem;color:var(--accent)}
+.teasers a.soonc{border-style:dashed}
+.teasers a.soonc .k{color:var(--signal)}
+.ctaband{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding:26px 28px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table.cmp{width:100%;border-collapse:collapse;font-size:.93rem;min-width:560px}
+table.cmp th,table.cmp td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+table.cmp thead th{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--sunk)}
+table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:0}
+table.cmp td:last-child{color:var(--ink)}
+table.cmp td{color:var(--muted)}
+.mono{font-family:var(--f-mono)}
+.quad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:980px){.quad{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.quad{grid-template-columns:minmax(0,1fr)}}
+.quad article,.roadmap article,.integ article{padding:20px;border:1px solid var(--line);border-radius:10px;background:var(--surface);display:grid;gap:8px;align-content:start}
+.quad .k{font-family:var(--f-mono);font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.quad p,.roadmap p,.integ p,.who p{color:var(--muted);font-size:.92rem}
+.who{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+@media (max-width:820px){.who{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.who div{padding:18px 18px 18px 0;display:grid;gap:6px}
+.note{padding:20px 22px;border-left:3px solid var(--signal);background:var(--surface);border-radius:0 10px 10px 0;display:grid;gap:8px;max-width:760px}
+.note p{color:var(--muted)}
+.arch{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,.8fr);align-items:stretch;gap:8px}
+@media (max-width:900px){.arch{grid-template-columns:minmax(0,1fr)}.arch .arrow{height:24px}.arch .arrow::before{transform:rotate(90deg)}}
+.arch .col{display:grid;gap:8px;align-content:start;padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.arch .col .k{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.arch .brain{border-color:var(--accent);background:var(--accent-soft)}
+.arch .you{border-color:var(--signal)}
+.arch .node{padding:9px 11px;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);font-size:.88rem}
+.arch .node.strong{font-weight:700;border-color:var(--ink)}
+.arch .arrow{display:flex;align-items:center;justify-content:center}
+.arch .arrow::before{content:"→";font-size:1.3rem;color:var(--accent);display:block}
+.sec.two{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:start}
+@media (max-width:820px){.sec.two{grid-template-columns:minmax(0,1fr)}}
+.checklist{margin:0;padding:0;list-style:none;display:grid;gap:10px;counter-reset:c}
+.checklist li{counter-increment:c;display:grid;grid-template-columns:34px minmax(0,1fr);gap:4px 12px;padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--muted)}
+.checklist li::before{content:counter(c);grid-row:span 2;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-mono);font-size:.8rem}
+.checklist b{color:var(--ink)}
+.formula{padding:22px;border:1px solid var(--line);border-radius:10px;background:var(--surface);display:grid;gap:12px}
+.formula p{color:var(--muted)}
+.formula .big{font-size:1.02rem;color:var(--ink);padding:12px 14px;background:var(--sunk);border-radius:var(--r);overflow-wrap:anywhere}
+.ticks{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.ticks li{padding-left:24px;position:relative;color:var(--muted)}
+.ticks li::before{content:"";position:absolute;left:2px;top:.45em;width:10px;height:6px;border-left:2px solid var(--ok);border-bottom:2px solid var(--ok);transform:rotate(-45deg)}
+.faq{display:grid;gap:8px;max-width:820px}
+.faq details{border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:14px 18px}
+.faq summary{cursor:pointer;font-weight:600}
+.faq p{color:var(--muted);margin-top:8px}
+.integ{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:980px){.integ{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.integ{grid-template-columns:minmax(0,1fr)}}
+.badge{justify-self:start;font-family:var(--f-mono);font-size:.68rem;padding:.15rem .5rem;border-radius:99px;background:var(--ok-soft);color:var(--ok)}
+.badge.muted{background:var(--sunk);color:var(--muted)}
+.soonhead{padding-block:72px 40px}
+.soon{justify-self:start;font-family:var(--f-mono);font-size:.78rem;padding:.35rem .75rem;border-radius:99px;background:var(--signal);color:#1B1300;font-weight:500}
+.roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.roadmap .st{justify-self:start;font-family:var(--f-mono);font-size:.68rem;padding:.15rem .5rem;border-radius:99px;border:1px dashed var(--signal);color:var(--muted)}
+.sel{user-select:all;color:var(--ink)}
+.steps3.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:980px){.steps3.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.steps3.four{grid-template-columns:minmax(0,1fr)}}
+.page[data-page="contact"] .service{margin-top:8px}
+/* Dictée */
+.mic{justify-self:start;font-size:.82rem;padding:.3rem .65rem;gap:.35rem}
+.mic svg{width:14px;height:14px}
+.mic.on{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
+.mic.on svg{animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.35}}
 </style>
 </head>
 <body>
 
 <nav class="nav" aria-label="Navigation principale"><div class="in">
-  <a class="brand" href="#top" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a>
-  <div class="links"><a href="#comment">Comment ça marche</a><a href="#livrables">Ce que vous recevez</a><a href="#garde-fous">Garde-fous</a><a href="#contact">Contact</a></div>
-  <a class="btn primary" href="#acces">Créer mon système</a>
+  <a class="brand" href="#accueil" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a>
+  <div class="links" id="navLinks">
+    <a href="#accueil" data-nav="accueil">Accueil</a>
+    <a href="#benefices" data-nav="benefices">Ce que ça apporte</a>
+    <a href="#technique" data-nav="technique">La technique</a>
+    <a href="#connexions" data-nav="connexions">Connexions</a>
+    <a href="#automation" data-nav="automation">Automation <span class="tiny">bientôt</span></a>
+    <a href="#contact" data-nav="contact">Contact</a>
+  </div>
+  <a class="btn primary navcta" href="#outil" data-nav="outil">Créer mon système</a>
+  <button type="button" class="menu" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
 </div></nav>
 
-<header class="wrap hero" id="top">
+
+
+<main class="wrap">
+<div class="page" data-page="accueil">
+  <section class="hero" id="top">
   <div class="copy">
     <span class="eyebrow">LinkSharp · Outil de prospection B2B</span>
     <h1>Votre prospection tourne seule. <em>Vous gardez la main.</em></h1>
     <p class="lede">LinkSharp construit votre système de prospection complet dans Claude : cibles qualifiées, mails vérifiés et personnalisés, relances, brief du matin. Rien ne part sans votre « go ».</p>
-    <div class="cta"><a class="btn primary" href="#acces">Créer mon système gratuitement</a><a class="btn ghost" href="#comment">Voir comment ça marche</a></div>
+    <div class="cta"><a class="btn primary" href="#outil">Créer mon système gratuitement</a><a class="btn ghost" href="#comment">Voir comment ça marche</a></div>
     <div class="facts"><span>Gratuit, avec votre propre clé d'IA</span><span>Plafond de dépense choisi par vous</span><span>Garde-fous intégrés</span></div>
   </div>
   <aside class="day" aria-label="Une journée type avec LinkSharp">
@@ -264,9 +368,7 @@ footer.site details p{margin-top:8px;max-width:80ch}
     </ol>
     <p class="foot">Horaires réglables. Tout tourne dans Claude, avec vos propres outils.</p>
   </aside>
-</header>
-
-<main class="wrap">
+</section>
   <section class="sec" id="comment">
     <div class="intro"><span class="eyebrow">Comment ça marche</span><h2>Trois étapes, dix minutes</h2></div>
     <ol class="steps3">
@@ -287,6 +389,16 @@ footer.site details p{margin-top:8px;max-width:80ch}
     </div>
   </section>
 
+    <section class="sec">
+    <div class="intro"><span class="eyebrow">Explorer</span><h2>Tout comprendre avant de vous lancer</h2></div>
+    <div class="teasers">
+      <a href="#benefices"><span class="k">Ce que ça apporte</span><h3>Du temps, des mails plus justes, une prospection qui ne s'arrête plus</h3><span class="go">Voir les gains →</span></a>
+      <a href="#technique"><span class="k">La technique</span><h3>Architecture, cycle quotidien, règles de calcul, sécurité</h3><span class="go">Voir la technique →</span></a>
+      <a href="#connexions"><span class="k">Connexions</span><h3>Gmail, Google Calendar, Sheets, CRM : tout se synchronise</h3><span class="go">Voir les connexions →</span></a>
+      <a href="#automation" class="soonc"><span class="k">Bientôt</span><h3>Automation marketing, le prochain module en préparation</h3><span class="go">Être prévenu →</span></a>
+    </div>
+  </section>
+
   <section class="sec" id="garde-fous">
     <div class="band">
       <div style="display:grid;gap:10px;align-content:start"><span class="eyebrow">Garde-fous</span><h2>Automatisé, jamais incontrôlé</h2><p>Ces règles sont écrites dans chaque système généré. L'IA peut les préciser, jamais les retirer.</p></div>
@@ -301,6 +413,13 @@ footer.site details p{margin-top:8px;max-width:80ch}
     </div>
   </section>
 
+    <section class="sec">
+    <div class="ctaband"><div><h2>Prêt à voir votre système ?</h2><p class="hint">Dix minutes, gratuit, avec votre propre clé.</p></div><a class="btn primary" href="#outil">Créer mon système</a></div>
+  </section>
+
+</div>
+
+<div class="page" data-page="outil" hidden>
   <section class="tool" id="acces">
     <span class="eyebrow">L'outil</span>
     <h2>Créez votre système</h2>
@@ -344,17 +463,18 @@ footer.site details p{margin-top:8px;max-width:80ch}
     <div class="panel pad">
       <label class="f">Décrivez votre produit ou service
         <small>Ce que vous vendez, à qui vous pensez le vendre, ce qui vous différencie. Quelques phrases suffisent.</small>
-        <textarea id="prodDesc" rows="4"></textarea>
+        <textarea id="prodDesc" data-mic rows="4"></textarea>
       </label>
       <div class="row">
-        <label class="f">Marché ou zone visée<small>Pays, régions, villes</small><input type="text" id="prodMarket"></label>
-        <label class="f">Ce que vous savez déjà<small>Premiers clients, refus, intuitions (facultatif)</small><input type="text" id="prodNotes"></label>
+        <label class="f">Marché ou zone visée<small>Pays, régions, villes</small><input type="text" id="prodMarket" data-mic></label>
+        <label class="f">Ce que vous savez déjà<small>Premiers clients, refus, intuitions (facultatif)</small><input type="text" id="prodNotes" data-mic></label>
       </div>
       <div class="inline">
         <button type="button" class="primary" id="btnIcp">Générer 3 ICP</button>
         <button type="button" id="btnIcpStop" hidden>Arrêter</button>
         <span class="status" id="icpStatus" role="status"></span>
       </div>
+      <p class="hint micHint" hidden>Pas envie d'écrire ? Cliquez sur « Dicter » et parlez, le texte s'écrit tout seul.</p>
       <p class="hint">Vous avez déjà un ICP ? Passez directement à l'<a href="#reglages">étape 2</a> et déposez-le.</p>
     </div>
     <div id="icpCards"></div>
@@ -370,7 +490,7 @@ footer.site details p{margin-top:8px;max-width:80ch}
           <div class="gtitle"><span class="n">A</span><h3>Votre cible</h3></div>
           <label class="f" data-k="icpDoc">ICP
             <small>Choisi à l'étape 1, déposé en fichier ou collé ici. L'IA le lit en entier.</small>
-            <textarea id="icpDoc" class="doc"></textarea>
+            <textarea id="icpDoc" data-mic class="doc"></textarea>
           </label>
           <div class="inline"><span class="btn filebtn">Déposer un fichier .md / .txt<input type="file" id="icpFile" accept=".txt,.md,text/plain,text/markdown"></span><span class="status" id="icpFileMsg"></span></div>
         </div>
@@ -383,8 +503,8 @@ footer.site details p{margin-top:8px;max-width:80ch}
               <select id="tone"><option value="direct">Direct et concret</option><option value="chaleureux">Chaleureux et proche</option><option value="formel">Formel</option></select>
             </label>
           </div>
-          <label class="f" data-k="offer">Ce que vous vendez<small>2 ou 3 phrases</small><textarea id="offer" rows="3"></textarea></label>
-          <label class="f">Preuves utilisables dans les mails<small>Clients citables, chiffres vérifiables, expérience. Seules ces preuves seront citées.</small><textarea id="proofs" rows="2"></textarea></label>
+          <label class="f" data-k="offer">Ce que vous vendez<small>2 ou 3 phrases</small><textarea id="offer" data-mic rows="3"></textarea></label>
+          <label class="f">Preuves utilisables dans les mails<small>Clients citables, chiffres vérifiables, expérience. Seules ces preuves seront citées.</small><textarea id="proofs" data-mic rows="2"></textarea></label>
         </div>
 
         <div class="group">
@@ -456,10 +576,19 @@ footer.site details p{margin-top:8px;max-width:80ch}
         </div>
 
         <div class="group">
-          <div class="gtitle"><span class="n">F</span><h3>Précisions pour l'IA</h3></div>
+          <div class="gtitle"><span class="n">F</span><h3>Synchronisation Google Calendar</h3></div>
+          <div class="checks">
+            <label><input type="checkbox" id="calCall"> Bloquer chaque matin un créneau d'appels avec les leads chauds</label>
+            <label><input type="checkbox" id="calRdv"> Créer l'événement quand un rendez-vous est obtenu</label>
+          </div>
+          <div class="inline"><button type="button" id="btnIcs2">Ajouter la routine à mon agenda (.ics)</button><span class="hint">Préparation, go, brief et contrôle, du lundi au vendredi.</span></div>
+        </div>
+
+        <div class="group">
+          <div class="gtitle"><span class="n">G</span><h3>Précisions pour l'IA</h3></div>
           <label class="f">Tout ce qui rend votre cas particulier
             <small>Saisonnalité, vocabulaire du métier, salons, sujets à éviter, façon de parler aux prospects, concurrents à ne pas citer… L'IA en tient compte dans chaque section.</small>
-            <textarea id="aiNotes" rows="4"></textarea>
+            <textarea id="aiNotes" data-mic rows="4"></textarea>
           </label>
           <details class="adv">
             <summary>Réglages avancés</summary>
@@ -524,7 +653,205 @@ footer.site details p{margin-top:8px;max-width:80ch}
     <span class="toast" id="toast" role="status"></span>
   </section>
 
-  <section class="service" id="contact">
+  
+</div>
+
+<!--BENEFICES-->
+<div class="page" data-page="benefices" hidden>
+  <section class="pagehead">
+    <span class="eyebrow">Ce que ça vous apporte</span>
+    <h1>Moins de tâches. Plus de conversations utiles.</h1>
+    <p class="lede">LinkSharp ne remplace pas votre jugement commercial. Il prend en charge tout ce qui vient avant : trouver, vérifier, écrire, relancer, tenir le suivi. Vous gardez ce qui compte : décider et parler aux bons prospects.</p>
+  </section>
+
+  <section class="sec">
+    <div class="intro"><span class="eyebrow">Une journée de prospection</span><h2>Sans LinkSharp, et avec</h2></div>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th scope="col">Tâche</th><th scope="col">À la main</th><th scope="col">Avec LinkSharp</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Trouver des prospects</th><td>Recherches au fil de l'eau, listes qui vieillissent</td><td>Un lot préparé chaque soir selon votre cible</td></tr>
+        <tr><th scope="row">Vérifier</th><td>Souvent sauté faute de temps</td><td>Signal daté, décideur en poste, email validé, doublons écartés</td></tr>
+        <tr><th scope="row">Écrire</th><td>Mails génériques ou très longs à personnaliser</td><td>Un mail court par prospect, construit sur un fait réel</td></tr>
+        <tr><th scope="row">Relancer</th><td>Relances oubliées, ou envoyées après une réponse</td><td>Programmées, annulées dès qu'un prospect répond</td></tr>
+        <tr><th scope="row">Tenir le CRM</th><td>Saisi le vendredi, quand on y pense</td><td>Mis à jour après chaque lot, contrôlé chaque jour</td></tr>
+        <tr><th scope="row">Savoir qui appeler</th><td>Au feeling</td><td>Brief du matin : leads chauds, numéro, pitch, objection probable</td></tr>
+        <tr><th scope="row">Votre agenda</th><td>Créneaux d'appel jamais bloqués</td><td>Bloc d'appels et rendez-vous ajoutés dans Google Calendar</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <div class="intro"><span class="eyebrow">Les quatre gains</span><h2>Ce qui change concrètement</h2></div>
+    <div class="quad">
+      <article><span class="k">Temps</span><h3>Vos soirées et vos matinées libérées</h3><p>La préparation tourne seule à heure fixe. Il vous reste à relire le lot et dire « go ».</p></article>
+      <article><span class="k">Qualité</span><h3>Chaque mail repose sur un fait vérifié</h3><p>Pas de signal daté et sourcé, pas de prospect. Votre réputation d'expéditeur est protégée.</p></article>
+      <article><span class="k">Régularité</span><h3>La prospection ne s'arrête plus</h3><p>Même les semaines chargées, le lot du lendemain est prêt. Les relances partent au bon moment.</p></article>
+      <article><span class="k">Contrôle</span><h3>Rien ne part sans vous</h3><p>Validation humaine, plafond de mails par jour, aucune suppression dans vos outils.</p></article>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="intro"><span class="eyebrow">Pour qui</span><h2>Pensé pour ceux qui vendent en B2B sans équipe commerciale</h2></div>
+    <div class="who">
+      <div><h3>Indépendants et consultants</h3><p>Un flux régulier de rendez-vous sans y passer vos journées.</p></div>
+      <div><h3>PME B2B</h3><p>Un dirigeant ou un commercial seul qui veut une machine fiable.</p></div>
+      <div><h3>Export</h3><p>Prospects à l'étranger : langue, fuseau, jours fériés et règles locales réglés automatiquement.</p></div>
+      <div><h3>Agences et startups</h3><p>Un système par client ou par marché, chacun avec sa cible.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="note">
+      <h3>Ce que LinkSharp ne fait pas</h3>
+      <p>Il n'envoie rien sans votre accord, n'achète pas de fichiers de contacts, n'invente aucune donnée et ne promet pas de chiffre de rendez-vous. La qualité dépend de votre cible et de votre offre ; LinkSharp vous aide à les tester proprement.</p>
+    </div>
+    <div class="cta"><a class="btn primary" href="#outil">Créer mon système</a><a class="btn ghost" href="#technique">Voir la technique</a></div>
+  </section>
+</div>
+
+<!--TECHNIQUE-->
+<div class="page" data-page="technique" hidden>
+  <section class="pagehead">
+    <span class="eyebrow">La technique</span>
+    <h1>Comment le système fonctionne, pièce par pièce</h1>
+    <p class="lede">LinkSharp génère des instructions précises, appelées skills, qu'un agent Claude suit chaque jour avec vos propres outils. Trois tâches planifiées les déclenchent. Rien ne tourne sur nos serveurs.</p>
+  </section>
+
+  <section class="sec">
+    <div class="intro"><span class="eyebrow">Architecture</span><h2>Des sources, un cerveau, des actions, vous</h2></div>
+    <div class="arch" role="img" aria-label="Schéma : les sources alimentent Claude, qui agit dans vos outils puis vous demande votre validation">
+      <div class="col"><span class="k">Sources</span><div class="node">Apollo ou recherche web</div><div class="node">Sites officiels, annuaires, presse</div><div class="node">Votre CRM et votre sheet</div><div class="node">Gmail : réponses, rebonds</div></div>
+      <div class="arrow" aria-hidden="true"></div>
+      <div class="col brain"><span class="k">Cerveau</span><div class="node strong">Claude</div><div class="node">Skill prospection</div><div class="node">Skill brief du matin</div><div class="node">3 tâches planifiées</div></div>
+      <div class="arrow" aria-hidden="true"></div>
+      <div class="col"><span class="k">Actions</span><div class="node">Mails programmés dans Gmail</div><div class="node">Fiches et notes CRM</div><div class="node">Sheet de suivi et rapport</div><div class="node">Google Calendar</div></div>
+      <div class="arrow" aria-hidden="true"></div>
+      <div class="col you"><span class="k">Vous</span><div class="node strong">« go »</div><div class="node">Brief du matin</div><div class="node">Appels</div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="intro"><span class="eyebrow">Le cycle quotidien</span><h2>Qui fait quoi, à quelle heure</h2></div>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th scope="col">Heure</th><th scope="col">Tâche</th><th scope="col">Lit</th><th scope="col">Écrit</th><th scope="col">Validation</th></tr></thead>
+      <tbody>
+        <tr><th scope="row" class="mono">17:30</th><td>Préparation du lot</td><td>Sheet, CRM, réponses, sources</td><td>Onglet du jour, rapport</td><td>Aucune action externe</td></tr>
+        <tr><th scope="row" class="mono">Soir</th><td>Votre « go »</td><td>Le lot proposé</td><td>Mails programmés, CRM</td><td>Obligatoire</td></tr>
+        <tr><th scope="row" class="mono">07:15</th><td>Brief du matin</td><td>Rapport, CRM, Gmail, agenda</td><td>Un mail, un bloc d'appels</td><td>Automatique, vers vous seul</td></tr>
+        <tr><th scope="row" class="mono">13:10</th><td>Contrôle des relances</td><td>Réponses depuis le matin</td><td>Une alerte si besoin</td><td>Automatique, vers vous seul</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="sec two">
+    <div class="intro"><span class="eyebrow">Vérification</span><h2>Cinq contrôles avant chaque prospect</h2><p class="hint">Un prospect qui échoue est écarté, avec son motif. Le rapport montre quel critère limite le volume.</p></div>
+    <ol class="checklist">
+      <li><b>Cible</b> Zone, secteur et exclusions respectés</li>
+      <li><b>Signal</b> Un fait public, daté, sourcé par une URL</li>
+      <li><b>Décideur</b> Toujours en poste, confirmé par une source récente</li>
+      <li><b>Email</b> Validé par un outil ou publié officiellement, jamais deviné</li>
+      <li><b>Doublon</b> Domaine jamais contacté, une personne par entreprise</li>
+    </ol>
+  </section>
+
+  <section class="sec two">
+    <div class="intro"><span class="eyebrow">Règle de volume</span><h2>Le plafond passe avant l'objectif</h2></div>
+    <div class="formula">
+      <p class="mono big">nouveaux par jour = plafond ÷ mails par prospect</p>
+      <p>Avec 45 mails par jour et une séquence J0, J+3, J+7 : 45 ÷ 3 = 15 nouveaux prospects par jour ouvré, une fois le régime établi. Chaque jour, le système compte d'abord les mails déjà envoyés et les relances dues, puis complète avec de nouveaux prospects sans jamais dépasser le plafond. Les délais se comptent en jours ouvrés, hors jours fériés du pays des prospects, avec au moins 2 minutes entre deux envois.</p>
+    </div>
+  </section>
+
+  <section class="sec two">
+    <div class="intro"><span class="eyebrow">Sécurité et données</span><h2>Vos données ne passent pas par LinkSharp</h2></div>
+    <ul class="ticks">
+      <li>Le site est une simple page : aucun serveur, aucun compte, aucune base de données.</li>
+      <li>Votre clé d'API reste dans votre navigateur. Les appels partent directement vers Anthropic.</li>
+      <li>Vous choisissez votre plafond de dépense ; le site s'arrête avant de le dépasser.</li>
+      <li>Le système installé agit avec vos propres connecteurs, dans vos propres outils.</li>
+      <li>La dictée vocale utilise la reconnaissance vocale de votre navigateur.</li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <div class="intro"><span class="eyebrow">Questions fréquentes</span><h2>FAQ technique</h2></div>
+    <div class="faq">
+      <details><summary>Faut-il un abonnement Claude ?</summary><p>Pour faire tourner le système installé, oui : il utilise Claude, ses connecteurs et les tâches planifiées. Pour utiliser ce site et générer votre kit, une clé d'API Anthropic suffit.</p></details>
+      <details><summary>Combien coûte une génération ?</summary><p>Avec Haiku, moins d'un centime pour les trois ICP et les deux skills. Avec Sonnet, environ 0,10 $. Le compteur en haut de l'outil affiche la dépense réelle.</p></details>
+      <details><summary>Pourquoi ne pas envoyer les mails directement ?</summary><p>Parce que la validation humaine est le garde-fou principal. Le système prépare tout ; vous gardez la décision.</p></details>
+      <details><summary>Et si je n'ai pas de CRM ?</summary><p>Choisissez « Aucun » : le Google Sheet de suivi devient le CRM, et les réponses sont lues dans Gmail.</p></details>
+      <details><summary>Ça marche pour l'étranger ?</summary><p>Oui. Le pays choisi règle la langue des mails, le fuseau, les jours fériés connus et les mentions légales à prévoir (États-Unis, Canada, Allemagne…).</p></details>
+      <details><summary>Puis-je modifier les skills ensuite ?</summary><p>Oui, ce sont des fichiers texte. Relisez-les avant l'installation et ajustez-les à tout moment.</p></details>
+    </div>
+  </section>
+</div>
+
+<!--CONNEXIONS-->
+<div class="page" data-page="connexions" hidden>
+  <section class="pagehead">
+    <span class="eyebrow">Connexions</span>
+    <h1>Tout se synchronise avec vos outils</h1>
+    <p class="lede">Le système généré s'appuie sur les connecteurs de Claude. Chaque outil a un rôle précis, et une seule source de vérité par information.</p>
+  </section>
+  <section class="sec">
+    <div class="integ">
+      <article><span class="badge">Inclus</span><h3>Gmail</h3><p>Lit les réponses, rebonds et demandes d'arrêt. Crée les brouillons, programme les envois, envoie le brief.</p></article>
+      <article><span class="badge">Inclus</span><h3>Google Calendar</h3><p>Le brief lit votre agenda, bloque un créneau d'appels, et chaque rendez-vous obtenu devient un événement.</p></article>
+      <article><span class="badge">Inclus</span><h3>Google Sheets</h3><p>Suivi global, liste « À ne pas contacter », onglet du jour et rapport quotidien.</p></article>
+      <article><span class="badge">Inclus</span><h3>Google Drive</h3><p>Retrouve votre sheet de suivi et vos documents de référence.</p></article>
+      <article><span class="badge">CRM</span><h3>HubSpot, Pipedrive, Salesforce</h3><p>Fiches entreprise et contact, notes avec le signal et sa source, statuts. Rien n'est jamais supprimé.</p></article>
+      <article><span class="badge">Prospects</span><h3>Apollo</h3><p>Recherche selon votre cible et validation des emails. Sans outil, la recherche web prend le relais.</p></article>
+      <article><span class="badge">Navigateur</span><h3>Claude dans Chrome</h3><p>Programme les envois dans Gmail et vérifie les offres d'emploi encore en ligne.</p></article>
+      <article><span class="badge muted">Lecture seule</span><h3>LinkedIn</h3><p>Simple consultation d'un profil en cas de doute sur le poste, cinq au plus. Aucune action.</p></article>
+    </div>
+  </section>
+  <section class="sec two">
+    <div class="intro"><span class="eyebrow">Source de vérité</span><h2>Qui fait foi, pour quoi</h2></div>
+    <div class="tablewrap"><table class="cmp">
+      <thead><tr><th scope="col">Information</th><th scope="col">Fait foi</th><th scope="col">Recopiée dans</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Contacts et entreprises</th><td>CRM (ou sheet sans CRM)</td><td>Sheet de suivi</td></tr>
+        <tr><th scope="row">Réponses et rebonds</th><td>Gmail</td><td>CRM, sheet, brief</td></tr>
+        <tr><th scope="row">Ouvertures</th><td>CRM</td><td>Colonne « Ouvert ? »</td></tr>
+        <tr><th scope="row">Rendez-vous</th><td>Google Calendar</td><td>Statut « RDV » dans le CRM et le sheet</td></tr>
+        <tr><th scope="row">Lot du jour et rapport</th><td>Sheet de suivi</td><td>Brief du matin</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <section class="sec two">
+    <div class="intro"><span class="eyebrow">Votre agenda</span><h2>Ajoutez la routine à Google Calendar</h2><p class="hint">Un fichier .ics avec les rendez-vous récurrents du système, du lundi au vendredi, aux heures réglées dans l'outil. Dans Google Calendar : Paramètres → Importer et exporter → Importer.</p></div>
+    <div class="formula"><ul class="ticks" id="icsList"></ul><div class="cta"><button type="button" class="primary" id="btnIcs">Télécharger la routine (.ics)</button><a class="btn ghost" href="#reglages">Changer les heures</a></div></div>
+  </section>
+</div>
+
+<!--AUTOMATION-->
+<div class="page" data-page="automation" hidden>
+  <section class="pagehead soonhead">
+    <span class="soon">Bientôt · en préparation</span>
+    <h1>Automation marketing</h1>
+    <p class="lede">Le prochain module de LinkSharp : faire travailler votre marketing avec la même rigueur que votre prospection. Il est en cours de construction.</p>
+    <div class="cta"><a class="btn primary" href="mailto:egarnault@gmail.com?subject=LinkSharp%20%E2%80%93%20Automation%20marketing&amp;body=Bonjour%20Eliad%2C%20je%20veux%20%C3%AAtre%20pr%C3%A9venu%20de%20la%20sortie%20du%20module%20Automation%20marketing.">Être prévenu de la sortie</a><span class="hint">ou écrivez à <b class="sel">egarnault@gmail.com</b></span></div>
+  </section>
+  <section class="sec">
+    <div class="intro"><span class="eyebrow">Ce qui se prépare</span><h2>Au programme</h2></div>
+    <div class="roadmap">
+      <article><span class="st">En conception</span><h3>Contenus à partir de vos signaux</h3><p>Des posts LinkedIn inspirés des faits que la prospection détecte chaque jour dans votre marché.</p></article>
+      <article><span class="st">En conception</span><h3>Calendrier éditorial synchronisé</h3><p>Vos publications planifiées dans Google Calendar, avec un rappel de validation avant chaque sortie.</p></article>
+      <article><span class="st">À l'étude</span><h3>Séquences de suivi</h3><p>Des emails de suivi pour les prospects intéressés mais pas encore prêts, toujours validés par vous.</p></article>
+      <article><span class="st">À l'étude</span><h3>Reporting hebdomadaire</h3><p>Ce qui a été envoyé, ce qui a répondu, quel critère limite le volume : un mail chaque lundi.</p></article>
+      <article><span class="st">À l'étude</span><h3>Réseaux sociaux</h3><p>Instagram et LinkedIn programmés au même endroit, avec la même règle : rien ne sort sans votre accord.</p></article>
+    </div>
+  </section>
+</div>
+
+<!--CONTACT-->
+<div class="page" data-page="contact" hidden>
+  <section class="pagehead">
+    <span class="eyebrow">Contact</span>
+    <h1>Parlons de votre prospection</h1>
+    <p class="lede">Une question sur l'outil, une idée, ou envie qu'on installe le système avec vous ? Écrivez ou appelez directement.</p>
+  </section>
+  <section class="service" id="installation">
     <div class="copy"><span class="eyebrow">Installation accompagnée</span><h2>Vous préférez qu'on l'installe pour vous ?</h2><p>LinkSharp installe le système chez vous : choix de la cible, branchement des connecteurs, réglage des skills et des tâches planifiées, premier lot accompagné, puis suivi quand vos volumes ou vos outils changent.</p></div>
     <div class="ways">
       <a class="btn" href="mailto:egarnault@gmail.com?subject=LinkSharp%20%E2%80%93%20installation">Écrire <span>egarnault@gmail.com</span></a>
@@ -532,13 +859,24 @@ footer.site details p{margin-top:8px;max-width:80ch}
       <a class="btn" href="https://www.linkedin.com/in/eliad-garnault" target="_blank" rel="noopener">LinkedIn <span>eliad-garnault</span></a>
     </div>
   </section>
+  <section class="sec">
+    <div class="intro"><span class="eyebrow">Comment ça se passe</span><h2>De l'appel au premier lot</h2></div>
+    <ol class="steps3 four">
+      <li><h3>Appel découverte</h3><p>30 minutes pour comprendre votre offre, votre cible et vos outils.</p></li>
+      <li><h3>Construction</h3><p>Cible, skills et tâches planifiées adaptés à votre secteur.</p></li>
+      <li><h3>Premier lot</h3><p>Trois prospects testés ensemble, du signal jusqu'au mail programmé.</p></li>
+      <li><h3>Suivi</h3><p>Ajustements après une semaine, à partir des prospects écartés par motif.</p></li>
+    </ol>
+  </section>
+</div>
+
 </main>
 
 <footer class="site"><div class="in">
   <div class="cols">
-    <div style="display:grid;gap:12px;align-content:start"><a class="brand" href="#top" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a><p>Outil de prospection B2B conçu et édité par Eliad Garnault. Le site, son code, ses modèles et ses textes sont la propriété de LinkSharp.</p></div>
+    <div style="display:grid;gap:12px;align-content:start"><a class="brand" href="#accueil" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a><p>Outil de prospection B2B conçu et édité par Eliad Garnault. Le site, son code, ses modèles et ses textes sont la propriété de LinkSharp.</p></div>
     <div><h3>Contact</h3><ul><li>Eliad Garnault</li><li><a href="mailto:egarnault@gmail.com">egarnault@gmail.com</a></li><li><a href="tel:+33607763994">+33 6 07 76 39 94</a></li><li><a href="https://www.linkedin.com/in/eliad-garnault" target="_blank" rel="noopener">linkedin.com/in/eliad-garnault</a></li></ul></div>
-    <div><h3>Le site</h3><ul><li><a href="#comment">Comment ça marche</a></li><li><a href="#acces">Créer mon système</a></li><li><a href="#garde-fous">Garde-fous</a></li><li>Vos données et votre clé restent dans votre navigateur</li></ul></div>
+    <div><h3>Le site</h3><ul><li><a href="#benefices">Ce que ça apporte</a></li><li><a href="#technique">La technique</a></li><li><a href="#connexions">Connexions</a></li><li><a href="#automation">Automation marketing (bientôt)</a></li><li><a href="#outil">Créer mon système</a></li><li><a href="#contact">Contact</a></li><li>Vos données et votre clé restent dans votre navigateur</li></ul></div>
   </div>
   <details><summary>Mentions légales</summary><p>Éditeur et directeur de la publication : Eliad Garnault (LinkSharp), France. Contact : egarnault@gmail.com · +33 6 07 76 39 94. Site gratuit : aucune vente, aucun paiement ni abonnement n'y est proposé. Hébergement : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. LinkSharp ne collecte aucune donnée personnelle : les informations saisies et la clé d'API restent dans le navigateur de l'utilisateur, et les appels à l'IA partent directement du navigateur vers Anthropic. Les règles de prospection indiquées dans l'outil sont des repères et ne constituent pas un avis juridique.</p></details>
   <div class="legal"><span>© 2026 LinkSharp · Eliad Garnault. Tous droits réservés.</span><span>Reproduction du site, du code ou des modèles interdite sans autorisation écrite.</span></div>
@@ -551,8 +889,8 @@ const STORE = "kitprosp.v3";
 
 /* ---------- Champs ---------- */
 const TEXT = ["prodDesc","prodMarket","prodNotes","icpDoc","coName","tone","offer","proofs","country","tz","mailbox","lang","sender","postal","cap","cadence","sendMethod","crm","source","sheetName","sheetLink","validator","briefTo","briefTime","aiNotes","slotJ0a","slotJ0b","slotRa","slotRb","prepTime","ctrlTime","owner","phones"];
-const CHECKS = ["warm","secLeads","secMails","secTasks","secAgenda"];
-const DEFAULTS = {tone:"direct",country:"France",tz:"Europe/Paris",lang:"fr",cap:"45",cadence:"0,3,7",sendMethod:"chrome",crm:"HubSpot",source:"Apollo",briefTime:"07:15",slotJ0a:"08:30",slotJ0b:"11:00",slotRa:"14:00",slotRb:"16:00",prepTime:"17:30",ctrlTime:"13:10",warm:false,secLeads:true,secMails:true,secTasks:true,secAgenda:true};
+const CHECKS = ["warm","secLeads","secMails","secTasks","secAgenda","calCall","calRdv"];
+const DEFAULTS = {tone:"direct",country:"France",tz:"Europe/Paris",lang:"fr",cap:"45",cadence:"0,3,7",sendMethod:"chrome",crm:"HubSpot",source:"Apollo",briefTime:"07:15",slotJ0a:"08:30",slotJ0b:"11:00",slotRa:"14:00",slotRb:"16:00",prepTime:"17:30",ctrlTime:"13:10",warm:false,secLeads:true,secMails:true,secTasks:true,secAgenda:true,calCall:true,calRdv:true};
 const LABELS = {icpDoc:"ICP",coName:"Nom de l'entreprise",offer:"Ce que vous vendez",mailbox:"Boîte d'envoi",sender:"Expéditeur",postal:"Adresse postale",sheetName:"Nom du Google Sheet",sheetLink:"Lien du Google Sheet",validator:"Personne qui valide",briefTo:"Adresse du brief",proofs:"Preuves"};
 
 /* ---------- Pays : fuseau, langue, jours fériés, cadre légal ---------- */
@@ -844,7 +1182,7 @@ ${x.noCrm ? "" : `
 - Statuts : uniquement les valeurs existantes ; au premier lancement, faire valider la correspondance par ${x.validator}. Aucune propriété créée.
 - Aucune suppression ni fusion de fiche.
 `}
-## Contrôle de cohérence final
+${calProsp(x)}## Contrôle de cohérence final
 1. Données vérifiées (nom, rôle, email, téléphone, entreprise) ; introuvable = « à trouver », jamais inventé.
 2. Statuts identiques entre l'onglet du jour, « Suivi global »${x.noCrm?"":" et "+x.crm}.
 3. Chaque mail programmé correspond à une ligne de l'onglet.
@@ -897,7 +1235,7 @@ Finir par : « Ce soir : préparation automatique à ${x.prep}, go à donner par
   if(d.secAgenda) secs.push(["Agenda",`Aujourd'hui : meetings (heure, avec qui, objectif) et créneaux libres pour appeler pendant les heures de bureau des prospects (${x.tz}). 7 prochains jours : seulement ce qui demande une préparation.`]);
   return `# Brief du matin – ${x.co}
 
-Objectif : à ${x.brief}, ${x.validator} ouvre un seul mail et sait qui appeler, quoi leur dire, à quels mails répondre et quoi préparer. Le brief lit, vérifie, trie et envoie un seul mail. Il ne fait aucune autre action.
+Objectif : à ${x.brief}, ${x.validator} ouvre un seul mail et sait qui appeler, quoi leur dire, à quels mails répondre et quoi préparer. ${x.d.calCall ? "Le brief lit, vérifie, trie, envoie un seul mail et bloque un créneau d'appels dans l'agenda. Il ne fait aucune autre action." : "Le brief lit, vérifie, trie et envoie un seul mail. Il ne fait aucune autre action."}
 
 ## Mise en place
 - Tâche planifiée du lundi au vendredi à ${x.brief} (heure de ${x.validator}), en approbation automatique.
@@ -917,14 +1255,14 @@ ${secs.map(s => "## "+(++n)+". "+s[0]+"\n"+s[1]).join("\n\n")}
 ## ${++n}. Priorité du jour
 Une phrase, en fin de mail.
 
-## Envoi
+${calBrief(x)}## Envoi
 - De ${x.briefTo} vers ${x.briefTo} uniquement. Objet : « Brief [jour JJ/MM] – [N] leads · [N] mails · [N] meetings ». Court, lisible sur téléphone, en français.
 `;
 }
 function guardBrief(x){
   return `
 ## Garde-fous non négociables (bloc fixe)
-- Un seul mail, de ${x.briefTo} vers ${x.briefTo}. Aucune autre action, aucune écriture dans le sheet${x.noCrm?"":" ni dans "+x.crm}.
+- Un seul mail, de ${x.briefTo} vers ${x.briefTo}.${x.d.calCall?" Seule autre action : le bloc d'appels dans l'agenda de "+x.briefTo+", sans invité.":" Aucune autre action."} Aucune écriture dans le sheet${x.noCrm?"":" ni dans "+x.crm}.
 - Noms, numéros, signaux et ${x.noCrm?"réponses":"ouvertures"} : uniquement depuis les sources. Jamais estimés ni inventés.
 - Source inaccessible : l'écrire en haut du mail et envoyer quand même le reste.
 `;
@@ -1458,6 +1796,121 @@ $("spentReset").onclick = () => { const b = $("spentReset"); if(b.dataset.armed!
 refreshAccess();
 (async () => {
 })();
+
+/* ---------- Google Calendar dans les skills ---------- */
+function calProsp(x){
+  if(!x.d.calRdv) return "";
+  return `## Google Calendar (rendez-vous)
+- Quand un prospect accepte un échange par écrit, créer l'événement dans l'agenda de ${x.briefTo} : titre « RDV – [Entreprise] – [Nom] », date et heure proposées dans sa réponse (fuseau ${x.tz}), description avec le signal, sa source et le lien de la fiche.
+- Avant de proposer un créneau dans une réponse, vérifier qu'il est libre dans l'agenda.
+- Ne jamais envoyer d'invitation au prospect sans le « go » de ${x.validator}. Ne jamais supprimer ni déplacer un événement existant.
+- Statut « RDV » reporté dans le sheet${x.noCrm?"":" et dans "+x.crm} le jour même.
+
+`;
+}
+function calBrief(x){
+  if(!x.d.calCall) return "";
+  return `## Bloc d'appels dans Google Calendar
+- Chaque jour ouvré, s'il y a au moins un lead à appeler : créer dans l'agenda de ${x.briefTo} un événement « Appels LinkSharp » de 30 minutes sur le premier créneau libre pendant les heures de bureau des prospects (${x.tz}).
+- Description : la liste des leads (entreprise, nom, numéro, accroche en une ligne).
+- Aucun invité. Si un bloc « Appels LinkSharp » existe déjà ce jour-là, ne pas en créer un second. Ne jamais modifier ni supprimer un autre événement.
+
+`;
+}
+
+/* ---------- Routine .ics ---------- */
+function icsEvents(d){
+  const add = (t,m) => { const [h,mm] = (t||"00:00").split(":").map(Number); const tot = h*60+mm+m; return String(Math.floor(tot/60)%24).padStart(2,"0")+":"+String(tot%60).padStart(2,"0"); };
+  return [
+    {t:d.prepTime, dur:15, title:"LinkSharp · Préparation du lot (automatique)", desc:"La tâche planifiée prépare le lot du prochain jour ouvré."},
+    {t:add(d.prepTime,120), dur:20, title:"LinkSharp · Relire le lot et donner le go", desc:"Rien n'est programmé sans votre go."},
+    {t:d.briefTime, dur:15, title:"LinkSharp · Lire le brief du matin", desc:"Leads à appeler, mails à traiter, priorité du jour."},
+    {t:d.ctrlTime, dur:10, title:"LinkSharp · Contrôle des relances", desc:"Si une alerte arrive, annuler l'envoi concerné dans Gmail avant le créneau des relances."}
+  ];
+}
+function buildIcs(d){
+  const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone) || "Europe/Paris";
+  const now = new Date(); const day = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);
+  while(day.getDay()===0 || day.getDay()===6) day.setDate(day.getDate()+1);
+  const ymd = day.getFullYear()+String(day.getMonth()+1).padStart(2,"0")+String(day.getDate()).padStart(2,"0");
+  const stamp = new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d+Z$/,"Z");
+  const hm = (t,m) => { const [h,mm] = t.split(":").map(Number); const tot = h*60+mm+m; return String(Math.floor(tot/60)%24).padStart(2,"0")+String(tot%60).padStart(2,"0")+"00"; };
+  const esc = v => String(v).replace(/[\;,]/g, c => "\\"+c);
+  const lines = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//LinkSharp//Routine prospection//FR","CALSCALE:GREGORIAN","X-WR-CALNAME:LinkSharp"];
+  icsEvents(d).forEach((e,i) => {
+    lines.push("BEGIN:VEVENT","UID:linksharp-"+i+"-"+ymd+"@egarnault.github.io","DTSTAMP:"+stamp,
+      "DTSTART;TZID="+tz+":"+ymd+"T"+hm(e.t,0),"DTEND;TZID="+tz+":"+ymd+"T"+hm(e.t,e.dur),
+      "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR","SUMMARY:"+esc(e.title),"DESCRIPTION:"+esc(e.desc+" Généré par LinkSharp."),"END:VEVENT");
+  });
+  lines.push("END:VCALENDAR");
+  return lines.join("\r\n")+"\r\n";
+}
+function renderIcsList(){
+  const d = read(), ul = $("icsList"); if(!ul) return; ul.innerHTML = "";
+  icsEvents(d).forEach(e => { const li = document.createElement("li"); li.textContent = e.t+" · "+e.title.replace("LinkSharp · ",""); ul.appendChild(li); });
+}
+function dlIcs(){
+  try{
+    const url = URL.createObjectURL(new Blob([buildIcs(read())],{type:"text/calendar;charset=utf-8"}));
+    const el = document.createElement("a"); el.href = url; el.download = "linksharp-routine.ics"; document.body.appendChild(el); el.click(); el.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1500); toast("Routine téléchargée : importez-la dans Google Calendar.");
+  }catch(e){ toast("Téléchargement impossible."); }
+}
+$("btnIcs").onclick = dlIcs; $("btnIcs2").onclick = dlIcs;
+document.addEventListener("change", e => { if(e.target.closest("#f")) renderIcsList(); });
+renderIcsList();
+
+/* ---------- Dictée vocale ---------- */
+(function(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR) return;
+  document.querySelectorAll(".micHint").forEach(h => h.hidden = false);
+  const ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="1.5" width="6" height="9" rx="3" fill="currentColor"/><path d="M3 7.5a5 5 0 0 0 10 0M8 12.5v2.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+  let rec = null, activeBtn = null;
+  const stop = () => { if(rec){ try{ rec.stop(); }catch(e){} } };
+  document.querySelectorAll("[data-mic]").forEach(el => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "mic"; b.innerHTML = ICON+"<span>Dicter</span>";
+    b.setAttribute("aria-label","Dicter le champ à la voix");
+    el.insertAdjacentElement("afterend", b);
+    b.onclick = () => {
+      if(activeBtn === b){ stop(); return; }
+      stop();
+      rec = new SR(); rec.lang = "fr-FR"; rec.continuous = true; rec.interimResults = true;
+      const base = el.value; let finalText = "";
+      rec.onresult = ev => {
+        let interim = "";
+        for(let i = ev.resultIndex; i < ev.results.length; i++){
+          const t = ev.results[i][0].transcript;
+          if(ev.results[i].isFinal) finalText += t; else interim += t;
+        }
+        el.value = base + (base && !/\s$/.test(base) ? " " : "") + (finalText + interim).trim();
+        el.dispatchEvent(new Event("input", {bubbles:true}));
+      };
+      rec.onerror = ev => { if(ev.error==="not-allowed" || ev.error==="service-not-allowed") toast("Autorisez le micro dans votre navigateur pour dicter."); };
+      rec.onend = () => { if(activeBtn){ activeBtn.classList.remove("on"); activeBtn.querySelector("span").textContent = "Dicter"; } activeBtn = null; rec = null; };
+      activeBtn = b; b.classList.add("on"); b.querySelector("span").textContent = "J'écoute… cliquer pour arrêter";
+      try{ rec.start(); }catch(e){ activeBtn = null; b.classList.remove("on"); }
+    };
+  });
+})();
+
+/* ---------- Pages ---------- */
+const TITLES = {accueil:"LinkSharp", benefices:"Ce que ça apporte · LinkSharp", technique:"La technique · LinkSharp", connexions:"Connexions · LinkSharp", automation:"Automation marketing · LinkSharp", contact:"Contact · LinkSharp", outil:"Créer mon système · LinkSharp"};
+function route(){
+  const h = decodeURIComponent(location.hash.slice(1)) || "accueil";
+  let page = document.querySelector('.page[data-page="'+h+'"]'), target = null;
+  if(!page){ const el = document.getElementById(h); if(el){ page = el.closest(".page"); target = el; } }
+  if(!page) page = document.querySelector('.page[data-page="accueil"]');
+  const name = page.dataset.page;
+  document.querySelectorAll(".page").forEach(p => p.hidden = p !== page);
+  document.querySelectorAll("[data-nav]").forEach(a => { if(a.dataset.nav === name) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  document.title = TITLES[name] || "LinkSharp";
+  $("navLinks").classList.remove("open"); $("menuBtn").setAttribute("aria-expanded","false");
+  if(target) requestAnimationFrame(() => target.scrollIntoView()); else window.scrollTo(0,0);
+}
+$("menuBtn").onclick = () => { const o = $("navLinks").classList.toggle("open"); $("menuBtn").setAttribute("aria-expanded", String(o)); };
+window.addEventListener("hashchange", route);
+route();
 })();
 </script>
 </body>
