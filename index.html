@@ -353,6 +353,10 @@ table.cmp td{color:var(--muted)}
 .mail .sig{color:var(--muted);font-size:.85rem}
 .mail.brief p{color:var(--muted)}
 .mail.brief b{color:var(--ink)}
+.calwrap{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.calendly-inline-widget{width:100%}
+.service .ways a.primary{background:var(--accent);color:var(--accent-ink)}
+.service .ways a.primary span{color:var(--accent-ink);opacity:.8}
 </style>
 </head>
 <body>
@@ -364,7 +368,7 @@ table.cmp td{color:var(--muted)}
     <a href="#benefices" data-nav="benefices">Ce que ça change</a>
     <a href="#connexions" data-nav="connexions">Vos outils</a>
     <a href="#automation" data-nav="automation">Marketing <span class="tiny">bientôt</span></a>
-    <a href="#contact" data-nav="contact">Contact</a>
+    <a href="#contact" data-nav="contact">Réserver un appel</a>
   </div>
   <a class="btn primary navcta" href="#outil" data-nav="outil">Essayer gratuitement</a>
   <button type="button" class="menu" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
@@ -484,6 +488,12 @@ table.cmp td{color:var(--muted)}
   </section>
 
   <section class="sec">
+    <div class="service">
+      <div class="copy"><span class="eyebrow">Fait pour vous</span><h2>Vous préférez qu'on l'installe pour vous ?</h2><p>Pas le temps, ou pas envie de toucher à la technique ? On le met en place ensemble : vos clients à viser, vos messages, votre agenda. En 20 minutes, on voit si LinkSharp peut vous apporter des rendez-vous.</p></div>
+      <div class="ways"><a class="btn primary" href="https://calendly.com/egarnault/30min" target="_blank" rel="noopener">Réserver un appel de 20 min <span>Calendly</span></a><a class="btn" href="#rdv">Voir mes disponibilités ici</a></div>
+    </div>
+  </section>
+  <section class="sec">
     <div class="ctaband"><div><h2>Votre prochain client commence ce soir.</h2><p class="hint">Dix minutes pour démarrer. Gratuit pendant la bêta.</p></div><div class="cta"><a class="btn primary" href="#outil">Essayer gratuitement</a><a class="btn ghost" href="#exemple">Voir un exemple</a></div></div>
   </section>
 </div>
@@ -538,7 +548,7 @@ table.cmp td{color:var(--muted)}
   <section class="panel access" aria-labelledby="hAcc">
     <div class="acc-l">
       <h3 id="hAcc">Votre accès à l'intelligence artificielle</h3>
-      <p class="hint">Le site est gratuit : l'IA fonctionne avec votre propre clé d'API Anthropic, à créer sur <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> (rubrique « API Keys », avec un petit crédit). La clé reste dans votre navigateur et n'est envoyée qu'à Anthropic. Une génération complète coûte moins d'un centime avec Haiku, environ 0,10 $ avec Sonnet.</p>
+      <p class="hint">Le site est gratuit : l'IA fonctionne avec votre propre clé d'API Anthropic, à créer sur <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> (rubrique « API Keys », avec un petit crédit). La clé reste dans votre navigateur et n'est envoyée qu'à Anthropic. C'est indépendant de l'abonnement Claude : la clé est facturée à l'usage, quelques centimes au plus.</p>
       <div class="inline">
         <label class="f" style="flex:1 1 260px">Clé d'API<input type="password" id="keyInput" autocomplete="off" placeholder="sk-ant-…"></label>
         <button type="button" id="keySave" class="primary" style="align-self:end">Enregistrer</button>
@@ -546,7 +556,7 @@ table.cmp td{color:var(--muted)}
       </div>
       <span class="status" id="keyMsg" role="status"></span>
     </div>
-    <div class="acc-r">
+    <div class="acc-r"><details class="adv"><summary>Options : modèle d'IA et plafond de dépense</summary>
       <div class="row">
         <label class="f">Modèle
           <select id="modelSel"><option value="claude-haiku-5-5">Haiku 5.5 · économique</option><option value="claude-sonnet-5-5">Sonnet 5.5 · plus fin</option></select>
@@ -559,6 +569,8 @@ table.cmp td{color:var(--muted)}
       <div class="meter"><span id="spentBar"></span></div>
       <div class="inline" style="justify-content:space-between"><span class="hint" id="spentLine"></span><button type="button" class="ghost" id="spentReset" style="padding:.3rem .6rem;font-size:.85rem">Remettre le compteur à zéro</button></div>
       <p class="hint" style="font-size:.82rem">Le site s'arrête de lui-même avant de dépasser ce plafond. Pour une garantie totale, réglez aussi une limite de dépense dans la console Anthropic.</p>
+    </details>
+      <p class="hint">Une génération complète coûte moins d'un centime. Par sécurité, le site s'arrête de lui-même à 1 $ (modifiable dans les options).</p>
     </div>
   </section>
     <nav class="flow" aria-label="Étapes">
@@ -950,14 +962,19 @@ table.cmp td{color:var(--muted)}
     <p class="lede">LinkSharp est en bêta : chaque retour compte. Une question, un bug, une idée, ou envie qu'on installe le système avec vous ? Écrivez ou appelez directement.</p>
   </section>
   <section class="service" id="installation">
-    <div class="copy"><span class="eyebrow">Installation accompagnée</span><h2>Vous préférez qu'on l'installe pour vous ?</h2><p>LinkSharp installe le système chez vous : choix de la cible, branchement des connecteurs, réglage des skills et des tâches planifiées, premier lot accompagné, puis suivi quand vos volumes ou vos outils changent.</p></div>
+    <div class="copy"><span class="eyebrow">Fait pour vous</span><h2>Vous préférez qu'on l'installe pour vous ?</h2><p>LinkSharp installe le système chez vous : choix de la cible, branchement des connecteurs, réglage des skills et des tâches planifiées, premier lot accompagné, puis suivi quand vos volumes ou vos outils changent.</p></div>
     <div class="ways">
+      <a class="btn primary" href="https://calendly.com/egarnault/30min" target="_blank" rel="noopener">Réserver un appel de 20 min <span>Calendly</span></a>
       <a class="btn" href="mailto:egarnault@gmail.com?subject=LinkSharp%20%E2%80%93%20installation">Écrire <span>egarnault@gmail.com</span></a>
       <a class="btn" href="tel:+33607763994">Appeler <span>+33 6 07 76 39 94</span></a>
       <a class="btn" href="https://www.linkedin.com/in/eliad-garnault" target="_blank" rel="noopener">LinkedIn <span>eliad-garnault</span></a>
     </div>
   </section>
-  <section class="sec">
+    <section class="sec" id="rdv">
+    <div class="intro"><span class="eyebrow">Réserver</span><h2>Choisissez un créneau de 20 minutes</h2><p class="hint">Un appel en visio, gratuit, sans engagement. Si l'agenda ne s'affiche pas, <a href="https://calendly.com/egarnault/30min" target="_blank" rel="noopener">ouvrez-le ici</a>.</p></div>
+    <div class="calwrap"><div class="calendly-inline-widget" data-url="https://calendly.com/egarnault/30min?hide_gdpr_banner=1&amp;locale=fr" style="min-width:300px;height:720px"></div></div>
+  </section>
+<section class="sec">
     <div class="intro"><span class="eyebrow">Comment ça se passe</span><h2>De l'appel au premier lot</h2></div>
     <ol class="steps3 four">
       <li><h3>Appel découverte</h3><p>30 minutes pour comprendre votre offre, votre cible et vos outils.</p></li>
@@ -1994,6 +2011,8 @@ renderIcsList();
 
 /* ---------- Pages ---------- */
 const TITLES = {accueil:"LinkSharp", exemple:"Exemple · LinkSharp", benefices:"Ce que ça change · LinkSharp", technique:"Pour les curieux · LinkSharp", connexions:"Vos outils · LinkSharp", automation:"Marketing automatique · LinkSharp", contact:"Contact · LinkSharp", outil:"Essayer · LinkSharp"};
+let calLoaded=false;
+function loadCal(){ if(calLoaded) return; calLoaded=true; const sc=document.createElement("script"); sc.src="https://assets.calendly.com/assets/external/widget.js"; sc.async=true; document.body.appendChild(sc); }
 function route(){
   const h = decodeURIComponent(location.hash.slice(1)) || "accueil";
   let page = document.querySelector('.page[data-page="'+h+'"]'), target = null;
@@ -2003,6 +2022,7 @@ function route(){
   document.querySelectorAll(".page").forEach(p => p.hidden = p !== page);
   document.querySelectorAll("[data-nav]").forEach(a => { if(a.dataset.nav === name) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   document.title = TITLES[name] || "LinkSharp";
+  if(name==="contact") loadCal();
   $("navLinks").classList.remove("open"); $("menuBtn").setAttribute("aria-expanded","false");
   if(target) requestAnimationFrame(() => target.scrollIntoView()); else window.scrollTo(0,0);
 }
