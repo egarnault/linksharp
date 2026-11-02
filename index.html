@@ -357,6 +357,46 @@ table.cmp td{color:var(--muted)}
 .calendly-inline-widget{width:100%}
 .service .ways a.primary{background:var(--accent);color:var(--accent-ink)}
 .service .ways a.primary span{color:var(--accent-ink);opacity:.8}
+
+.modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (max-width:560px){.modes{grid-template-columns:minmax(0,1fr)}}
+.mode{display:grid;gap:2px;text-align:left;padding:.75rem .9rem;background:var(--bg);font-weight:400}
+.mode b{font-weight:700}
+.mode span{font-size:.82rem;color:var(--muted)}
+.mode[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 1px var(--accent)}
+.claudehelp{display:grid;gap:10px;justify-items:start}
+.steps-claude{margin:0;padding-left:20px;display:grid;gap:4px;color:var(--muted);font-size:.92rem}
+
+h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
+.lede-big{font-size:clamp(1.1rem,1.6vw,1.3rem);color:var(--ink);max-width:40ch}
+.calc{margin-block:8px 28px}
+.calc-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+@media (max-width:860px){.calc-in{grid-template-columns:minmax(0,1fr)}}
+.calc-q{padding:28px clamp(18px,3vw,32px);display:grid;gap:14px;align-content:start}
+.sliders{display:grid;gap:16px;margin-top:4px}
+.sl{display:grid;gap:6px}
+.sl .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;font-size:.95rem}
+.sl .top b{font-family:var(--f-mono);font-size:.9rem;color:var(--accent);white-space:nowrap}
+.sl input[type=range]{width:100%;accent-color:var(--accent)}
+.rate{max-width:280px}
+.ratein{display:flex;align-items:center;gap:8px}
+.ratein input{max-width:110px}
+.ratein span{color:var(--muted);font-weight:400}
+.calc-r{padding:28px clamp(18px,3vw,32px);background:var(--inv-bg);color:var(--inv-ink);display:grid;gap:12px;align-content:start}
+.calc-r .eyebrow{color:var(--inv-muted)}
+.gain{margin:0;font-family:var(--f-display);font-weight:800;font-size:clamp(4rem,9vw,6.5rem);line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--accent)}
+.gain small{font-size:.35em;color:var(--inv-ink);letter-spacing:0}
+.gainlbl{font-size:1.1rem;font-weight:600}
+.cmpbars{display:grid;gap:10px;margin-top:6px}
+.cmpbars>div{display:grid;grid-template-columns:110px minmax(0,1fr) 56px;gap:10px;align-items:center;font-size:.86rem;color:var(--inv-muted)}
+.cmpbars .track{height:10px;border-radius:99px;background:var(--inv-line);overflow:hidden}
+.cmpbars i{display:block;height:100%;width:0;background:var(--inv-muted);border-radius:99px;transition:width .25s}
+.cmpbars i.after{background:var(--accent)}
+.cmpbars b{color:var(--inv-ink);font-family:var(--f-mono);font-weight:500;text-align:right}
+.gainlist{list-style:none;margin:6px 0 4px;padding:0;display:grid;gap:6px;font-size:1rem}
+.gainlist b{font-family:var(--f-display);font-size:1.3rem;color:var(--inv-ink)}
+.calc-r .btn{justify-self:start}
+.assume{font-size:.76rem;color:var(--inv-muted);line-height:1.45}
 </style>
 </head>
 <body>
@@ -380,10 +420,10 @@ table.cmp td{color:var(--muted)}
 <div class="page" data-page="accueil">
   <section class="hero" id="top">
     <div class="copy">
-      <span class="eyebrow"><span class="beta">Bêta</span> LinkSharp · trouver des clients</span>
-      <h1>Trouvez de nouveaux clients <em>sans y passer vos soirées.</em></h1>
-      <p class="lede">Chaque soir, LinkSharp vous prépare une liste d'entreprises qui ont une vraie raison d'avoir besoin de vous, avec un message prêt à partir. Vous relisez, vous validez. Le matin, vous savez qui appeler.</p>
-      <div class="cta"><a class="btn primary" href="#outil">Essayer gratuitement</a><a class="btn ghost" href="#exemple">Voir un exemple</a></div>
+      <span class="eyebrow"><span class="beta">Bêta</span> LinkSharp · votre assistant commercial</span>
+      <h1 class="big">Moins de temps à prospecter. <em>Plus de rendez-vous.</em></h1>
+      <p class="lede lede-big">LinkSharp trouve les entreprises, écrit les messages et relance pour vous. Vous validez en 5 minutes, vous appelez.</p>
+      <div class="cta"><a class="btn primary" href="#outil">Essayer gratuitement</a><a class="btn ghost" href="#calcul">Calculer mon temps gagné</a></div>
       <div class="facts"><span>Gratuit pendant la bêta</span><span>Vous validez chaque envoi</span><span>Prêt en dix minutes</span></div>
     </div>
     <aside class="day" aria-label="Votre journée avec LinkSharp">
@@ -398,6 +438,36 @@ table.cmp td{color:var(--muted)}
       </ol>
       <p class="foot">Les heures s'adaptent à votre rythme.</p>
     </aside>
+  </section>
+
+
+  <section class="calc" id="calcul" aria-labelledby="hCalc">
+    <div class="calc-in">
+      <div class="calc-q">
+        <span class="eyebrow">Calculateur</span>
+        <h2 id="hCalc">Combien d'heures récupérez-vous chaque semaine ?</h2>
+        <p class="hint">Indiquez le temps que vous passez aujourd'hui, en moyenne par semaine.</p>
+        <div class="sliders" id="sliders"></div>
+        <label class="f rate">Valeur d'une heure de votre temps
+          <span class="ratein"><input type="number" id="rate" min="0" max="1000" step="5" value="50" inputmode="numeric"><span>€ / heure</span></span>
+        </label>
+      </div>
+      <div class="calc-r" aria-live="polite">
+        <span class="eyebrow">Avec LinkSharp</span>
+        <p class="gain"><span id="gH">0</span><small> h</small></p>
+        <p class="gainlbl">récupérées par semaine</p>
+        <div class="cmpbars">
+          <div><span>Aujourd'hui</span><div class="track"><i id="barNow"></i></div><b id="tNow">0 h</b></div>
+          <div><span>Avec LinkSharp</span><div class="track"><i id="barAfter" class="after"></i></div><b id="tAfter">0 h</b></div>
+        </div>
+        <ul class="gainlist">
+          <li><b id="gDays">0</b> journées de travail récupérées par an</li>
+          <li><b id="gEur">0 €</b> de votre temps par mois</li>
+        </ul>
+        <a class="btn primary" href="#outil">Récupérer ce temps</a>
+        <p class="assume">Estimation : LinkSharp prend en charge environ 90 % de la recherche, 85 % de l'écriture et des relances, 90 % du suivi, la moitié du tri des mails et 60 % de la préparation des appels. Il vous reste 5 minutes de validation par jour. Calcul sur 46 semaines et des journées de 7 heures.</p>
+      </div>
+    </div>
   </section>
 
   <div class="betabar" role="note">
@@ -543,20 +613,30 @@ table.cmp td{color:var(--muted)}
   <section class="tool" id="acces">
     <span class="eyebrow">Essayer</span>
     <h2>Créez votre assistant commercial</h2>
-    <p class="lede">Gratuit pendant la bêta. Vous utilisez votre propre accès à l'IA, et vous fixez vous-même ce que vous acceptez de dépenser.</p>
+    <p class="lede">Gratuit pendant la bêta. Votre abonnement Claude suffit : le site prépare tout, vous collez dans Claude, il fait le reste.</p>
     <span class="pill" id="aiPill">Ajoutez votre clé d'API pour activer l'IA</span>
   <section class="panel access" aria-labelledby="hAcc">
     <div class="acc-l">
-      <h3 id="hAcc">Votre accès à l'intelligence artificielle</h3>
-      <p class="hint">Le site est gratuit : l'IA fonctionne avec votre propre clé d'API Anthropic, à créer sur <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> (rubrique « API Keys », avec un petit crédit). La clé reste dans votre navigateur et n'est envoyée qu'à Anthropic. C'est indépendant de l'abonnement Claude : la clé est facturée à l'usage, quelques centimes au plus.</p>
-      <div class="inline">
-        <label class="f" style="flex:1 1 260px">Clé d'API<input type="password" id="keyInput" autocomplete="off" placeholder="sk-ant-…"></label>
-        <button type="button" id="keySave" class="primary" style="align-self:end">Enregistrer</button>
-        <button type="button" id="keyForget" class="ghost" style="align-self:end">Effacer</button>
+      <h3 id="hAcc">Comment voulez-vous utiliser l'IA ?</h3>
+      <div class="modes" role="radiogroup" aria-label="Mode d'utilisation de l'IA">
+        <button type="button" class="mode" data-mode="claude" role="radio" aria-checked="true"><b>Avec mon abonnement Claude</b><span>Recommandé · gratuit, sans clé ni carte</span></button>
+        <button type="button" class="mode" data-mode="api" role="radio" aria-checked="false"><b>Avec une clé d'API</b><span>Tout se fait sur le site · quelques centimes</span></button>
       </div>
-      <span class="status" id="keyMsg" role="status"></span>
+      <div id="claudeHelp" class="claudehelp">
+        <p class="hint">Le site prépare tout. À chaque étape, un bouton copie une demande toute prête : vous la collez dans Claude, et Claude fait le travail dans votre compte. À la fin, il crée lui-même votre assistant.</p>
+        <a class="btn" href="https://claude.ai/new" target="_blank" rel="noopener">Ouvrir Claude dans un nouvel onglet</a>
+      </div>
+      <div id="keyBlock" hidden>
+        <p class="hint">Créez une clé sur <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> (rubrique « API Keys »). Elle reste dans votre navigateur et n'est envoyée qu'à Anthropic. Facturée à part de l'abonnement, quelques centimes au plus.</p>
+        <div class="inline">
+          <label class="f" style="flex:1 1 260px">Clé d'API<input type="password" id="keyInput" autocomplete="off" placeholder="sk-ant-…"></label>
+          <button type="button" id="keySave" class="primary" style="align-self:end">Enregistrer</button>
+          <button type="button" id="keyForget" class="ghost" style="align-self:end">Effacer</button>
+        </div>
+        <span class="status" id="keyMsg" role="status"></span>
+      </div>
     </div>
-    <div class="acc-r"><details class="adv"><summary>Options : modèle d'IA et plafond de dépense</summary>
+    <div class="acc-r" id="accR" hidden><details class="adv"><summary>Options : modèle d'IA et plafond de dépense</summary>
       <div class="row">
         <label class="f">Modèle
           <select id="modelSel"><option value="claude-haiku-5-5">Haiku 5.5 · économique</option><option value="claude-sonnet-5-5">Sonnet 5.5 · plus fin</option></select>
@@ -596,6 +676,7 @@ table.cmp td{color:var(--muted)}
         <button type="button" id="btnIcpStop" hidden>Arrêter</button>
         <span class="status" id="icpStatus" role="status"></span>
       </div>
+      <div id="copyFallback" hidden><p class="hint">La copie automatique est bloquée : sélectionnez le texte ci-dessous, copiez-le, puis collez-le dans Claude.</p><textarea id="copyArea" class="doc" readonly></textarea></div>
       <p class="hint micHint" hidden>Pas envie d'écrire ? Cliquez sur « Dicter » et parlez, le texte s'écrit tout seul.</p>
       <p class="hint">Vous savez déjà quels clients viser ? Passez directement à l'<a href="#reglages">étape 2</a> et décrivez-les.</p>
     </div>
@@ -753,11 +834,12 @@ table.cmp td{color:var(--muted)}
     <div class="panel genbar">
       <div class="l">
         <h3>Adapter à votre métier</h3>
-        <p class="hint">L'IA adapte tout à votre secteur : où trouver vos clients, quoi leur écrire, comment répondre à leurs objections. Vos réglages et les règles de sécurité ne changent pas. Une à deux minutes.</p>
+        <p class="hint" id="genHint">L'IA adapte tout à votre secteur : où trouver vos clients, quoi leur écrire, comment répondre à leurs objections. Vos réglages et les règles de sécurité ne changent pas. Une à deux minutes.</p>
         <div class="prog" id="prog"></div>
       </div>
       <div class="r">
         <button type="button" class="primary" id="btnGen">Adapter à mon métier</button>
+        <button type="button" id="btnPack">Télécharger le pack (.md)</button>
         <button type="button" id="btnGenStop" hidden>Arrêter</button>
       </div>
     </div>
@@ -888,8 +970,8 @@ table.cmp td{color:var(--muted)}
     <div class="intro"><span class="eyebrow">Sécurité et données</span><h2>Vos données ne passent pas par LinkSharp</h2></div>
     <ul class="ticks">
       <li>Le site est une simple page : aucun serveur, aucun compte, aucune base de données.</li>
-      <li>Votre clé d'API reste dans votre navigateur. Les appels partent directement vers Anthropic.</li>
-      <li>Vous choisissez votre plafond de dépense ; le site s'arrête avant de le dépasser.</li>
+      <li>Par défaut, tout se passe dans votre propre compte Claude : le site ne voit rien.</li>
+      <li>Option clé d'API : la clé reste dans votre navigateur, les appels partent directement vers Anthropic, avec un plafond de dépense.</li>
       <li>Le système installé agit avec vos propres connecteurs, dans vos propres outils.</li>
       <li>La dictée vocale utilise la reconnaissance vocale de votre navigateur.</li>
     </ul>
@@ -898,8 +980,8 @@ table.cmp td{color:var(--muted)}
   <section class="sec">
     <div class="intro"><span class="eyebrow">Questions fréquentes</span><h2>FAQ technique</h2></div>
     <div class="faq">
-      <details><summary>Faut-il un abonnement Claude ?</summary><p>Pour faire tourner le système installé, oui : il utilise Claude, ses connecteurs et les tâches planifiées. Pour utiliser ce site et générer votre kit, une clé d'API Anthropic suffit.</p></details>
-      <details><summary>Combien coûte une génération ?</summary><p>Avec Haiku, moins d'un centime pour les trois ICP et les deux skills. Avec Sonnet, environ 0,10 $. Le compteur en haut de l'outil affiche la dépense réelle.</p></details>
+      <details><summary>Faut-il un abonnement Claude ?</summary><p>Oui, un abonnement Claude (Pro suffit) : c'est lui qui fait tourner votre assistant chaque jour. Le site prépare tout et vous collez dans Claude, sans clé ni carte bancaire. Une clé d'API est optionnelle, pour tout faire directement sur le site.</p></details>
+      <details><summary>Combien ça coûte ?</summary><p>Avec votre abonnement Claude : rien de plus. Avec une clé d'API (option) : moins d'un centime par génération avec Haiku, environ 0,10 $ avec Sonnet, avec un plafond de sécurité.</p></details>
       <details><summary>Pourquoi ne pas envoyer les mails directement ?</summary><p>Parce que la validation humaine est le garde-fou principal. Le système prépare tout ; vous gardez la décision.</p></details>
       <details><summary>Et si je n'ai pas de CRM ?</summary><p>Choisissez « Aucun » : le Google Sheet de suivi devient le CRM, et les réponses sont lues dans Gmail.</p></details>
       <details><summary>Ça marche pour l'étranger ?</summary><p>Oui. Le pays choisi règle la langue des mails, le fuseau, les jours fériés connus et les mentions légales à prévoir (États-Unis, Canada, Allemagne…).</p></details>
@@ -1047,7 +1129,7 @@ const needsPostal = d => ["us","ca"].includes(ctry(d).legal);
 /* ---------- État ---------- */
 let sample = null, downloads = null, icps = [], chosenIcp = -1;
 let ai = {prosp:null, brief:null};   // {text, sig, status}
-let tab = "prosp", version = "ai", genCtl = null, icpCtl = null;
+let tab = "claude", version = "ai", genCtl = null, icpCtl = null;
 
 function fillCountry(){
   const s = $("country"); s.innerHTML = "";
@@ -1480,6 +1562,7 @@ const tplBrief = d => { const x = ctx(d); return frontBrief(x)+"\n"+bodyBrief(x)
 
 const SIGN = "\n---\nGénéré avec LinkSharp · Eliad Garnault · egarnault@gmail.com\n";
 const TABS = [
+  {id:"claude",l:"Tout-en-un pour Claude",gen:installPrompt,file:d=>"installation-claude-"+slug(d.coName)+".md"},
   {id:"prosp",l:"Prospection",ai:true,gen:tplProsp,file:d=>"prospection-du-jour-"+slug(d.coName)+"-SKILL.md"},
   {id:"brief",l:"Brief du matin",ai:true,gen:tplBrief,file:d=>"brief-du-matin-"+slug(d.coName)+"-SKILL.md"},
   {id:"tasks",l:"Automatismes",gen:d=>genTasks(d)+SIGN,file:d=>"taches-planifiees-"+slug(d.coName)+".md"},
@@ -1503,16 +1586,73 @@ const spentOf = () => parseFloat(getK("spent")) || 0;
 const modelOf = () => PRICES[getK("model")] ? getK("model") : "claude-haiku-5-5";
 const usd = n => n < 0.01 ? n.toFixed(4).replace(".",",")+" $" : n.toFixed(2).replace(".",",")+" $";
 
+const modeOf = () => getK("mode") === "api" ? "api" : "claude";
 function refreshAccess(){
-  aiReady = !!getK("key");
+  const mode = modeOf();
+  aiReady = mode === "claude" || !!getK("key");
   const cap = capOf(), sp = spentOf();
   $("spentLine").textContent = "Dépensé : "+usd(sp)+" sur "+usd(cap);
   $("spentBar").style.width = Math.min(100, sp/cap*100)+"%";
   $("spentBar").classList.toggle("full", sp >= cap*0.9);
+  document.querySelectorAll(".mode").forEach(b => b.setAttribute("aria-checked", String(b.dataset.mode === mode)));
+  $("claudeHelp").hidden = mode !== "claude"; $("keyBlock").hidden = mode !== "api"; $("accR").hidden = mode !== "api";
   const pill = $("aiPill");
-  if(aiReady){ pill.textContent = "IA prête · "+PRICES[modelOf()].label; pill.className = "pill on"; $("keyMsg").textContent = "Clé enregistrée dans ce navigateur."; }
+  if(mode === "claude"){ pill.textContent = "Mode abonnement Claude · copier-coller, sans clé"; pill.className = "pill on"; }
+  else if(getK("key")){ pill.textContent = "IA prête · "+PRICES[modelOf()].label; pill.className = "pill on"; $("keyMsg").textContent = "Clé enregistrée dans ce navigateur."; }
   else { pill.textContent = "Ajoutez votre clé d'API pour activer l'IA"; pill.className = "pill off"; }
+  $("btnIcp").textContent = mode === "claude" ? "Copier la demande pour Claude" : "Trouver mes 3 types de clients";
+  $("btnGen").textContent = mode === "claude" ? "Copier l'installation pour Claude" : "Adapter à mon métier";
+  $("genHint").textContent = mode === "claude"
+    ? "Copiez la demande ou téléchargez le pack, puis donnez-le à Claude : il vérifie tout, vous pose ses questions s'il manque une information, adapte l'assistant à votre métier, le crée avec ses rappels automatiques, puis fait un premier test sans rien envoyer."
+    : "L'IA adapte tout à votre secteur : où trouver vos clients, quoi leur écrire, comment répondre à leurs objections. Vos réglages et les règles de sécurité ne changent pas. Une à deux minutes.";
+  $("btnPack").hidden = mode !== "claude";
   $("btnIcp").disabled = !aiReady; $("btnGen").disabled = !aiReady;
+}
+document.querySelectorAll(".mode").forEach(b => b.onclick = () => { setK("mode", b.dataset.mode); refreshAccess(); });
+
+async function copyText(t){
+  try{ await navigator.clipboard.writeText(t); $("copyFallback").hidden = true; return true; }
+  catch(e){ $("copyArea").value = t; $("copyFallback").hidden = false; $("copyArea").focus(); $("copyArea").select(); return false; }
+}
+function plainIcpPrompt(d){
+  return icpPrompt(d).replace(/Réponds uniquement avec ce JSON[\s\S]*$/, "Présente les 3 profils en Markdown, chacun commençant par un titre « # ICP – nom du segment », avec ces rubriques : Résumé, Secteur, Zone, Taille, Décideurs, Signaux d'achat (avec où les vérifier et leur durée de validité), Exclusions, Problème principal, Angle du premier message, Pourquoi ce segment. Termine en me demandant lequel je choisis. Quand j'aurai choisi, je copierai ce profil dans LinkSharp.");
+}
+function installPrompt(d){
+  const x = ctx(d);
+  const payload = {co:x.co, offer:d.offer, proofs:d.proofs, tone:d.tone, lang:x.L.n, country:x.country, tz:x.tz, source:x.noSource?"recherche web":x.source+" et recherche web", icpDoc:d.icpDoc, aiNotes:d.aiNotes, refProsp:tplProsp(d), refBrief:tplBrief(d)};
+  let p = skillsPrompt(payload);
+  p = p.replace("Tu es expert en prospection B2B et en rédaction de skills pour Claude (fichiers SKILL.md qu'un agent suit à la lettre, chaque jour, sans supervision).",
+    "Tu vas installer dans mon compte Claude mon assistant de prospection, préparé avec LinkSharp. Tu es expert en prospection B2B et en rédaction de skills (fichiers SKILL.md qu'un agent suit à la lettre, chaque jour, sans supervision).");
+  p = p.replace("- Ne réécris pas les blocs « Garde-fous » : ils sont ajoutés automatiquement.", "- Garde les blocs « Garde-fous non négociables » mot pour mot, à la fin de chaque skill.");
+  p = p.replace(/FORMAT \(strict\)[\s\S]*?(?=SKILL PROSPECTION DE RÉFÉRENCE)/, `CE QUE TU DOIS FAIRE, DANS L'ORDRE
+0. Lis tout le pack. Vérifie la cohérence entre les deux skills, les tâches planifiées et la checklist (noms des skills, horaires, fuseau, plafond, séquence, adresses, nom du sheet). Si tu trouves une incohérence, corrige-la et signale-la-moi en une ligne. S'il reste des « [À COMPLÉTER] », pose-moi d'abord ces questions, toutes en une fois, et attends mes réponses. N'invente jamais une information manquante.
+1. Adapte les deux skills ci-dessous à mon cas, selon les consignes. Garde les noms des skills (« ${x.prospName} » et « ${x.briefName} ») et leur en-tête.
+2. Montre-moi en quelques lignes ce que tu as adapté, puis crée les deux skills dans mon compte.
+3. Crée les trois tâches planifiées décrites plus bas, avec leurs horaires.
+4. Vérifie que Gmail, Google Agenda et Google Drive / Sheets sont connectés${x.noCrm?"":", ainsi que "+x.crm}${x.noSource?"":" et "+x.source}. Dis-moi simplement ce qui manque et comment le connecter.
+5. Lance un premier test : prépare un lot de 3 prospects au maximum, sans rien envoyer ni programmer, et montre-le-moi.
+Si tu ne peux pas faire une étape toi-même, donne-moi le fichier ou le texte exact à utiliser et dis-moi où cliquer.
+
+`);
+  const today = new Date().toLocaleDateString("fr-FR");
+  const head = `# Pack d'installation LinkSharp – ${x.co}
+
+Généré le ${today} avec LinkSharp (bêta). Pour l'utiliser : glissez ce fichier dans une nouvelle conversation Claude et écrivez « Installe ce pack ».
+
+Contenu du pack :
+1. Consignes d'installation pour Claude
+2. Votre cas : offre, clients visés, réglages
+3. Skill « ${x.prospName} » : la prospection quotidienne
+4. Skill « ${x.briefName} » : le brief du matin
+5. Les trois tâches planifiées
+6. La checklist de vérification
+
+Réglages clés : ${x.cap} mails par jour au maximum depuis ${x.mailbox} · séquence ${x.labs} en jours ouvrés · prospects en ${x.country} (${x.tz}) · validation par ${x.validator} avant tout envoi.
+
+---
+
+`;
+  return head + p + "\n\nTÂCHES PLANIFIÉES À CRÉER\n<<<\n" + genTasks(d) + "\n>>>\n\nCHECKLIST D'INSTALLATION (pour vérifier à la fin)\n<<<\n" + genChecklist(d) + "\n>>>\n";
 }
 
 async function callAI(prompt, maxTokens, onText, signal){
@@ -1720,6 +1860,11 @@ function renderIcps(){
 async function runIcp(){
   const d = read();
   if(!d.prodDesc.trim()){ setStatus("icpStatus","Décrivez d'abord votre produit ou service.",true); $("prodDesc").focus(); return; }
+  if(modeOf()==="claude"){
+    const ok = await copyText(plainIcpPrompt(d));
+    setStatus("icpStatus", (ok?"Demande copiée. ":"")+"Collez-la dans Claude (claude.ai), choisissez un des 3 profils proposés, puis collez-le dans « Vos clients idéaux » à l'étape 2.");
+    return;
+  }
   if(!aiReady){ setStatus("icpStatus","Ajoutez d'abord votre clé d'API en haut de page.",true); return; }
   icpCtl = new AbortController();
   $("btnIcp").disabled = true; $("btnIcpStop").hidden = false;
@@ -1752,6 +1897,14 @@ function splitSkills(t){
 }
 async function runGen(){
   const d = read();
+  if(modeOf()==="claude"){
+    const miss = missingReq(d);
+    if(miss.length){ toast("À compléter d'abord : "+miss.map(k=>LABELS[k]).join(", ")+"."); $("reglages").scrollIntoView(); return; }
+    tab = "claude"; renderTabs(); renderOut();
+    const ok = await copyText(installPrompt(d));
+    toast(ok ? "Installation copiée. Collez-la dans Claude : il s'occupe du reste." : "Copie bloquée : utilisez le bouton « Copier » au-dessus du texte.");
+    return;
+  }
   if(!aiReady){ toast("Ajoutez d'abord votre clé d'API en haut de page."); return; }
   const miss = missingReq(d);
   if(miss.length){ toast("À compléter d'abord : "+miss.map(k=>LABELS[k]).join(", ")+"."); $("reglages").scrollIntoView(); return; }
@@ -1872,6 +2025,7 @@ $("verSeg").addEventListener("click", e => { const b = e.target.closest("button"
 $("btnIcp").onclick = runIcp;
 $("btnIcpStop").onclick = () => icpCtl && icpCtl.abort();
 $("btnGen").onclick = runGen;
+$("btnPack").onclick = () => { const d = read(); const miss = missingReq(d); if(miss.length){ toast("À compléter d'abord : "+miss.map(k=>LABELS[k]).join(", ")+"."); $("reglages").scrollIntoView(); return; } saveFile("pack-installation-linksharp-"+slug(d.coName)+".md", installPrompt(d)+SIGN); toast("Pack téléchargé : glissez-le dans Claude et écrivez « Installe ce pack »."); };
 $("btnGenStop").onclick = () => genCtl && genCtl.abort();
 $("btnReset").onclick = () => {
   const b = $("btnReset");
@@ -2029,6 +2183,47 @@ function route(){
 $("menuBtn").onclick = () => { const o = $("navLinks").classList.toggle("open"); $("menuBtn").setAttribute("aria-expanded", String(o)); };
 window.addEventListener("hashchange", route);
 route();
+
+/* ---------- Calculateur de temps gagné ---------- */
+(function(){
+  const TASKS = [
+    {k:"search", l:"Chercher des entreprises et les bons contacts", v:3, cut:.9},
+    {k:"write", l:"Écrire les messages et relancer", v:3, cut:.85},
+    {k:"mail", l:"Trier vos mails et suivre les réponses", v:2, cut:.5},
+    {k:"prep", l:"Préparer vos appels et vos rendez-vous", v:1.5, cut:.6},
+    {k:"crm", l:"Mettre à jour votre fichier clients", v:1, cut:.9}
+  ];
+  const box = $("sliders"); if(!box) return;
+  const saved = (()=>{ try{ return JSON.parse(localStorage.getItem("kp.calc")||"{}"); }catch(e){ return {}; } })();
+  const fmt = h => (Math.round(h*10)/10).toString().replace(".",",");
+  TASKS.forEach(t => {
+    const val = saved[t.k] != null ? saved[t.k] : t.v;
+    const w = document.createElement("label"); w.className = "sl";
+    w.innerHTML = '<span class="top"><span></span><b></b></span><input type="range" min="0" max="15" step="0.5">';
+    w.querySelector(".top span").textContent = t.l;
+    const inp = w.querySelector("input"); inp.id = "calc-"+t.k; inp.value = val; inp.setAttribute("aria-label", t.l+", heures par semaine");
+    box.appendChild(w);
+    inp.addEventListener("input", update);
+  });
+  if(saved.rate != null) $("rate").value = saved.rate;
+  $("rate").addEventListener("input", update);
+  function update(){
+    let now = 0, after = 25/60;
+    const st = {};
+    TASKS.forEach(t => { const h = parseFloat($("calc-"+t.k).value)||0; st[t.k] = h; now += h; after += h*(1-t.cut);
+      $("calc-"+t.k).closest(".sl").querySelector("b").textContent = fmt(h)+" h / sem."; });
+    after = Math.min(after, now);
+    const gain = Math.max(0, now - after), rate = Math.max(0, parseFloat($("rate").value)||0);
+    st.rate = rate; try{ localStorage.setItem("kp.calc", JSON.stringify(st)); }catch(e){}
+    $("gH").textContent = fmt(gain);
+    $("tNow").textContent = fmt(now)+" h"; $("tAfter").textContent = fmt(after)+" h";
+    const max = Math.max(now, 1);
+    $("barNow").style.width = (now/max*100)+"%"; $("barAfter").style.width = (after/max*100)+"%";
+    $("gDays").textContent = Math.round(gain*46/7);
+    $("gEur").textContent = Math.round(gain*rate*46/12).toLocaleString("fr-FR")+" €";
+  }
+  update();
+})();
 })();
 </script>
 </body>
