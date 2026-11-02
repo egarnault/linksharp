@@ -326,6 +326,33 @@ table.cmp td{color:var(--muted)}
 .mic.on{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
 .mic.on svg{animation:pulse 1s infinite}
 @keyframes pulse{50%{opacity:.35}}
+
+/* StoryBrand : bêta, problème, guide, plan, enjeux, exemple */
+.beta{display:inline-block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.06em;padding:.12rem .5rem;border-radius:99px;background:var(--signal);color:#1B1300;margin-right:8px;vertical-align:1px}
+.betabar{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;padding:14px 18px;border:1px dashed var(--signal);border-radius:10px;background:var(--surface);margin-bottom:8px;font-size:.93rem}
+.betabar span{color:var(--muted)}
+.pb3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:820px){.pb3{grid-template-columns:minmax(0,1fr)}}
+.pb3 article{padding:20px;border-top:3px solid var(--ink);background:var(--surface);border-radius:0 0 10px 10px;display:grid;gap:8px;align-content:start}
+.pb3 .k{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.pb3 p{font-size:1rem}
+.guide{display:grid;gap:16px;padding:22px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.guide p{font-size:1.02rem}
+.needs{display:grid;gap:10px;padding:20px 22px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;background:var(--surface)}
+.needs ul{margin:0;padding-left:18px;display:grid;gap:6px;color:var(--muted)}
+.needs b{color:var(--ink)}
+.stakes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:620px){.stakes{grid-template-columns:minmax(0,1fr)}}
+.stakes>div{padding:20px;border-radius:10px;display:grid;gap:10px;align-content:start}
+.stakes ul{margin:0;padding-left:18px;display:grid;gap:6px}
+.stakes .lose{background:var(--sunk);color:var(--muted)}
+.stakes .lose h3{color:var(--ink)}
+.stakes .win{background:var(--accent-soft);border:1px solid var(--accent)}
+.mail{padding:20px 22px;border:1px solid var(--line);border-radius:10px;background:var(--surface);display:grid;gap:10px;font-size:.95rem}
+.mail .mh{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px;font-family:var(--f-mono);font-size:.76rem;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.mail .sig{color:var(--muted);font-size:.85rem}
+.mail.brief p{color:var(--muted)}
+.mail.brief b{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -333,7 +360,7 @@ table.cmp td{color:var(--muted)}
 <nav class="nav" aria-label="Navigation principale"><div class="in">
   <a class="brand" href="#accueil" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a>
   <div class="links" id="navLinks">
-    <a href="#accueil" data-nav="accueil">Accueil</a>
+    <a href="#exemple" data-nav="exemple">Exemple</a>
     <a href="#benefices" data-nav="benefices">Ce que ça apporte</a>
     <a href="#technique" data-nav="technique">La technique</a>
     <a href="#connexions" data-nav="connexions">Connexions</a>
@@ -349,33 +376,77 @@ table.cmp td{color:var(--muted)}
 <main class="wrap">
 <div class="page" data-page="accueil">
   <section class="hero" id="top">
-  <div class="copy">
-    <span class="eyebrow">LinkSharp · Outil de prospection B2B</span>
-    <h1>Votre prospection tourne seule. <em>Vous gardez la main.</em></h1>
-    <p class="lede">LinkSharp construit votre système de prospection complet dans Claude : cibles qualifiées, mails vérifiés et personnalisés, relances, brief du matin. Rien ne part sans votre « go ».</p>
-    <div class="cta"><a class="btn primary" href="#outil">Créer mon système gratuitement</a><a class="btn ghost" href="#comment">Voir comment ça marche</a></div>
-    <div class="facts"><span>Gratuit, avec votre propre clé d'IA</span><span>Plafond de dépense choisi par vous</span><span>Garde-fous intégrés</span></div>
+    <div class="copy">
+      <span class="eyebrow"><span class="beta">Bêta</span> LinkSharp · prospection B2B dans Claude</span>
+      <h1>Des rendez&#8209;vous B2B chaque semaine, <em>sans y passer vos soirées.</em></h1>
+      <p class="lede">LinkSharp prépare chaque jour vos prospects et vos mails dans Claude. Vous relisez, vous dites « go », vous appelez.</p>
+      <div class="cta"><a class="btn primary" href="#outil">Créer mon système gratuitement</a><a class="btn ghost" href="#exemple">Voir un exemple de kit</a></div>
+      <div class="facts"><span>Gratuit pendant la bêta</span><span>Rien ne part sans votre accord</span><span>Prêt en dix minutes</span></div>
+    </div>
+    <aside class="day" aria-label="Votre journée avec LinkSharp">
+      <div class="top"><span class="eyebrow">Votre journée avec LinkSharp</span><span class="eyebrow">Jours ouvrés</span></div>
+      <ol>
+        <li><time>17:30</time><div><strong>Le lot du lendemain est prêt</strong><small>Prospects trouvés, signaux vérifiés, mails rédigés</small></div></li>
+        <li class="you"><time>Soir</time><div><strong>Vous dites « go »</strong><small>Cinq minutes de relecture. Sans vous, rien ne part.</small></div></li>
+        <li><time>07:15</time><div><strong>Vous savez qui appeler</strong><small>Leads chauds, numéro, accroche, objection probable</small></div></li>
+        <li><time>08:30</time><div><strong>Les mails partent</strong><small>Personnalisés, espacés, dans votre boîte</small></div></li>
+        <li><time>13:10</time><div><strong>Un prospect a répondu ?</strong><small>Vous êtes prévenu avant sa relance</small></div></li>
+        <li><time>14:00</time><div><strong>Les relances partent</strong><small>Jamais après une réponse</small></div></li>
+      </ol>
+      <p class="foot">Horaires réglables. Tout tourne dans Claude, avec vos propres outils.</p>
+    </aside>
+  </section>
+
+  <div class="betabar" role="note">
+    <strong>LinkSharp est un prototype en bêta.</strong>
+    <span>L'outil est gratuit pendant la phase de test et son modèle économique est encore en réflexion. Vos retours décident de la suite : <a href="#contact">dites-moi ce qui manque</a>.</span>
   </div>
-  <aside class="day" aria-label="Une journée type avec LinkSharp">
-    <div class="top"><span class="eyebrow">Une journée type</span><span class="eyebrow">Jours ouvrés</span></div>
-    <ol>
-      <li><time>17:30</time><div><strong>Préparation du lot</strong><small>Prospects trouvés, signaux vérifiés, mails rédigés</small></div></li>
-      <li class="you"><time>Soir</time><div><strong>Votre « go »</strong><small>Vous relisez, corrigez, validez. Sinon rien ne part.</small></div></li>
-      <li><time>07:15</time><div><strong>Brief du matin</strong><small>Qui appeler, quoi leur dire, quoi traiter</small></div></li>
-      <li><time>08:30</time><div><strong>Premiers mails</strong><small>Programmés, au moins 2 minutes d'écart</small></div></li>
-      <li><time>13:10</time><div><strong>Contrôle des relances</strong><small>Un prospect a répondu ? Vous êtes prévenu.</small></div></li>
-      <li><time>14:00</time><div><strong>Relances</strong><small>Dans le fil du premier mail, jamais après une réponse</small></div></li>
-    </ol>
-    <p class="foot">Horaires réglables. Tout tourne dans Claude, avec vos propres outils.</p>
-  </aside>
-</section>
+
+  <section class="sec" id="probleme">
+    <div class="intro"><span class="eyebrow">Le problème</span><h2>Vous savez qu'il faut prospecter. Le temps, lui, n'est jamais là.</h2></div>
+    <div class="pb3">
+      <article><span class="k">Ce qui bloque</span><p>Trouver les bonnes entreprises, vérifier qui décide, écrire un mail qui ne sonne pas faux, relancer au bon moment : c'est des heures chaque semaine.</p></article>
+      <article><span class="k">Ce que ça fait</span><p>Alors on repousse à lundi. Puis au lundi suivant. Et on culpabilise de ne pas le faire, ou de le faire mal.</p></article>
+      <article><span class="k">Ce qui est injuste</span><p>Une bonne offre mérite d'être connue sans que la personne qui la porte y laisse ses soirées.</p></article>
+    </div>
+  </section>
+
+  <section class="sec two" id="guide">
+    <div class="intro"><span class="eyebrow">Qui est derrière</span><h2>J'ai fait cette prospection à la main. Je sais ce qu'elle coûte.</h2></div>
+    <div class="guide">
+      <p>Je m'appelle Eliad Garnault. J'ai passé des centaines d'heures à prospecter en B2B, en France et à l'international : listes, vérifications, mails, relances, CRM. LinkSharp est le système que j'utilise moi-même, transformé en outil que chacun peut adapter à son marché.</p>
+      <ul class="ticks">
+        <li>Une méthode qui vérifie chaque prospect avant de lui écrire</li>
+        <li>Des garde-fous écrits dans chaque système, pour protéger votre réputation</li>
+        <li>Vos outils, vos données, votre décision à chaque envoi</li>
+      </ul>
+    </div>
+  </section>
+
   <section class="sec" id="comment">
-    <div class="intro"><span class="eyebrow">Comment ça marche</span><h2>Trois étapes, dix minutes</h2></div>
+    <div class="intro"><span class="eyebrow">Le plan</span><h2>Trois étapes, et votre prospection tourne</h2></div>
     <ol class="steps3">
-      <li><h3>Décrivez votre offre</h3><p>L'IA propose trois profils de clients idéaux, avec les décideurs à viser et les signaux d'achat vérifiables.</p></li>
-      <li><h3>Réglez l'envoi</h3><p>Pays, langue, plafond de mails par jour, séquence de relances, outils. Fuseau, jours fériés et mentions légales se règlent seuls.</p></li>
-      <li><h3>Installez dans Claude</h3><p>Vous récupérez les skills et les tâches planifiées, réécrits pour votre secteur, avec la checklist d'installation.</p></li>
+      <li><h3>Décrivez votre offre</h3><p>À l'écrit ou à la voix. L'IA vous propose trois cibles précises, avec les signaux qui montrent qu'une entreprise a besoin de vous.</p></li>
+      <li><h3>Choisissez et réglez</h3><p>Votre cible, votre pays, votre volume de mails. La langue, le fuseau, les jours fériés et les mentions légales suivent.</p></li>
+      <li><h3>Installez, puis dites « go »</h3><p>Vous copiez le kit dans Claude. Chaque soir, cinq minutes de relecture. Chaque matin, vous appelez.</p></li>
     </ol>
+    <div class="needs">
+      <span class="eyebrow">Ce qu'il vous faut</span>
+      <ul>
+        <li><b>Un compte Claude payant</b> pour faire tourner le système chaque jour</li>
+        <li><b>Une clé d'API Anthropic</b> pour générer votre kit ici (moins d'un centime avec Haiku)</li>
+        <li><b>Gmail et Google Agenda</b>, et si possible un CRM comme HubSpot</li>
+      </ul>
+      <p class="hint">Pas à l'aise avec ces outils ? <a href="#contact">Je peux l'installer avec vous.</a></p>
+    </div>
+  </section>
+
+  <section class="sec two" id="enjeux">
+    <div class="intro"><span class="eyebrow">Ce qui se joue</span><h2>Sans système, ou avec</h2></div>
+    <div class="stakes">
+      <div class="lose"><h3>Si rien ne change</h3><ul><li>Des listes qui vieillissent et des relances oubliées</li><li>Des mails génériques qui finissent en spam et abîment votre nom</li><li>Des semaines entières sans nouveau rendez-vous</li></ul></div>
+      <div class="win"><h3>Avec LinkSharp</h3><ul><li>Chaque matin, vous savez qui appeler et quoi dire</li><li>Chaque mail repose sur un fait vérifié</li><li>Votre agenda se remplit d'échanges utiles, et vos soirées restent à vous</li></ul></div>
+    </div>
   </section>
 
   <section class="sec" id="livrables">
@@ -384,17 +455,17 @@ table.cmp td{color:var(--muted)}
       <div><span class="k">SKILL.md</span><h3>Skill prospection</h3><p>Recherche, vérification, rédaction, relances, suivi CRM et contrôle de cohérence.</p></div>
       <div><span class="k">SKILL.md</span><h3>Skill brief du matin</h3><p>Un mail chaque matin : leads à appeler, pitch, objections, mails à traiter.</p></div>
       <div><span class="k">3 prompts</span><h3>Tâches planifiées</h3><p>Préparation la veille, brief à l'aube, contrôle des relances avant l'envoi.</p></div>
-      <div><span class="k">Checklist</span><h3>Installation</h3><p>Connecteurs, réglages, premier test sur trois prospects.</p></div>
-      <div><span class="k">Calcul</span><h3>Capacité</h3><p>Nouveaux prospects par jour, montée en charge, calendrier réel.</p></div>
+      <div><span class="k">Agenda</span><h3>Google Calendar</h3><p>Bloc d'appels chaque matin, rendez-vous ajoutés, routine en .ics.</p></div>
+      <div><span class="k">Checklist</span><h3>Installation et capacité</h3><p>Connecteurs, premier test sur trois prospects, volume réaliste par jour.</p></div>
     </div>
   </section>
 
-    <section class="sec">
+  <section class="sec">
     <div class="intro"><span class="eyebrow">Explorer</span><h2>Tout comprendre avant de vous lancer</h2></div>
     <div class="teasers">
+      <a href="#exemple"><span class="k">Exemple</span><h3>Un kit complet pour une entreprise fictive, du ciblage au premier mail</h3><span class="go">Voir l'exemple →</span></a>
       <a href="#benefices"><span class="k">Ce que ça apporte</span><h3>Du temps, des mails plus justes, une prospection qui ne s'arrête plus</h3><span class="go">Voir les gains →</span></a>
       <a href="#technique"><span class="k">La technique</span><h3>Architecture, cycle quotidien, règles de calcul, sécurité</h3><span class="go">Voir la technique →</span></a>
-      <a href="#connexions"><span class="k">Connexions</span><h3>Gmail, Google Calendar, Sheets, CRM : tout se synchronise</h3><span class="go">Voir les connexions →</span></a>
       <a href="#automation" class="soonc"><span class="k">Bientôt</span><h3>Automation marketing, le prochain module en préparation</h3><span class="go">Être prévenu →</span></a>
     </div>
   </section>
@@ -413,10 +484,52 @@ table.cmp td{color:var(--muted)}
     </div>
   </section>
 
-    <section class="sec">
-    <div class="ctaband"><div><h2>Prêt à voir votre système ?</h2><p class="hint">Dix minutes, gratuit, avec votre propre clé.</p></div><a class="btn primary" href="#outil">Créer mon système</a></div>
+  <section class="sec">
+    <div class="ctaband"><div><h2>Votre prochain rendez-vous commence ce soir.</h2><p class="hint">Dix minutes pour créer votre système. Gratuit pendant la bêta.</p></div><div class="cta"><a class="btn primary" href="#outil">Créer mon système</a><a class="btn ghost" href="#exemple">Voir un exemple</a></div></div>
   </section>
+</div>
 
+<div class="page" data-page="exemple" hidden>
+  <section class="pagehead">
+    <span class="eyebrow">Exemple · entreprise fictive</span>
+    <h1>À quoi ressemble un kit LinkSharp</h1>
+    <p class="lede">Un cas inventé pour l'illustration : « Cap Export Vins », qui aide des domaines viticoles français à vendre aux importateurs américains. Extraits du kit généré, raccourcis.</p>
+  </section>
+  <section class="sec two">
+    <div class="intro"><span class="eyebrow">1 · La cible choisie</span><h2>Importateurs de vins indépendants, côte Est des États-Unis</h2></div>
+    <div class="formula">
+      <ul class="ticks">
+        <li><b>Zone :</b> New York, New Jersey, Massachusetts</li>
+        <li><b>Décideurs :</b> fondateur, wine buyer, portfolio manager</li>
+        <li><b>Signal :</b> nouveau domaine français ajouté au portfolio, vérifié sur leur site, moins de 60 jours</li>
+        <li><b>Signal :</b> exposant annoncé à un salon professionnel du vin, vérifié sur la liste officielle</li>
+        <li><b>Exclusion :</b> grands distributeurs nationaux, importateurs déjà en contact</li>
+      </ul>
+    </div>
+  </section>
+  <section class="sec two">
+    <div class="intro"><span class="eyebrow">2 · Un premier mail</span><h2>Court, en anglais, construit sur un fait réel</h2><p class="hint">Modèle : jamais envoyé tel quel. Chaque mail reprend un fait vérifié propre au prospect.</p></div>
+    <div class="mail">
+      <div class="mh"><span>To: [prénom]@[importateur].com</span><span>Subject: Your new Loire addition</span></div>
+      <p>Hi [Prénom],</p>
+      <p>I saw you added a Loire domaine to your portfolio last month. We work with family estates in the same region that are looking for a first US importer.</p>
+      <p>Would a 15-minute call next week make sense to see if two or three of them fit your range?</p>
+      <p>If this isn't relevant for you, just let me know and I won't reach out again.</p>
+      <p class="sig">[Expéditeur] · Cap Export Vins · [adresse postale]</p>
+    </div>
+  </section>
+  <section class="sec two">
+    <div class="intro"><span class="eyebrow">3 · Le brief du lendemain</span><h2>Ce que vous lisez à 7h15</h2></div>
+    <div class="mail brief">
+      <div class="mh"><span>Brief mar. 10/11 – 2 leads à appeler · 3 mails à traiter · 1 meeting</span></div>
+      <p><b>Prospection du jour :</b> 15 premiers mails programmés à 8h30 (heure de New York), 9 relances à 14h. 4 prospects écartés : 2 sans signal daté, 1 décideur non confirmé, 1 doublon.</p>
+      <p><b>Lead chaud :</b> importateur à Brooklyn · fondateur · a répondu « send me the list ». Accroche : leur nouvelle sélection Loire. Objection probable : « nous avons déjà trop de références » → proposer un seul domaine, sur échantillon.</p>
+      <p><b>Agenda :</b> bloc « Appels LinkSharp » créé à 15h30 (9h30 à New York).</p>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="ctaband"><div><h2>Le vôtre, adapté à votre marché</h2><p class="hint">Décrivez votre offre, l'IA fait le reste. Gratuit pendant la bêta.</p></div><a class="btn primary" href="#outil">Créer mon système</a></div>
+  </section>
 </div>
 
 <div class="page" data-page="outil" hidden>
@@ -829,7 +942,7 @@ table.cmp td{color:var(--muted)}
   <section class="pagehead soonhead">
     <span class="soon">Bientôt · en préparation</span>
     <h1>Automation marketing</h1>
-    <p class="lede">Le prochain module de LinkSharp : faire travailler votre marketing avec la même rigueur que votre prospection. Il est en cours de construction.</p>
+    <p class="lede">Le prochain module de LinkSharp : faire travailler votre marketing avec la même rigueur que votre prospection. Il est en cours de construction, comme le reste de LinkSharp, encore en bêta.</p>
     <div class="cta"><a class="btn primary" href="mailto:egarnault@gmail.com?subject=LinkSharp%20%E2%80%93%20Automation%20marketing&amp;body=Bonjour%20Eliad%2C%20je%20veux%20%C3%AAtre%20pr%C3%A9venu%20de%20la%20sortie%20du%20module%20Automation%20marketing.">Être prévenu de la sortie</a><span class="hint">ou écrivez à <b class="sel">egarnault@gmail.com</b></span></div>
   </section>
   <section class="sec">
@@ -849,7 +962,7 @@ table.cmp td{color:var(--muted)}
   <section class="pagehead">
     <span class="eyebrow">Contact</span>
     <h1>Parlons de votre prospection</h1>
-    <p class="lede">Une question sur l'outil, une idée, ou envie qu'on installe le système avec vous ? Écrivez ou appelez directement.</p>
+    <p class="lede">LinkSharp est en bêta : chaque retour compte. Une question, un bug, une idée, ou envie qu'on installe le système avec vous ? Écrivez ou appelez directement.</p>
   </section>
   <section class="service" id="installation">
     <div class="copy"><span class="eyebrow">Installation accompagnée</span><h2>Vous préférez qu'on l'installe pour vous ?</h2><p>LinkSharp installe le système chez vous : choix de la cible, branchement des connecteurs, réglage des skills et des tâches planifiées, premier lot accompagné, puis suivi quand vos volumes ou vos outils changent.</p></div>
@@ -874,11 +987,11 @@ table.cmp td{color:var(--muted)}
 
 <footer class="site"><div class="in">
   <div class="cols">
-    <div style="display:grid;gap:12px;align-content:start"><a class="brand" href="#accueil" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a><p>Outil de prospection B2B conçu et édité par Eliad Garnault. Le site, son code, ses modèles et ses textes sont la propriété de LinkSharp.</p></div>
+    <div style="display:grid;gap:12px;align-content:start"><a class="brand" href="#accueil" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a><p>Outil de prospection B2B conçu et édité par Eliad Garnault. Prototype en bêta : gratuit pendant la phase de test, modèle économique en réflexion. Le site, son code, ses modèles et ses textes sont la propriété de LinkSharp.</p></div>
     <div><h3>Contact</h3><ul><li>Eliad Garnault</li><li><a href="mailto:egarnault@gmail.com">egarnault@gmail.com</a></li><li><a href="tel:+33607763994">+33 6 07 76 39 94</a></li><li><a href="https://www.linkedin.com/in/eliad-garnault" target="_blank" rel="noopener">linkedin.com/in/eliad-garnault</a></li></ul></div>
     <div><h3>Le site</h3><ul><li><a href="#benefices">Ce que ça apporte</a></li><li><a href="#technique">La technique</a></li><li><a href="#connexions">Connexions</a></li><li><a href="#automation">Automation marketing (bientôt)</a></li><li><a href="#outil">Créer mon système</a></li><li><a href="#contact">Contact</a></li><li>Vos données et votre clé restent dans votre navigateur</li></ul></div>
   </div>
-  <details><summary>Mentions légales</summary><p>Éditeur et directeur de la publication : Eliad Garnault (LinkSharp), France. Contact : egarnault@gmail.com · +33 6 07 76 39 94. Site gratuit : aucune vente, aucun paiement ni abonnement n'y est proposé. Hébergement : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. LinkSharp ne collecte aucune donnée personnelle : les informations saisies et la clé d'API restent dans le navigateur de l'utilisateur, et les appels à l'IA partent directement du navigateur vers Anthropic. Les règles de prospection indiquées dans l'outil sont des repères et ne constituent pas un avis juridique.</p></details>
+  <details><summary>Mentions légales</summary><p>Éditeur et directeur de la publication : Eliad Garnault (LinkSharp), France. Contact : egarnault@gmail.com · +33 6 07 76 39 94. Prototype en bêta, gratuit : aucune vente, aucun paiement ni abonnement n'y est proposé à ce stade. Hébergement : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. LinkSharp ne collecte aucune donnée personnelle : les informations saisies et la clé d'API restent dans le navigateur de l'utilisateur, et les appels à l'IA partent directement du navigateur vers Anthropic. Les règles de prospection indiquées dans l'outil sont des repères et ne constituent pas un avis juridique.</p></details>
   <div class="legal"><span>© 2026 LinkSharp · Eliad Garnault. Tous droits réservés.</span><span>Reproduction du site, du code ou des modèles interdite sans autorisation écrite.</span></div>
 </div></footer>
 
@@ -1895,7 +2008,7 @@ renderIcsList();
 })();
 
 /* ---------- Pages ---------- */
-const TITLES = {accueil:"LinkSharp", benefices:"Ce que ça apporte · LinkSharp", technique:"La technique · LinkSharp", connexions:"Connexions · LinkSharp", automation:"Automation marketing · LinkSharp", contact:"Contact · LinkSharp", outil:"Créer mon système · LinkSharp"};
+const TITLES = {accueil:"LinkSharp", exemple:"Exemple de kit · LinkSharp", benefices:"Ce que ça apporte · LinkSharp", technique:"La technique · LinkSharp", connexions:"Connexions · LinkSharp", automation:"Automation marketing · LinkSharp", contact:"Contact · LinkSharp", outil:"Créer mon système · LinkSharp"};
 function route(){
   const h = decodeURIComponent(location.hash.slice(1)) || "accueil";
   let page = document.querySelector('.page[data-page="'+h+'"]'), target = null;
