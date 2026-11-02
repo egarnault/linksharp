@@ -397,6 +397,25 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
 .gainlist b{font-family:var(--f-display);font-size:1.3rem;color:var(--inv-ink)}
 .calc-r .btn{justify-self:start}
 .assume{font-size:.76rem;color:var(--inv-muted);line-height:1.45}
+
+.modes.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:620px){.modes.three{grid-template-columns:minmax(0,1fr)}}
+.linkbtn{justify-self:start;border:0;background:none;padding:0;font-weight:400;font-size:.85rem;color:var(--muted);text-decoration:underline}
+.linkbtn[aria-checked="true"]{color:var(--accent);font-weight:600}
+.quick{padding:22px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:start;border-color:var(--accent);margin-top:14px}
+@media (max-width:860px){.quick{grid-template-columns:minmax(0,1fr)}}
+.q-l{display:grid;gap:10px}
+.qsteps{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.q-r{align-self:start}
+.q-r textarea{min-height:140px}
+.aipick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:820px){.aipick{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.aipick button{display:grid;gap:4px;text-align:left;padding:20px;border-radius:10px;font-weight:400;min-height:96px;align-content:start}
+.aipick button b{font-family:var(--f-display);font-size:1.15rem}
+.aipick button span{color:var(--muted);font-size:.85rem}
+.aipick button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.access:has(#accR[hidden]){grid-template-columns:minmax(0,1fr)}
+.access:has(#accR[hidden]) .acc-l{max-width:820px}
 </style>
 </head>
 <body>
@@ -506,7 +525,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
     <div class="needs">
       <span class="eyebrow">Ce qu'il vous faut</span>
       <ul>
-        <li><b>Un abonnement Claude</b>, l'assistant d'intelligence artificielle qui fait le travail chaque jour</li>
+        <li><b>Une IA que vous utilisez déjà</b> : Claude (idéal, tout s'installe tout seul), ChatGPT ou une autre</li>
         <li><b>Une adresse Gmail</b> et votre agenda Google</li>
         <li><b>Dix minutes</b> pour tout mettre en place</li>
       </ul>
@@ -613,18 +632,20 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
   <section class="tool" id="acces">
     <span class="eyebrow">Essayer</span>
     <h2>Créez votre assistant commercial</h2>
-    <p class="lede">Gratuit pendant la bêta. Votre abonnement Claude suffit : le site prépare tout, vous collez dans Claude, il fait le reste.</p>
+    <p class="lede">Gratuit pendant la bêta. Votre IA habituelle suffit : le site prépare tout, vous collez, elle fait le reste.</p>
     <span class="pill" id="aiPill">Ajoutez votre clé d'API pour activer l'IA</span>
   <section class="panel access" aria-labelledby="hAcc">
     <div class="acc-l">
-      <h3 id="hAcc">Comment voulez-vous utiliser l'IA ?</h3>
-      <div class="modes" role="radiogroup" aria-label="Mode d'utilisation de l'IA">
-        <button type="button" class="mode" data-mode="claude" role="radio" aria-checked="true"><b>Avec mon abonnement Claude</b><span>Recommandé · gratuit, sans clé ni carte</span></button>
-        <button type="button" class="mode" data-mode="api" role="radio" aria-checked="false"><b>Avec une clé d'API</b><span>Tout se fait sur le site · quelques centimes</span></button>
+      <h3 id="hAcc">Quelle IA utilisez-vous ?</h3>
+      <div class="modes three" role="radiogroup" aria-label="Votre IA">
+        <button type="button" class="mode" data-mode="claude" role="radio" aria-checked="true"><b>Claude</b><span>Recommandé · tout s'installe tout seul</span></button>
+        <button type="button" class="mode" data-mode="chatgpt" role="radio" aria-checked="false"><b>ChatGPT</b><span>Avec votre compte ChatGPT</span></button>
+        <button type="button" class="mode" data-mode="other" role="radio" aria-checked="false"><b id="otherLbl">Autre IA</b><span id="otherSub">Gemini, Mistral, Copilot…</span></button>
       </div>
+      <button type="button" class="linkbtn mode-api" data-mode="api">Option avancée : tout faire sur le site avec une clé d'API</button>
       <div id="claudeHelp" class="claudehelp">
-        <p class="hint">Le site prépare tout. À chaque étape, un bouton copie une demande toute prête : vous la collez dans Claude, et Claude fait le travail dans votre compte. À la fin, il crée lui-même votre assistant.</p>
-        <a class="btn" href="https://claude.ai/new" target="_blank" rel="noopener">Ouvrir Claude dans un nouvel onglet</a>
+        <p class="hint" id="aiHelpTxt">Le site prépare tout. À chaque étape, un bouton copie une demande toute prête : vous la collez dans votre IA, et elle fait le travail dans votre compte.</p>
+        <a class="btn" id="openAI" href="https://claude.ai/new" target="_blank" rel="noopener">Ouvrir Claude dans un nouvel onglet</a>
       </div>
       <div id="keyBlock" hidden>
         <p class="hint">Créez une clé sur <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> (rubrique « API Keys »). Elle reste dans votre navigateur et n'est envoyée qu'à Anthropic. Facturée à part de l'abonnement, quelques centimes au plus.</p>
@@ -653,6 +674,23 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
       <p class="hint">Une génération complète coûte moins d'un centime. Par sécurité, le site s'arrête de lui-même à 1 $ (modifiable dans les options).</p>
     </div>
   </section>
+    <section class="panel quick" id="rapide" aria-labelledby="hQuick">
+      <div class="q-l">
+        <span class="eyebrow">Le plus rapide · 2 minutes</span>
+        <h3 id="hQuick">Laissez votre IA remplir le formulaire pour vous</h3>
+        <p class="hint">Votre IA vous connaît déjà. Elle répond aux questions à votre place et vous donne un fichier : vous le déposez ici, tout se remplit.</p>
+        <ol class="qsteps">
+          <li><button type="button" class="primary" id="btnAsk">1. Copier la demande</button></li>
+          <li><a class="btn" id="openAI2" href="https://claude.ai/new" target="_blank" rel="noopener">2. L'envoyer à mon IA</a></li>
+          <li><span class="btn filebtn">3. Déposer le fichier .txt<input type="file" id="ansFile" accept=".txt,.md,text/plain,text/markdown"></span></li>
+        </ol>
+        <span class="status" id="ansMsg" role="status"></span>
+      </div>
+      <details class="adv q-r"><summary>Votre IA a répondu dans la conversation ? Collez sa réponse ici</summary>
+        <textarea id="ansPaste" class="doc" placeholder="LINKSHARP v1&#10;produit: &lt;&lt;&lt;&#10;…"></textarea>
+        <button type="button" id="ansApply">Remplir le formulaire</button>
+      </details>
+    </section>
     <nav class="flow" aria-label="Étapes">
     <a href="#cible"><span class="n">Étape 1</span><span class="l">Vos clients idéaux</span></a>
     <a href="#reglages"><span class="n">Étape 2</span><span class="l">Vos réglages</span></a>
@@ -861,6 +899,27 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
 </div>
 
 <!--BENEFICES-->
+<div class="page" data-page="choisir-ia" hidden>
+  <section class="pagehead">
+    <span class="eyebrow">Autre IA</span>
+    <h1>Quelle IA utilisez-vous ?</h1>
+    <p class="lede">LinkSharp prépare des demandes que n'importe quelle IA peut suivre. Claude va le plus loin : il crée lui-même votre assistant, ses rappels et ses connexions à Gmail et à votre agenda. Avec une autre IA, certaines étapes peuvent rester à faire à la main, et elle vous dira lesquelles.</p>
+  </section>
+  <section class="sec">
+    <div class="aipick" id="aiPick">
+      <button type="button" data-ai="gemini"><b>Gemini</b><span>Google</span></button>
+      <button type="button" data-ai="mistral"><b>Le Chat</b><span>Mistral AI</span></button>
+      <button type="button" data-ai="copilot"><b>Copilot</b><span>Microsoft</span></button>
+      <button type="button" data-ai="perplexity"><b>Perplexity</b><span>Perplexity AI</span></button>
+      <button type="button" data-ai="deepseek"><b>DeepSeek</b><span>DeepSeek</span></button>
+      <button type="button" data-ai="grok"><b>Grok</b><span>xAI</span></button>
+      <button type="button" data-ai="meta"><b>Meta AI</b><span>Meta</span></button>
+      <button type="button" data-ai="autre"><b>Une autre IA</b><span>Copier-coller classique</span></button>
+    </div>
+    <div class="cta"><a class="btn ghost" href="#acces">Revenir sans changer</a></div>
+  </section>
+</div>
+
 <div class="page" data-page="benefices" hidden>
   <section class="pagehead">
     <span class="eyebrow">Ce que ça change</span>
@@ -1586,29 +1645,53 @@ const spentOf = () => parseFloat(getK("spent")) || 0;
 const modelOf = () => PRICES[getK("model")] ? getK("model") : "claude-haiku-5-5";
 const usd = n => n < 0.01 ? n.toFixed(4).replace(".",",")+" $" : n.toFixed(2).replace(".",",")+" $";
 
-const modeOf = () => getK("mode") === "api" ? "api" : "claude";
+const AIS = {
+  claude:{n:"Claude",url:"https://claude.ai/new"}, chatgpt:{n:"ChatGPT",url:"https://chatgpt.com/"},
+  gemini:{n:"Gemini",url:"https://gemini.google.com/app"}, mistral:{n:"Le Chat",url:"https://chat.mistral.ai/chat"},
+  copilot:{n:"Copilot",url:"https://copilot.microsoft.com/"}, perplexity:{n:"Perplexity",url:"https://www.perplexity.ai/"},
+  deepseek:{n:"DeepSeek",url:"https://chat.deepseek.com/"}, grok:{n:"Grok",url:"https://grok.com/"},
+  meta:{n:"Meta AI",url:"https://www.meta.ai/"}, autre:{n:"votre IA",url:""}
+};
+const modeOf = () => ["api","chatgpt","other"].includes(getK("mode")) ? getK("mode") : "claude";
+const aiKey = () => { const m = modeOf(); return m === "other" ? (AIS[getK("otherAI")] ? getK("otherAI") : "autre") : (m === "api" ? "claude" : m); };
+const aiName = () => AIS[aiKey()].n;
 function refreshAccess(){
-  const mode = modeOf();
-  aiReady = mode === "claude" || !!getK("key");
+  const mode = modeOf(), ai = AIS[aiKey()];
+  aiReady = mode !== "api" || !!getK("key");
   const cap = capOf(), sp = spentOf();
   $("spentLine").textContent = "Dépensé : "+usd(sp)+" sur "+usd(cap);
   $("spentBar").style.width = Math.min(100, sp/cap*100)+"%";
   $("spentBar").classList.toggle("full", sp >= cap*0.9);
-  document.querySelectorAll(".mode").forEach(b => b.setAttribute("aria-checked", String(b.dataset.mode === mode)));
-  $("claudeHelp").hidden = mode !== "claude"; $("keyBlock").hidden = mode !== "api"; $("accR").hidden = mode !== "api";
+  document.querySelectorAll("[data-mode]").forEach(b => b.setAttribute("aria-checked", String(b.dataset.mode === mode)));
+  if(mode === "other" && aiKey() !== "autre"){ $("otherLbl").textContent = ai.n; $("otherSub").textContent = "Changer d'IA"; } else { $("otherLbl").textContent = "Autre IA"; $("otherSub").textContent = "Gemini, Mistral, Copilot…"; }
+  $("claudeHelp").hidden = mode === "api"; $("keyBlock").hidden = mode !== "api"; $("accR").hidden = mode !== "api";
+  ["openAI","openAI2"].forEach(id => { const el = $(id); if(ai.url){ el.href = ai.url; el.hidden = false; } else { el.removeAttribute("href"); el.hidden = id === "openAI"; } });
+  $("openAI").textContent = "Ouvrir "+ai.n+" dans un nouvel onglet";
+  $("openAI2").textContent = "2. L'envoyer à "+(aiKey()==="autre"?"mon IA":ai.n);
+  $("aiHelpTxt").textContent = mode === "claude"
+    ? "Le site prépare tout. À chaque étape, un bouton copie une demande toute prête : vous la collez dans Claude, et il fait le travail dans votre compte. À la fin, il crée lui-même votre assistant."
+    : "Le site prépare tout. À chaque étape, un bouton copie une demande toute prête : vous la collez dans "+(aiKey()==="autre"?"votre IA":ai.n)+". Certaines étapes peuvent rester à faire à la main : l'IA vous dira lesquelles.";
   const pill = $("aiPill");
-  if(mode === "claude"){ pill.textContent = "Mode abonnement Claude · copier-coller, sans clé"; pill.className = "pill on"; }
+  if(mode !== "api"){ pill.textContent = "Avec "+ai.n+" · copier-coller, sans clé"; pill.className = "pill on"; }
   else if(getK("key")){ pill.textContent = "IA prête · "+PRICES[modelOf()].label; pill.className = "pill on"; $("keyMsg").textContent = "Clé enregistrée dans ce navigateur."; }
   else { pill.textContent = "Ajoutez votre clé d'API pour activer l'IA"; pill.className = "pill off"; }
-  $("btnIcp").textContent = mode === "claude" ? "Copier la demande pour Claude" : "Trouver mes 3 types de clients";
-  $("btnGen").textContent = mode === "claude" ? "Copier l'installation pour Claude" : "Adapter à mon métier";
-  $("genHint").textContent = mode === "claude"
-    ? "Copiez la demande ou téléchargez le pack, puis donnez-le à Claude : il vérifie tout, vous pose ses questions s'il manque une information, adapte l'assistant à votre métier, le crée avec ses rappels automatiques, puis fait un premier test sans rien envoyer."
-    : "L'IA adapte tout à votre secteur : où trouver vos clients, quoi leur écrire, comment répondre à leurs objections. Vos réglages et les règles de sécurité ne changent pas. Une à deux minutes.";
-  $("btnPack").hidden = mode !== "claude";
+  const who = aiKey()==="autre" ? "mon IA" : ai.n;
+  $("btnIcp").textContent = mode === "api" ? "Trouver mes 3 types de clients" : "Copier la demande pour "+who;
+  $("btnGen").textContent = mode === "api" ? "Adapter à mon métier" : "Copier l'installation pour "+who;
+  $("genHint").textContent = mode === "api"
+    ? "L'IA adapte tout à votre secteur : où trouver vos clients, quoi leur écrire, comment répondre à leurs objections. Vos réglages et les règles de sécurité ne changent pas. Une à deux minutes."
+    : "Copiez la demande ou téléchargez le pack, puis donnez-le à "+who+" : elle vérifie tout, vous pose ses questions s'il manque une information, adapte l'assistant à votre métier, le met en place, puis fait un premier test sans rien envoyer.";
+  $("btnPack").hidden = mode === "api";
+  const t = TABS.find(x => x.id === "claude"); if(t){ t.l = "Tout-en-un pour "+(aiKey()==="autre"?"votre IA":ai.n); renderTabs(); }
   $("btnIcp").disabled = !aiReady; $("btnGen").disabled = !aiReady;
 }
-document.querySelectorAll(".mode").forEach(b => b.onclick = () => { setK("mode", b.dataset.mode); refreshAccess(); });
+document.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => {
+  if(b.dataset.mode === "other"){ location.hash = "#choisir-ia"; return; }
+  setK("mode", b.dataset.mode); refreshAccess();
+});
+document.querySelectorAll("#aiPick [data-ai]").forEach(b => b.onclick = () => {
+  setK("mode","other"); setK("otherAI", b.dataset.ai); refreshAccess(); location.hash = "#acces";
+});
 
 async function copyText(t){
   try{ await navigator.clipboard.writeText(t); $("copyFallback").hidden = true; return true; }
@@ -1618,32 +1701,49 @@ function plainIcpPrompt(d){
   return icpPrompt(d).replace(/Réponds uniquement avec ce JSON[\s\S]*$/, "Présente les 3 profils en Markdown, chacun commençant par un titre « # ICP – nom du segment », avec ces rubriques : Résumé, Secteur, Zone, Taille, Décideurs, Signaux d'achat (avec où les vérifier et leur durée de validité), Exclusions, Problème principal, Angle du premier message, Pourquoi ce segment. Termine en me demandant lequel je choisis. Quand j'aurai choisi, je copierai ce profil dans LinkSharp.");
 }
 function installPrompt(d){
-  const x = ctx(d);
+  const x = ctx(d), k = aiKey(), name = k === "autre" ? "votre IA" : AIS[k].n;
   const payload = {co:x.co, offer:d.offer, proofs:d.proofs, tone:d.tone, lang:x.L.n, country:x.country, tz:x.tz, source:x.noSource?"recherche web":x.source+" et recherche web", icpDoc:d.icpDoc, aiNotes:d.aiNotes, refProsp:tplProsp(d), refBrief:tplBrief(d)};
   let p = skillsPrompt(payload);
-  p = p.replace("Tu es expert en prospection B2B et en rédaction de skills pour Claude (fichiers SKILL.md qu'un agent suit à la lettre, chaque jour, sans supervision).",
-    "Tu vas installer dans mon compte Claude mon assistant de prospection, préparé avec LinkSharp. Tu es expert en prospection B2B et en rédaction de skills (fichiers SKILL.md qu'un agent suit à la lettre, chaque jour, sans supervision).");
-  p = p.replace("- Ne réécris pas les blocs « Garde-fous » : ils sont ajoutés automatiquement.", "- Garde les blocs « Garde-fous non négociables » mot pour mot, à la fin de chaque skill.");
-  p = p.replace(/FORMAT \(strict\)[\s\S]*?(?=SKILL PROSPECTION DE RÉFÉRENCE)/, `CE QUE TU DOIS FAIRE, DANS L'ORDRE
-0. Lis tout le pack. Vérifie la cohérence entre les deux skills, les tâches planifiées et la checklist (noms des skills, horaires, fuseau, plafond, séquence, adresses, nom du sheet). Si tu trouves une incohérence, corrige-la et signale-la-moi en une ligne. S'il reste des « [À COMPLÉTER] », pose-moi d'abord ces questions, toutes en une fois, et attends mes réponses. N'invente jamais une information manquante.
+  const intro = k === "claude"
+    ? "Tu vas installer dans mon compte Claude mon assistant de prospection, préparé avec LinkSharp. Tu es expert en prospection B2B et en rédaction de skills (fichiers SKILL.md qu'un agent suit à la lettre, chaque jour, sans supervision)."
+    : "Tu vas mettre en place mon assistant de prospection, préparé avec LinkSharp, avec les fonctions dont tu disposes. Tu es expert en prospection B2B. Les deux documents ci-dessous sont des consignes de travail (au format SKILL.md, prévu pour Claude) qu'un assistant doit suivre à la lettre, chaque jour.";
+  p = p.replace("Tu es expert en prospection B2B et en rédaction de skills pour Claude (fichiers SKILL.md qu'un agent suit à la lettre, chaque jour, sans supervision).", intro);
+  p = p.replace("- Ne réécris pas les blocs « Garde-fous » : ils sont ajoutés automatiquement.", "- Garde les blocs « Garde-fous non négociables » mot pour mot, à la fin de chaque document.");
+  const check = "0. Lis tout le pack. Vérifie la cohérence entre les deux documents, les tâches planifiées et la checklist (noms, horaires, fuseau, plafond, séquence, adresses, nom du sheet). Si tu trouves une incohérence, corrige-la et signale-la-moi en une ligne. S'il reste des « [À COMPLÉTER] », pose-moi d'abord ces questions, toutes en une fois, et attends mes réponses. N'invente jamais une information manquante.";
+  const conns = "Gmail, Google Agenda et Google Drive / Sheets"+(x.noCrm?"":", ainsi que "+x.crm)+(x.noSource?"":" et "+x.source);
+  let steps;
+  if(k === "claude") steps = `${check}
 1. Adapte les deux skills ci-dessous à mon cas, selon les consignes. Garde les noms des skills (« ${x.prospName} » et « ${x.briefName} ») et leur en-tête.
 2. Montre-moi en quelques lignes ce que tu as adapté, puis crée les deux skills dans mon compte.
 3. Crée les trois tâches planifiées décrites plus bas, avec leurs horaires.
-4. Vérifie que Gmail, Google Agenda et Google Drive / Sheets sont connectés${x.noCrm?"":", ainsi que "+x.crm}${x.noSource?"":" et "+x.source}. Dis-moi simplement ce qui manque et comment le connecter.
+4. Vérifie que ${conns} sont connectés. Dis-moi simplement ce qui manque et comment le connecter.
 5. Lance un premier test : prépare un lot de 3 prospects au maximum, sans rien envoyer ni programmer, et montre-le-moi.
-Si tu ne peux pas faire une étape toi-même, donne-moi le fichier ou le texte exact à utiliser et dis-moi où cliquer.
-
-`);
+Si tu ne peux pas faire une étape toi-même, donne-moi le fichier ou le texte exact à utiliser et dis-moi où cliquer.`;
+  else if(k === "chatgpt") steps = `${check}
+1. Adapte les deux documents ci-dessous à mon cas, selon les consignes.
+2. Montre-moi en quelques lignes ce que tu as adapté. Puis aide-moi à créer un Projet ChatGPT nommé « LinkSharp – ${x.co} » : donne-moi le texte exact à mettre dans ses instructions et les fichiers à y ajouter.
+3. Programme les trois rendez-vous décrits plus bas avec les tâches programmées de ChatGPT, aux horaires indiqués. Si ce n'est pas possible, dis-le et propose la solution la plus simple.
+4. Vérifie si ${conns} sont connectés à ChatGPT. Dis-moi ce qui manque, et ce qui restera à faire à la main (par exemple programmer les envois dans Gmail).
+5. Lance un premier test : prépare un lot de 3 prospects au maximum, sans rien envoyer, et montre-le-moi.
+Sois honnête sur tes limites : pour chaque étape que tu ne peux pas faire toi-même, donne-moi l'alternative manuelle exacte.`;
+  else steps = `${check}
+1. Adapte les deux documents ci-dessous à mon cas, selon les consignes.
+2. Montre-moi en quelques lignes ce que tu as adapté. Puis dis-moi comment les garder chez toi pour les réutiliser chaque jour (instructions personnalisées, projet, mémoire, fichier…), avec le texte exact à coller.
+3. Si tu sais programmer des tâches ou des rappels, programme les trois rendez-vous décrits plus bas. Sinon, dis-le et donne-moi la routine à suivre à la main.
+4. Dis-moi si tu peux te connecter à ${conns}, et ce qui restera à faire à la main.
+5. Lance un premier test : prépare un lot de 3 prospects au maximum, sans rien envoyer, et montre-le-moi.
+Sois honnête sur tes limites : pour chaque étape que tu ne peux pas faire toi-même, donne-moi l'alternative manuelle exacte.`;
+  p = p.replace(/FORMAT \(strict\)[\s\S]*?(?=SKILL PROSPECTION DE RÉFÉRENCE)/, "CE QUE TU DOIS FAIRE, DANS L'ORDRE\n"+steps+"\n\n");
   const today = new Date().toLocaleDateString("fr-FR");
   const head = `# Pack d'installation LinkSharp – ${x.co}
 
-Généré le ${today} avec LinkSharp (bêta). Pour l'utiliser : glissez ce fichier dans une nouvelle conversation Claude et écrivez « Installe ce pack ».
+Généré le ${today} avec LinkSharp (bêta), pour ${name}. Pour l'utiliser : glissez ce fichier dans une nouvelle conversation ${k==="autre"?"avec votre IA":name} et écrivez « Installe ce pack ».
 
 Contenu du pack :
-1. Consignes d'installation pour Claude
+1. Consignes d'installation
 2. Votre cas : offre, clients visés, réglages
-3. Skill « ${x.prospName} » : la prospection quotidienne
-4. Skill « ${x.briefName} » : le brief du matin
+3. « ${x.prospName} » : la prospection quotidienne
+4. « ${x.briefName} » : le brief du matin
 5. Les trois tâches planifiées
 6. La checklist de vérification
 
@@ -1860,9 +1960,9 @@ function renderIcps(){
 async function runIcp(){
   const d = read();
   if(!d.prodDesc.trim()){ setStatus("icpStatus","Décrivez d'abord votre produit ou service.",true); $("prodDesc").focus(); return; }
-  if(modeOf()==="claude"){
+  if(modeOf()!=="api"){
     const ok = await copyText(plainIcpPrompt(d));
-    setStatus("icpStatus", (ok?"Demande copiée. ":"")+"Collez-la dans Claude (claude.ai), choisissez un des 3 profils proposés, puis collez-le dans « Vos clients idéaux » à l'étape 2.");
+    setStatus("icpStatus", (ok?"Demande copiée. ":"")+"Collez-la dans "+(aiKey()==="autre"?"votre IA":aiName())+", choisissez un des 3 profils proposés, puis collez-le dans « Vos clients idéaux » à l'étape 2.");
     return;
   }
   if(!aiReady){ setStatus("icpStatus","Ajoutez d'abord votre clé d'API en haut de page.",true); return; }
@@ -1897,12 +1997,12 @@ function splitSkills(t){
 }
 async function runGen(){
   const d = read();
-  if(modeOf()==="claude"){
+  if(modeOf()!=="api"){
     const miss = missingReq(d);
     if(miss.length){ toast("À compléter d'abord : "+miss.map(k=>LABELS[k]).join(", ")+"."); $("reglages").scrollIntoView(); return; }
     tab = "claude"; renderTabs(); renderOut();
     const ok = await copyText(installPrompt(d));
-    toast(ok ? "Installation copiée. Collez-la dans Claude : il s'occupe du reste." : "Copie bloquée : utilisez le bouton « Copier » au-dessus du texte.");
+    toast(ok ? "Installation copiée. Collez-la dans "+(aiKey()==="autre"?"votre IA":aiName())+" : elle s'occupe du reste." : "Copie bloquée : utilisez le bouton « Copier » au-dessus du texte.");
     return;
   }
   if(!aiReady){ toast("Ajoutez d'abord votre clé d'API en haut de page."); return; }
@@ -2025,7 +2125,7 @@ $("verSeg").addEventListener("click", e => { const b = e.target.closest("button"
 $("btnIcp").onclick = runIcp;
 $("btnIcpStop").onclick = () => icpCtl && icpCtl.abort();
 $("btnGen").onclick = runGen;
-$("btnPack").onclick = () => { const d = read(); const miss = missingReq(d); if(miss.length){ toast("À compléter d'abord : "+miss.map(k=>LABELS[k]).join(", ")+"."); $("reglages").scrollIntoView(); return; } saveFile("pack-installation-linksharp-"+slug(d.coName)+".md", installPrompt(d)+SIGN); toast("Pack téléchargé : glissez-le dans Claude et écrivez « Installe ce pack »."); };
+$("btnPack").onclick = () => { const d = read(); const miss = missingReq(d); if(miss.length){ toast("À compléter d'abord : "+miss.map(k=>LABELS[k]).join(", ")+"."); $("reglages").scrollIntoView(); return; } saveFile("pack-installation-linksharp-"+slug(d.coName)+".md", installPrompt(d)+SIGN); toast("Pack téléchargé : glissez-le dans "+(aiKey()==="autre"?"votre IA":aiName())+" et écrivez « Installe ce pack »."); };
 $("btnGenStop").onclick = () => genCtl && genCtl.abort();
 $("btnReset").onclick = () => {
   const b = $("btnReset");
@@ -2164,7 +2264,7 @@ renderIcsList();
 })();
 
 /* ---------- Pages ---------- */
-const TITLES = {accueil:"LinkSharp", exemple:"Exemple · LinkSharp", benefices:"Ce que ça change · LinkSharp", technique:"Pour les curieux · LinkSharp", connexions:"Vos outils · LinkSharp", automation:"Marketing automatique · LinkSharp", contact:"Contact · LinkSharp", outil:"Essayer · LinkSharp"};
+const TITLES = {accueil:"LinkSharp", "choisir-ia":"Choisir mon IA · LinkSharp", exemple:"Exemple · LinkSharp", benefices:"Ce que ça change · LinkSharp", technique:"Pour les curieux · LinkSharp", connexions:"Vos outils · LinkSharp", automation:"Marketing automatique · LinkSharp", contact:"Contact · LinkSharp", outil:"Essayer · LinkSharp"};
 let calLoaded=false;
 function loadCal(){ if(calLoaded) return; calLoaded=true; const sc=document.createElement("script"); sc.src="https://assets.calendly.com/assets/external/widget.js"; sc.async=true; document.body.appendChild(sc); }
 function route(){
@@ -2224,6 +2324,101 @@ route();
   }
   update();
 })();
+
+/* ---------- Votre IA remplit le formulaire ---------- */
+function askPrompt(){
+  const countries = Object.keys(COUNTRIES).join(", ");
+  return `Je configure LinkSharp, un assistant qui m'aide à trouver de nouveaux clients. Aide-moi à remplir son formulaire.
+
+1. Utilise tout ce que tu sais déjà sur moi et sur mon activité.
+2. S'il te manque des informations indispensables, pose-moi toutes les questions en une seule fois, courtes, avec un exemple de réponse pour chacune. Attends mes réponses.
+3. Ensuite, crée un fichier texte nommé « linksharp-reponses.txt ». Si tu ne peux pas créer de fichier, affiche son contenu dans un seul bloc de code que je copierai.
+
+Respecte exactement ce format, sans rien ajouter avant « LINKSHARP v1 » ni après la dernière ligne. Pour les choix, garde une seule des valeurs proposées.
+
+LINKSHARP v1
+produit: <<<
+(ce que je vends, à qui, ce qui me différencie, en 3 à 5 phrases)
+>>>
+marche: (pays, régions ou villes que je vise)
+entreprise: (nom de mon entreprise)
+offre: <<<
+(ce que je vends, en 2 ou 3 phrases simples, pour les messages)
+>>>
+preuves: <<<
+(clients citables, chiffres vérifiables, expérience ; une par ligne ; vide si aucune)
+>>>
+clients_ideaux: <<<
+(les entreprises à viser : secteur, zone précise, taille, qui décide, les faits publics et datés qui montrent qu'elles ont besoin de moi et où les vérifier, et qui exclure)
+>>>
+ton: direct | chaleureux | formel
+pays_prospects: une valeur parmi : ${countries}
+langue_mails: fr | en-US | en-GB | es | de | it
+boite_envoi: (l'adresse email d'où partiront les messages)
+expediteur: (Prénom Nom, fonction)
+adresse_postale: (obligatoire si les prospects sont aux États-Unis ou au Canada, sinon vide)
+mails_par_jour: 15 | 25 | 30 | 45 | 60
+crm: HubSpot | Pipedrive | Salesforce | Folk | Aucun
+source_prospects: Apollo | Recherche web | Lemlist | Kaspr
+nom_sheet: (le nom du Google Sheet de suivi ; propose « [Entreprise] – Prospects » si je n'en ai pas)
+lien_sheet: (vide si je n'en ai pas encore)
+validateur: (la personne qui valide les envois, souvent moi)
+email_brief: (l'adresse qui reçoit le brief du matin)
+heure_brief: 06:30 | 07:00 | 07:15 | 07:30 | 08:00 | 08:30
+precisions: <<<
+(saisonnalité, vocabulaire du métier, salons, sujets à éviter, tout ce qui rend mon cas particulier)
+>>>
+
+Règle absolue : n'invente jamais une information. Si je n'ai pas répondu à une question facultative, laisse la rubrique vide.`;
+}
+const ANS_MAP = {produit:"prodDesc", marche:"prodMarket", entreprise:"coName", offre:"offer", preuves:"proofs", clients_ideaux:"icpDoc", ton:"tone", pays_prospects:"country", langue_mails:"lang", boite_envoi:"mailbox", expediteur:"sender", adresse_postale:"postal", mails_par_jour:"cap", crm:"crm", source_prospects:"source", nom_sheet:"sheetName", lien_sheet:"sheetLink", validateur:"validator", email_brief:"briefTo", heure_brief:"briefTime", precisions:"aiNotes"};
+function parseAnswers(text){
+  const out = {}; const ls = String(text||"").replace(/\r/g,"").split("\n");
+  for(let i=0;i<ls.length;i++){
+    const m = ls[i].match(/^\s*[*`-]*\s*([a-z_]+)\s*[:：]\s*(.*)$/i); if(!m) continue;
+    const key = m[1].toLowerCase(); if(!ANS_MAP[key]) continue;
+    let val = m[2].trim();
+    if(val.startsWith("<<<")){
+      const buf = []; const first = val.slice(3).trim(); if(first) buf.push(first);
+      i++; while(i < ls.length && !ls[i].trim().startsWith(">>>")){ buf.push(ls[i]); i++; }
+      val = buf.join("\n").trim();
+    }
+    val = val.replace(/^\((.*)\)$/s, "").trim();
+    if(/\s\|\s/.test(val) || /^une valeur parmi/i.test(val)) continue;
+    if(val) out[ANS_MAP[key]] = val;
+  }
+  return out;
+}
+function setSelect(id, val){
+  const el = $(id), v = String(val).trim().toLowerCase();
+  const opt = [...el.options].find(o => o.value.toLowerCase() === v || o.textContent.trim().toLowerCase() === v)
+    || [...el.options].find(o => o.textContent.toLowerCase().includes(v) || v.includes(o.value.toLowerCase()));
+  if(opt){ el.value = opt.value; return true; } return false;
+}
+function applyAnswers(text){
+  const a = parseAnswers(text); const keys = Object.keys(a);
+  if(!keys.length){ setStatus("ansMsg","Je n'ai rien reconnu. Vérifiez que le texte commence par « LINKSHARP v1 ».",true); return; }
+  let n = 0;
+  if(a.country && setSelect("country", a.country)){ fillTz($("country").value); n++; }
+  keys.forEach(id => {
+    if(id === "country") return;
+    const el = $(id); if(!el) return;
+    if(el.tagName === "SELECT"){
+      if(id === "cap"){ const num = parseInt(a.cap,10); const opts=[15,25,30,45,60]; if(num){ el.value = String(opts.reduce((p,c)=>Math.abs(c-num)<Math.abs(p-num)?c:p)); n++; } return; }
+      if(id === "source" && /web|aucun/i.test(a.source)){ el.value = "Recherche web"; n++; return; }
+      if(id === "crm" && /aucun|non|sheet/i.test(a.crm)){ el.value = "Aucun"; n++; return; }
+      if(setSelect(id, a[id])) n++;
+    } else { el.value = a[id]; n++; }
+  });
+  if(a.icpDoc){ chosenIcp = -1; renderIcps(); }
+  changed(); renderIcsList();
+  const miss = missingReq(read());
+  setStatus("ansMsg", n+" champs remplis."+(miss.length ? " Encore à compléter : "+miss.map(k=>LABELS[k]).join(", ")+"." : " Tout est prêt : passez à l'étape 3."));
+  $("reglages").scrollIntoView();
+}
+$("btnAsk").onclick = async () => { const ok = await copyText(askPrompt()); setStatus("ansMsg", (ok ? "Demande copiée. " : "")+"Envoyez-la à "+(aiKey()==="autre"?"votre IA":aiName())+", répondez à ses questions, puis déposez le fichier qu'elle vous donne."); };
+$("ansFile").onchange = e => { const f = e.target.files && e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = () => applyAnswers(String(r.result||"")); r.readAsText(f); e.target.value = ""; };
+$("ansApply").onclick = () => applyAnswers($("ansPaste").value);
 })();
 </script>
 </body>
