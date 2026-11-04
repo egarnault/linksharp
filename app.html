@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LinkSharp · Démo</title>
+<meta name="description" content="Démo de l'assistant LinkSharp : lot du soir, contrôles, messages, go, brief du matin, réponses et rendez-vous. Données fictives.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4.5' y='9.5' width='12' height='12' rx='1.5' transform='rotate(45 10.5 15.5)' fill='none' stroke='%230E1116' stroke-width='2.6'/%3E%3Crect x='15.5' y='9.5' width='12' height='12' rx='1.5' transform='rotate(45 21.5 15.5)' fill='none' stroke='%232443F5' stroke-width='2.6'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#F4F5F2; --surface:#FFFFFF; --sunk:#EAECE7; --ink:#0E1116; --muted:#596070; --line:#D8DBD4;
+  --accent:#2443F5; --accent-ink:#FFFFFF; --accent-soft:#E3E7FE; --signal:#E9A21C; --signal-soft:#FBEFDC;
+  --ok:#24704A; --ok-soft:#DFF0E6; --warn:#8F5309; --bad:#B4382B; --bad-soft:#F8E1DD;
+  --f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Public Sans","Segoe UI",Roboto,Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace; --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B0D12; --surface:#12151C; --sunk:#191D26; --ink:#ECEEF2; --muted:#9AA1AE; --line:#262B36;
+  --accent:#7C8CFF; --accent-ink:#0B0D12; --accent-soft:#1A2042; --signal:#F2B84B; --signal-soft:#2B2213;
+  --ok:#6CC28F; --ok-soft:#14291D; --warn:#E3A953; --bad:#F08A7E; --bad-soft:#2E1714; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B0D12; --surface:#12151C; --sunk:#191D26; --ink:#ECEEF2; --muted:#9AA1AE; --line:#262B36;
+  --accent:#7C8CFF; --accent-ink:#0B0D12; --accent-soft:#1A2042; --signal:#F2B84B; --signal-soft:#2B2213;
+  --ok:#6CC28F; --ok-soft:#14291D; --warn:#E3A953; --bad:#F08A7E; --bad-soft:#2E1714; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+button{font:600 .92rem var(--f-body);border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.5rem .9rem;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+button:focus-visible,a:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.45;cursor:not-allowed}
+a{color:var(--accent)}
+h1,h2,h3{font-family:var(--f-display);letter-spacing:-.02em;margin:0;font-weight:800}
+h1{font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.05}
+h2{font-size:1.25rem}
+.mono{font-family:var(--f-mono)}
+.eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500}
+.muted{color:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 10px;font-family:var(--f-mono);font-size:.74rem;font-weight:500;white-space:nowrap}
+.sig{background:var(--signal-soft);color:var(--warn)} .okc{background:var(--ok-soft);color:var(--ok)} .badc{background:var(--bad-soft);color:var(--bad)} .accc{background:var(--accent-soft);color:var(--accent)} .neu{background:var(--sunk);color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+/* Bandeau démo */
+.demo{background:var(--ink);color:var(--bg);font-family:var(--f-mono);font-size:.76rem;text-align:center;padding:7px 16px;letter-spacing:.04em}
+.demo a{color:inherit}
+/* Disposition */
+.app{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 32px)}
+.side{border-right:1px solid var(--line);padding:18px 14px;display:flex;flex-direction:column;gap:18px;position:sticky;top:0;height:calc(100vh - 32px);overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:800;font-size:1.25rem;letter-spacing:-.03em;color:var(--ink);text-decoration:none;padding:0 6px}
+.brand b{color:var(--accent)} .brand svg{width:28px;height:28px}
+.steps{display:grid;gap:4px}
+.step{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:8px;text-align:left;border:1px solid transparent;background:transparent;padding:9px 10px;border-radius:9px;font-weight:600;color:var(--ink)}
+.step .t{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);font-weight:400}
+.step:hover{background:var(--surface);border-color:var(--line)}
+.step.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)} .step.on .t{color:var(--accent-ink);opacity:.8}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--line)} .dot.ok{background:var(--ok)} .dot.warn{background:var(--signal)}
+.side h3{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:0 6px}
+.conn{display:grid;gap:6px}
+.cn{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;border:1px solid var(--line);background:var(--surface);font-size:.86rem;text-align:left;font-weight:600;justify-content:flex-start}
+.cn .ic{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-family:var(--f-mono);font-size:.72rem;background:var(--sunk);color:var(--muted);flex:none}
+.cn .st{margin-left:auto;font-family:var(--f-mono);font-size:.7rem;color:var(--muted);font-weight:400}
+.cn.on .ic{background:var(--ok-soft);color:var(--ok)} .cn.on .st{color:var(--ok)}
+.main{min-width:0}
+.top{display:flex;align-items:center;gap:12px;padding:14px 28px;border-bottom:1px solid var(--line);position:sticky;top:0;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px);z-index:5;flex-wrap:wrap}
+.clock{font-family:var(--f-mono);font-weight:500;background:var(--ink);color:var(--bg);border-radius:7px;padding:4px 10px}
+.top .sp{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.view{padding:28px;max-width:1240px}
+.head{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.head p{max-width:62ch}
+.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.co{padding:16px 18px;display:grid;gap:8px;position:relative}
+.co h3{font-size:1.15rem}
+.co.out{opacity:.62}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{padding:12px 16px;min-width:130px}
+.stat b{display:block;font-family:var(--f-display);font-size:1.9rem;line-height:1}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0}
+.filters button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-family:var(--f-mono);font-weight:500;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tw{overflow-x:auto}
+.ck{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:6px;background:var(--ok);color:#fff;font-size:.8rem}
+.ck.w{background:var(--signal)}
+.split{display:grid;grid-template-columns:280px 1fr;gap:16px}
+.list{display:grid;gap:6px;align-content:start}
+.li{display:flex;align-items:center;gap:8px;text-align:left;justify-content:flex-start;padding:10px 12px;font-weight:600}
+.li.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.mail{overflow:hidden}
+.mail .row{padding:10px 18px;border-bottom:1px solid var(--line);font-size:.92rem}
+.mail .bar{display:flex;align-items:center;gap:10px;padding:10px 18px;background:var(--sunk);border-bottom:1px solid var(--line)}
+textarea{width:100%;min-height:280px;border:0;padding:16px 18px;font:inherit;font-size:1rem;line-height:1.55;background:transparent;color:var(--ink);resize:vertical}
+.rules{display:flex;gap:8px;flex-wrap:wrap;padding:12px 18px;border-top:1px solid var(--line)}
+.vol{padding:18px 20px;display:grid;gap:10px;align-content:start;align-self:start}
+.gosplit{grid-template-columns:360px 1fr}
+.meter{height:12px;border-radius:7px;background:var(--sunk);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--accent);transition:width .5s}
+.go{font-family:var(--f-display);font-size:2rem;font-weight:800;padding:.6rem 2.2rem;border-radius:12px}
+.sched{display:grid;gap:8px}
+.si{display:flex;align-items:center;gap:12px;padding:11px 14px;flex-wrap:wrap}
+.si .h{font-family:var(--f-mono);font-weight:500;color:var(--accent);width:52px}
+.si.off{opacity:.5}
+.si label{display:flex;align-items:center;gap:8px;font-weight:600;flex:1;min-width:200px;cursor:pointer}
+.brief{max-width:760px;overflow:hidden}
+.brief .bh{padding:14px 20px;background:var(--sunk);border-bottom:1px solid var(--line)}
+.brief .bb{padding:18px 20px;display:grid;gap:16px}
+.lead{border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:8px}
+.cal{overflow-x:auto}
+.cg{display:grid;grid-template-columns:52px repeat(5,minmax(130px,1fr));min-width:760px;position:relative}
+.cg .dh{font-family:var(--f-mono);font-size:.78rem;text-align:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.cg .hr{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);padding:0 6px;height:44px;border-top:1px solid var(--line)}
+.cg .cell{height:44px;border-top:1px solid var(--line);border-left:1px solid var(--line);position:relative}
+.ev{position:absolute;left:4px;right:4px;border-radius:7px;padding:4px 8px;font-size:.78rem;font-weight:600;z-index:2;overflow:hidden}
+.ev.call{background:var(--accent-soft);color:var(--accent);font-family:var(--f-mono);font-weight:500;font-size:.7rem}
+.ev.rdv{background:var(--accent);color:var(--accent-ink);box-shadow:0 8px 18px -10px var(--accent)}
+.hol{background:repeating-linear-gradient(45deg,transparent 0 6px,var(--sunk) 6px 12px)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(30px);opacity:0;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:9px;font-size:.9rem;transition:.25s;z-index:20;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:grid;place-items:center;padding:16px;z-index:30}
+.modal .card{max-width:560px;width:100%;padding:22px;display:grid;gap:12px}
+.note{border-left:3px solid var(--accent);padding:10px 14px;background:var(--surface);border-radius:0 9px 9px 0;font-size:.9rem}
+.inbox .ii{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+.flash{animation:fl 1.2s ease}
+@keyframes fl{0%{box-shadow:0 0 0 0 var(--accent)}30%{box-shadow:0 0 0 4px var(--accent-soft)}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .side{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line);padding:12px 16px;gap:10px}
+  .steps{display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}
+  .step{grid-template-columns:auto auto;white-space:nowrap}
+  .step .dot{display:none}
+  .conn{display:flex;overflow-x:auto}
+  .cn{white-space:nowrap}
+  .side h3{display:none}
+  .top{padding:12px 16px;position:static}
+  .view{padding:18px 16px}
+  .split,.gosplit{grid-template-columns:1fr}
+}
+</style></head>
+<body>
+<div class="demo">DÉMO · données fictives, connexions simulées · rien n'est envoyé · <a href="./">retour au site</a></div>
+<div class="app">
+  <aside class="side">
+    <a class="brand" href="./" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a>
+    <nav class="steps" id="steps" aria-label="Étapes de la journée"></nav>
+    <h3>Vos outils</h3>
+    <div class="conn" id="conn"></div>
+    <div class="note" id="arch" style="font-size:.82rem">Pas de logiciel en ligne : vos données restent dans <b>votre</b> compte Google. Le site n'est qu'une fenêtre sur votre fichier de suivi.</div>
+  </aside>
+  <main class="main">
+    <div class="top">
+      <span class="clock" id="clock">17:30</span>
+      <b id="dayLbl">Lot de mardi 10/11</b>
+      <span class="chip neu">Plafond 30 mails / jour</span>
+      <div class="sp">
+        <span class="chip" id="goState"></span>
+        <button id="reset" title="Remettre la démo à zéro">Recommencer</button>
+      </div>
+    </div>
+    <div class="view" id="view"></div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="modalRoot"></div>
+<script>
+(function(){
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const STORE = "linksharp.demo.b2b.v2";
+
+/* ---------- Données fictives ---------- */
+const PROS = [
+  {id:"lumen", co:"Atelier Lumen", sec:"Usinage", city:"Lille", who:"Claire Morel", role:"directrice générale", first:"Claire", sig:"3 postes de technicien ouverts", age:"6 sem.", src:"Offre en ligne, vérifiée à 17:32", ok:true, phone:"06 •• •• •• 41", hot:true,
+   mail:"Bonjour Claire,\n\nVous avez ouvert 3 postes de technicien de maintenance en septembre, et ils sont toujours en ligne.\n\nNous aidons des sites industriels comme le vôtre à tenir leurs plannings pendant ces recrutements.\n\n15 minutes jeudi à 10h ou vendredi à 14h ?\n\nSi ce n'est pas un sujet pour vous, dites-le-moi et je ne vous écrirai plus.", subj:"Vos 3 postes de technicien"},
+  {id:"nordvia", co:"Nordvia Logistique", sec:"Transport", city:"Arras", who:"Marc Delmotte", role:"directeur des opérations", first:"Marc", sig:"Nouvel entrepôt annoncé", age:"il y a 12 j", src:"Communiqué, vérifié à 17:34", ok:true, phone:"03 •• •• •• 18",
+   mail:"Bonjour Marc,\n\nVous avez annoncé l'ouverture de votre entrepôt d'Arras il y a deux semaines.\n\nNous aidons les logisticiens à démarrer un nouveau site sans retard sur les premiers mois.\n\n15 minutes mardi à 11h ou mercredi à 15h ?\n\nSi ce n'est pas un sujet pour vous, dites-le-moi et je ne vous écrirai plus.", subj:"Votre entrepôt d'Arras"},
+  {id:"kerfi", co:"Kerfi Solutions", sec:"Logiciel", city:"Lyon", sig:"Levée de 4 M€", age:"juin", ok:false, why:"Décideur non confirmé"},
+  {id:"ondine", co:"Ondine Énergie", sec:"Solaire", city:"Nantes", who:"Paul Riva", role:"directeur commercial", first:"Paul", sig:"Nouveau directeur commercial", age:"3 sem.", src:"Presse régionale, vérifiée à 17:38", ok:true, phone:"numéro à trouver",
+   mail:"Bonjour Paul,\n\nFélicitations pour votre arrivée à la direction commerciale d'Ondine Énergie il y a trois semaines.\n\nNous aidons les équipes commerciales qui se structurent à remplir leur agenda dès le premier trimestre.\n\n15 minutes jeudi à 9h30 ou vendredi à 11h ?\n\nSi ce n'est pas un sujet pour vous, dites-le-moi et je ne vous écrirai plus.", subj:"Votre arrivée chez Ondine"},
+  {id:"brevan", co:"Brévan Conseil", sec:"Conseil RH", city:"Paris", sig:"Offre « chargé d'affaires »", age:"en ligne", ok:false, why:"Déjà dans « À ne pas contacter »"},
+  {id:"ferrand", co:"Maison Ferrand", sec:"Agroalimentaire", city:"Amiens", who:"Inès Ferrand", role:"présidente", first:"Inès", sig:"Ouverture d'une 2e usine", age:"21 j", src:"Communiqué, vérifié à 17:42", ok:true, phone:"03 •• •• •• 07", emailWarn:true,
+   mail:"Bonjour Inès,\n\nVous avez annoncé l'ouverture de votre deuxième usine à Amiens le mois dernier.\n\nNous aidons les industriels de l'agroalimentaire à recruter et former vite au démarrage d'un site.\n\n15 minutes lundi à 10h ou mardi à 16h ?\n\nSi ce n'est pas un sujet pour vous, dites-le-moi et je ne vous écrirai plus.", subj:"Votre deuxième usine"},
+  {id:"talvo", co:"Talvo Industrie", sec:"Mécanique", city:"Valenciennes", sig:"Poste de directeur d'usine", age:"retiré", ok:false, why:"Offre retirée : signal expiré"},
+  {id:"oria", co:"Oria Packaging", sec:"Emballage", city:"Roubaix", who:"Samir Haddad", role:"directeur général", first:"Samir", sig:"5 offres de conducteur de ligne", age:"5 sem.", src:"Offre en ligne, vérifiée à 17:45", ok:true, phone:"06 •• •• •• 92",
+   mail:"Bonjour Samir,\n\nVous avez 5 offres de conducteur de ligne en ligne depuis plus d'un mois.\n\nNous aidons les sites de production à tenir la cadence pendant ces recrutements.\n\n15 minutes mercredi à 10h ou jeudi à 14h ?\n\nSi ce n'est pas un sujet pour vous, dites-le-moi et je ne vous écrirai plus.", subj:"Vos 5 postes de conducteur de ligne"}
+];
+const RELANCES = [
+  {co:"Corvo Bâtiment", type:"J+3", late:0}, {co:"Pelia Santé", type:"J+7", late:0}, {co:"Brix Emballage", type:"J+3", late:3},
+  {co:"Oméa Conseil", type:"J+3", late:0}, {co:"Atelier Sorel", type:"J+7", late:1}, {co:"Hexa Froid", type:"J+3", late:0}
+];
+const CONN = [
+  {id:"sheets", ic:"S", n:"Google Sheets", role:"Votre fichier de suivi : prospects, statuts, rapport.", where:"Dans votre Google Drive."},
+  {id:"gmail", ic:"M", n:"Gmail", role:"Lit les réponses et programme vos envois aux heures prévues.", where:"Dans votre boîte. Aucun mail ne passe par LinkSharp."},
+  {id:"cal", ic:"A", n:"Google Agenda", role:"Bloque vos créneaux d'appels et ajoute les rendez-vous.", where:"Dans votre agenda."},
+  {id:"crm", ic:"C", n:"CRM (HubSpot…)", role:"Facultatif : fiches et historique synchronisés.", where:"Dans votre CRM."},
+  {id:"leads", ic:"P", n:"Source de prospects", role:"Facultatif : Apollo ou la recherche web.", where:"Dans votre compte d'outil."},
+  {id:"ai", ic:"IA", n:"Votre IA", role:"Recherche les signaux et rédige les messages.", where:"Claude, ChatGPT ou autre, avec votre abonnement."}
+];
+const STEPS = [
+  {id:"search", t:"17:30", n:"Recherche"}, {id:"checks", t:"17:44", n:"Contrôles"}, {id:"msgs", t:"17:51", n:"Messages"},
+  {id:"go", t:"21:00", n:"Go"}, {id:"brief", t:"07:15", n:"Brief"}, {id:"replies", t:"13:10", n:"Réponses"}, {id:"rdv", t:"Semaine", n:"RDV"}
+];
+
+/* ---------- État ---------- */
+const fresh = () => ({step:"search", conn:{}, edits:{}, sel:"lumen", filter:"all", go:false, goAt:null, include:{}, reply:false, rdv:false});
+let S;
+function restoreState(raw){
+  const clean=fresh();
+  try {
+    const saved=JSON.parse(raw || "{}");
+    if(!saved || typeof saved !== "object" || Array.isArray(saved)) return clean;
+    if(STEPS.some(step=>step.id===saved.step)) clean.step=saved.step;
+    if(PROS.some(p=>p.id===saved.sel && p.ok)) clean.sel=saved.sel;
+    if(["all","ok","out"].includes(saved.filter)) clean.filter=saved.filter;
+    const record=value=>value && typeof value==="object" && !Array.isArray(value);
+    if(record(saved.conn)) CONN.forEach(c=>clean.conn[c.id]=saved.conn[c.id]===true);
+    if(record(saved.include)) PROS.forEach(p=>{ if(typeof saved.include[p.id]==="boolean") clean.include[p.id]=saved.include[p.id]; });
+    if(record(saved.edits)) PROS.forEach(p=>{ if(typeof saved.edits[p.id]==="string") clean.edits[p.id]=saved.edits[p.id]; });
+    clean.go=saved.go===true && clean.conn.gmail===true && clean.conn.sheets===true;
+    clean.goAt=clean.go && typeof saved.goAt==="string" ? saved.goAt : null;
+    clean.reply=clean.go && clean.conn.cal===true && clean.include.lumen!==false && saved.reply===true;
+    clean.rdv=clean.reply && saved.rdv===true;
+    return clean;
+  } catch(e) { return clean; }
+}
+try{ S=restoreState(localStorage.getItem(STORE)); }catch(e){ S=fresh(); }
+const save = () => { try{ localStorage.setItem(STORE, JSON.stringify(S)); }catch(e){} };
+const kept = () => PROS.filter(p => p.ok);
+const inc = id => S.include[id] !== false && !PROS.find(p => p.id === id)?.emailWarn;
+const mailOf = p => S.edits[p.id] != null ? S.edits[p.id] : p.mail;
+const words = t => (t.trim().match(/\S+/g)||[]).length;
+function toast(m){ const t=$("toast"); t.textContent=m; t.classList.add("on"); clearTimeout(toast.h); toast.h=setTimeout(()=>t.classList.remove("on"),3200); }
+
+/* ---------- Calcul de volume (même règle que le skill : J0 protégés, relances en retard de 3 j prioritaires) ---------- */
+function volume(){
+  const cap = 30, already = 0, place = cap - already;
+  const prio = RELANCES.filter(r => r.late >= 3);
+  const j0 = kept().filter(p => inc(p.id));
+  const room = Math.max(0, place - prio.length - j0.length);
+  const others = RELANCES.filter(r => r.late < 3).sort((a,b) => b.late - a.late);
+  const relIn = others.slice(0, room), relOut = others.slice(room);
+  return {cap, already, place, prio, j0, relIn, relOut, total: already + prio.length + j0.length + relIn.length};
+}
+function schedule(){
+  const v = volume(), out = []; let m = 8*60+30;
+  v.j0.forEach(p => { out.push({h:m, label:p.co, kind:"J0", id:p.id}); m += 2; });
+  let r = 14*60; [...v.prio, ...v.relIn].forEach(x => { out.push({h:r, label:"Relance "+x.type+" · "+x.co, kind:"rel", late:x.late}); r += 2; });
+  return out;
+}
+const hm = m => String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
+
+/* ---------- Barre latérale ---------- */
+function renderSide(){
+  $("steps").innerHTML = STEPS.map(s => {
+    const done = (s.id==="go"&&S.go)||(s.id==="replies"&&S.reply)||(s.id==="rdv"&&S.rdv);
+    return `<button class="step ${S.step===s.id?"on":""}" data-step="${s.id}"><span class="t">${s.t}</span><span>${s.n}</span><span class="dot ${done?"ok":""}"></span></button>`; }).join("");
+  $("conn").innerHTML = CONN.map(c => `<button class="cn ${S.conn[c.id]?"on":""}" data-conn="${c.id}"><span class="ic">${c.ic}</span><span>${c.n}</span><span class="st">${S.conn[c.id]?"connecté":"connecter"}</span></button>`).join("");
+  const st = $("goState");
+  if(S.go){ st.className="chip okc"; st.textContent="Go donné · "+schedule().length+" programmés"; }
+  else { st.className="chip sig"; st.textContent="En attente de votre go"; }
+  $("clock").textContent = (STEPS.find(s=>s.id===S.step)||STEPS[0]).t;
+}
+
+/* ---------- Vues ---------- */
+const V = {};
+V.search = () => {
+  const k = kept().length, out = PROS.length - k;
+  const list = PROS.filter(p => S.filter==="all" || (S.filter==="ok"?p.ok:!p.ok));
+  return `<div class="head"><div><div class="eyebrow">17:30 · Chaque soir</div><h1>Les entreprises qui ont une vraie raison de vous parler.</h1>
+   <p class="muted" style="margin-top:8px">Votre IA cherche des faits publics et datés. Sans fait vérifiable, l'entreprise est écartée, et le motif est noté.</p></div></div>
+  <div class="stats"><div class="card stat"><span class="muted">Analysées</span><b>${PROS.length}</b></div><div class="card stat"><span style="color:var(--ok)">Retenues</span><b>${k}</b></div><div class="card stat"><span style="color:var(--bad)">Écartées</span><b>${out}</b></div></div>
+  <div class="filters" role="group" aria-label="Filtrer">${[["all","Toutes"],["ok","Retenues"],["out","Écartées"]].map(f=>`<button data-filter="${f[0]}" class="${S.filter===f[0]?"on":""}">${f[1]}</button>`).join("")}</div>
+  <div class="grid2">${list.map(p => `<div class="card co ${p.ok?"":"out"}">
+     <div style="display:flex;gap:8px;align-items:flex-start"><div style="flex:1"><h3>${esc(p.co)}</h3><div class="muted" style="font-size:.86rem">${esc(p.sec)} · ${esc(p.city)}</div></div>
+     <span class="chip ${p.ok?"okc":"badc"}">${p.ok?"✓ retenue":"✕ écartée"}</span></div>
+     <div><span class="chip sig">● ${esc(p.sig)} · ${esc(p.age)}</span></div>
+     <div class="mono" style="font-size:.76rem;color:${p.ok?"var(--muted)":"var(--bad)"}">${p.ok?esc(p.src):"Motif : "+esc(p.why)}</div>
+     ${p.ok?`<div style="font-size:.86rem">Décideur : <b>${esc(p.who)}</b>, ${esc(p.role)}</div>`:""}</div>`).join("")}</div>`;
+};
+V.checks = () => `<div class="head"><div><div class="eyebrow">La méthode</div><h1>5 contrôles avant chaque prospect.</h1>
+   <p class="muted" style="margin-top:8px">Un seul doute, et le prospect est retiré du lot. Sans source vérifiable, rien n'est affirmé.</p></div></div>
+  <div class="card tw"><table><thead><tr><th>Entreprise</th><th>Cible</th><th>Signal daté</th><th>Décideur</th><th>Email</th><th>Doublon</th></tr></thead><tbody>
+  ${kept().map(p => `<tr><td><b>${esc(p.co)}</b><div class="muted" style="font-size:.8rem">${esc(p.who)}</div></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td>
+   <td>${p.emailWarn?`<span class="ck w" title="À revalider">!</span> <span class="chip sig">à revalider au go</span>`:`<span class="ck">✓</span>`}</td><td><span class="ck">✓</span></td></tr>`).join("")}
+  </tbody></table></div>
+  <div class="note" style="margin-top:16px">Maison Ferrand : l'email n'a pas pu être validé ce soir (crédits de validation épuisés). Il reste exclu de la programmation tant que sa validation n’est pas confirmée.</div>`;
+V.msgs = () => {
+  const p = kept().find(x=>x.id===S.sel) || kept()[0], t = mailOf(p), n = words(t);
+  const r = [["Fait daté", /\b(il y a|septembre|mois|semaines?|ouvert|annonc)/i.test(t)],["Une seule demande", (t.match(/\?/g)||[]).length===1],["Droit de dire stop", t.includes("je ne vous écrirai plus")],["Moins de 120 mots", n<120]];
+  return `<div class="head"><div><div class="eyebrow">17:51 · Pour chaque entreprise</div><h1>Un message écrit pour elle seule.</h1>
+   <p class="muted" style="margin-top:8px">Vous pouvez tout modifier. Une modification après le go demande un nouveau go. Les indicateurs ci-dessous vérifient la forme du texte, pas la véracité des faits.</p></div></div>
+  <div class="split"><div class="list">${kept().map(x=>`<button class="li card ${x.id===p.id?"on":""}" data-sel="${x.id}">${esc(x.co)}${S.edits[x.id]!=null?' <span class="chip accc">modifié</span>':""}</button>`).join("")}</div>
+   <div class="card mail"><div class="bar"><b>Brouillon</b><span id="mailState" class="chip ${S.go?"okc":"sig"}" style="margin-left:auto">${p.emailWarn?"exclu · email non validé":S.go&&inc(p.id)?"programmé":"en attente du go"}</span></div>
+    <div class="row"><span class="muted">À</span> ${esc(p.who)} · ${esc(p.role)} · ${esc(p.co)}</div>
+    <div class="row"><span class="muted">Objet</span> <b>${esc(p.subj)}</b></div>
+    <textarea id="mailTxt" aria-label="Message">${esc(t)}</textarea>
+    <div class="rules" id="rules">${r.map(x=>`<span class="chip ${x[1]?"okc":"badc"}">${x[1]?"✓":"✕"} ${x[0]}</span>`).join("")}<span class="chip neu" style="margin-left:auto">${n} mots</span></div></div></div>`;
+};
+V.go = () => {
+  const v = volume(), sch = schedule();
+  return `<div class="head"><div><div class="eyebrow">21:00 · Le soir</div><h1>Vous relisez. Vous dites « go ».</h1>
+   <p class="muted" style="margin-top:8px">Rien ne part sans vous. Décochez une ligne pour la retirer du lot.</p></div></div>
+  <div class="split gosplit">
+   <div class="card vol"><div class="mono muted" style="font-size:.76rem">CALCUL DU VOLUME</div>
+    <div>Plafond : <b>${v.cap}</b> · déjà programmés : <b>${v.already}</b></div>
+    <div>Relances en retard de 3 jours (prioritaires) : <b>${v.prio.length}</b></div>
+    <div>Nouveaux contacts : <b>${v.j0.length}</b> <span class="muted">(protégés)</span></div>
+    <div>Autres relances : <b>${v.relIn.length}</b>${v.relOut.length?` · <span style="color:var(--warn)">${v.relOut.length} reportée(s) à demain</span>`:""}</div>
+    <div class="meter" aria-label="Volume"><i style="width:${Math.round(100*v.total/v.cap)}%"></i></div>
+    <div class="mono" style="font-size:.85rem">${v.total} / ${v.cap} mails · plafond respecté</div>
+    <button class="primary go" id="goBtn" ${S.go?"disabled":""}>${S.go?"✓ Go donné":"go"}</button>
+    ${S.go?`<div class="muted" style="font-size:.85rem">Programmés dans votre boîte à ${S.goAt}. Le contrôle de 13:10 annulera toute relance si quelqu'un répond.</div>`:""}</div>
+   <div><div class="mono muted" style="font-size:.76rem;margin-bottom:8px">${S.go?"BOÎTE D'ENVOI · PROGRAMMÉS":"LOT PROPOSÉ"}</div><div class="sched">
+    ${kept().map(p => { const s = sch.find(x=>x.id===p.id); return `<div class="card si ${inc(p.id)?"":"off"}"><span class="h">${s?hm(s.h):"—"}</span><label><input type="checkbox" data-inc="${p.id}" ${p.emailWarn?"disabled":""} ${inc(p.id)?"checked":""}> ${esc(p.co)}</label>${p.emailWarn?'<span class="chip sig">exclu · email non validé</span>':""}<span class="chip ${S.go&&inc(p.id)?"okc":"neu"}">${S.go&&inc(p.id)?"Programmé":"J0"}</span></div>`; }).join("")}
+    ${sch.filter(x=>x.kind==="rel").map(x=>`<div class="card si"><span class="h">${hm(x.h)}</span><span style="flex:1;font-weight:600">${esc(x.label)}</span>${x.late>=3?'<span class="chip sig">prioritaire</span>':""}<span class="chip ${S.go?"okc":"neu"}">${S.go?"Programmé":"Relance"}</span></div>`).join("")}
+    ${volume().relOut.map(x=>`<div class="card si off"><span class="h">demain</span><span style="flex:1;font-weight:600">Relance ${x.type} · ${esc(x.co)}</span><span class="chip sig">reportée (volume)</span></div>`).join("")}
+   </div></div></div>`;
+};
+V.brief = () => {
+  const L = kept().filter(p=>inc(p.id));
+  const leads = [L.find(p=>p.hot), L.find(p=>p.id==="ondine")].filter(Boolean);
+  return `<div class="head"><div><div class="eyebrow">07:15 · Le matin</div><h1>Votre liste d'appels arrive avec le café.</h1>
+   <p class="muted" style="margin-top:8px">Exemple du brief du 10 novembre : qui appeler, quoi dire, quoi répondre. Les réponses simulées ensuite sont signalées ci-dessous.</p></div></div>
+  ${S.go?"":`<div class="note" style="margin-bottom:14px">Le brief s'appuie sur le lot validé. Donnez d'abord votre go à l'étape « Go ».</div>`}
+  <div class="card brief"><div class="bh"><b>Brief mar. 10/11 – ${leads.length} leads · 3 mails · 1 meeting</b><div class="mono muted" style="font-size:.76rem">à vous-même · 07:15</div></div>
+   <div class="bb"><div><div class="mono muted" style="font-size:.74rem">PROSPECTION DU JOUR</div>${S.go?`${schedule().length} mails programmés (08:30 → ${hm(schedule().filter(x=>x.kind==="J0").slice(-1)[0]?.h||510)}, puis relances à 14:00). ${S.reply?"Lumen a répondu : sa relance est annulée.":"Aucune réponse simulée pour le moment."}`:"Lot en attente de go."}</div>
+   ${leads.map((p,i)=>`<div class="lead"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b style="font-family:var(--f-display);font-size:1.15rem">${esc(p.co)}</b><span class="chip ${p.hot?"sig":"neu"}">${p.hot?"À appeler · besoin à confirmer":"Signal fort · 3 sem."}</span></div>
+     <div>${esc(p.who)}, ${esc(p.role)} · <span class="mono">${esc(p.phone)}</span></div>
+     <div><span class="chip accc">À dire</span> ${p.hot?"Vos 3 postes de technicien sont ouverts depuis septembre…":"Félicitations pour votre arrivée, comment structurez-vous l'équipe ?"}</div>
+     <div><span class="chip sig">Objection</span> ${p.hot?"« On gère en interne » → proposez un seul renfort de 3 mois.":"« Trop tôt » → proposez de rappeler dans 4 semaines, à date fixe."}</div></div>`).join("")}
+   <div><div class="mono muted" style="font-size:.74rem">AGENDA</div>${S.go && S.conn.cal ? "Bloc d’appels prévu à 09:30 (simulation)." : "Bloc d’appels non réservé : validez le lot et connectez Agenda."} ${S.rdv ? "Lumen : jeudi 19 novembre, 10h–10h15." : "Aucun nouveau rendez-vous confirmé dans cette simulation."}</div></div></div>`;
+};
+V.replies = () => `<div class="note">Lundi 16 novembre · J+3 après le premier mail du 10 novembre (11 novembre exclu dans cet exemple). Connexion Agenda requise. Aucun message ni invitation réelle n’est envoyé.</div><div class="head"><div><div class="eyebrow">13:10 · Contrôle des relances</div><h1>Quelqu'un répond ? Sa relance est annulée.</h1>
+   <p class="muted" style="margin-top:8px">À 13:10, LinkSharp relit les réponses. Une relance n'est jamais envoyée à quelqu'un qui a répondu.</p></div>
+   <button class="primary" id="simReply" ${S.reply || !S.go || !inc("lumen") || !S.conn.gmail || !S.conn.cal ? "disabled":""}>${S.reply?"✓ Réponse reçue":"Simuler une réponse"}</button></div>
+  <div class="card inbox">
+   ${S.reply?`<div class="ii flash"><span class="chip accc">12:47</span><div><b>Claire Morel · Atelier Lumen</b><div>« Oui, jeudi 19 novembre à 10h me va. »</div></div><span class="chip okc">Répondu</span></div>`:""}
+   <div class="ii"><span class="mono">14:06</span><div style="${S.reply?"text-decoration:line-through;color:var(--muted)":""}"><b>Relance J+3 · Atelier Lumen</b></div><span class="chip ${S.reply?"badc":"neu"}">${S.reply?"Annulée · a répondu":S.go&&inc("lumen")?"Programmée (simulation J+3)":"Non programmée"}</span></div>
+   ${["Corvo Bâtiment","Pelia Santé","Oméa Conseil"].map((c,i)=>`<div class="ii"><span class="mono">14:${String(i*2).padStart(2,"0")}</span><div><b>Relance · ${c}</b></div><span class="chip okc">${S.go?"Programmée":"En attente du go"}</span></div>`).join("")}
+  </div>
+  ${S.reply?`<div class="note" style="margin-top:14px">Claire a proposé jeudi 19 novembre à 10h : le rendez-vous est ajouté à l'agenda de la personne qui tient l'échange. Voir l'étape « RDV ».</div>`:""}`;
+V.rdv = () => {
+  const days = ["Lun. 16","Mar. 17","Mer. 18","Jeu. 19","Ven. 20"], hours = [9,10,11,12,13,14,15,16,17];
+  const ev = [];
+  if(S.go && S.conn.cal) [0,1,2,3,4].forEach(d => ev.push({d, h:9.5, len:.5, cls:"call", t:"Appels LinkSharp · 30 min"}));
+  ev.push({d:1, h:15.5, len:1, cls:"rdv", t:"RDV existant · Nordvia Logistique"});
+  if(S.rdv) ev.push({d:3, h:10, len:.25, cls:"rdv", t:"RDV · Atelier Lumen"});
+  const n = S.rdv ? 1 : 0;
+  let g = `<div class="cg"><div></div>${days.map(d=>`<div class="dh ${d.includes("férié")?"muted":""}">${d}</div>`).join("")}`;
+  hours.forEach(h => { g += `<div class="hr">${h}h</div>`; days.forEach((d,i) => {
+    const here = ev.filter(e => e.d===i && Math.floor(e.h)===h);
+    g += `<div class="cell ${d.includes("férié")?"hol":""}">${here.map(e=>`<div class="ev ${e.cls} ${e.cls==="rdv"&&e.d===3?"flash":""}" style="top:${(e.h-h)*44+2}px;height:${e.len*44-4}px">${esc(e.t)}</div>`).join("")}</div>`; }); });
+  g += `</div>`;
+  return `<div class="head"><div><div class="eyebrow">Le résultat</div><h1>Des rendez-vous dans votre agenda.</h1>
+   <p class="muted" style="margin-top:8px">Un créneau d'appels réservé chaque matin, les rendez-vous ajoutés quand un prospect accepte. Le scénario a exclu le 11 novembre ; cette vue montre la semaine suivante.</p></div>
+   <div class="card stat" style="margin-left:auto"><span class="muted">Cette semaine</span><b style="color:var(--accent)">+${n}</b><span class="muted" style="font-size:.8rem">nouveau rendez-vous (simulation)</span></div></div>
+  ${S.reply?"":`<div class="note" style="margin-bottom:14px">Astuce : simulez une réponse à l'étape « Réponses » pour voir le rendez-vous s'ajouter.</div>`}
+  <div class="card cal">${g}</div>`;
+};
+
+function render(){
+  renderSide();
+  $("view").innerHTML = V[S.step]();
+  save();
+  const ta = $("mailTxt");
+  if(ta) ta.addEventListener("input", () => {
+    const p = kept().find(x=>x.id===S.sel) || kept()[0];
+    S.edits[p.id] = ta.value;
+    if(S.go){ S.go = false; S.goAt = null; S.reply = false; S.rdv = false; toast("Message modifié après le go : un nouveau go est nécessaire."); renderSide(); if($("mailState")){ $("mailState").textContent="En attente d’un nouveau go"; $("mailState").className="chip sig"; } }
+    const t = ta.value, n = words(t);
+    const r = [["Fait daté", /\b(il y a|septembre|mois|semaines?|ouvert|annonc)/i.test(t)],["Une seule demande", (t.match(/\?/g)||[]).length===1],["Droit de dire stop", t.includes("je ne vous écrirai plus")],["Moins de 120 mots", n<120]];
+    $("rules").innerHTML = r.map(x=>`<span class="chip ${x[1]?"okc":"badc"}">${x[1]?"✓":"✕"} ${x[0]}</span>`).join("")+`<span class="chip neu" style="margin-left:auto">${n} mots</span>`;
+    save();
+  });
+}
+
+/* ---------- Connecteurs (simulés) ---------- */
+function openConn(id){
+  const c = CONN.find(x=>x.id===id), on = !!S.conn[id];
+  $("modalRoot").innerHTML = `<div class="modal" id="mdl" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="card">
+   <div class="eyebrow">Connecteur · démo</div><h2 id="mt">${esc(c.n)}</h2>
+   <div>${esc(c.role)}</div>
+   <div class="note"><b>Où restent vos données :</b> ${esc(c.where)}</div>
+   <div class="muted" style="font-size:.86rem">Dans la démo, la connexion est simulée. Dans la version réelle, vous autorisez l'accès depuis votre propre compte, et vous pouvez le retirer à tout moment.</div>
+   <div style="display:flex;gap:8px;justify-content:flex-end"><button id="mClose">Fermer</button><button class="primary" id="mOk">${on?"Déconnecter":"Connecter (démo)"}</button></div></div></div>`;
+  const close = () => { $("modalRoot").innerHTML = ""; };
+  $("mClose").onclick = close; $("mdl").onclick = e => { if(e.target.id==="mdl") close(); };
+  $("mOk").onclick = () => { S.conn[id] = !on; if(on && ["sheets","gmail","cal"].includes(id)){ S.go=false; S.goAt=null; S.reply=false; S.rdv=false; } close(); render(); toast(on ? c.n+" déconnecté (démo)." : c.n+" connecté (démo)."); };
+  $("mOk").focus();
+}
+
+/* ---------- Événements ---------- */
+document.addEventListener("click", e => {
+  const b = e.target.closest("button, input"); if(!b) return;
+  if(b.dataset.step){ S.step = b.dataset.step; render(); window.scrollTo({top:0}); return; }
+  if(b.dataset.conn){ openConn(b.dataset.conn); return; }
+  if(b.dataset.filter){ S.filter = b.dataset.filter; render(); return; }
+  if(b.dataset.sel){ S.sel = b.dataset.sel; render(); return; }
+  if(b.dataset.inc){ S.include[b.dataset.inc] = b.checked; if(S.go){ S.go=false; S.goAt=null; S.reply=false; S.rdv=false; toast("Lot corrigé après le go : un nouveau go est nécessaire."); } render(); return; }
+  if(b.id === "goBtn"){
+    const missing = ["sheets","gmail"].filter(k => !S.conn[k]);
+    if(missing.length){ toast("Connectez d'abord Google Sheets et Gmail (barre de gauche)."); return; }
+    const invalid = volume().j0.some(p => { const t=mailOf(p); return !t.trim() || words(t)>=120 || (t.match(/\?/g)||[]).length!==1 || !t.includes("je ne vous écrirai plus"); });
+    if(invalid){ toast("Corrigez les messages : une question, moins de 120 mots et la phrase d’opposition sont nécessaires."); return; }
+    S.go = true; S.goAt = "21:04"; render(); toast(schedule().length+" mails programmés. Ferrand est exclu : email non validé."); return; }
+  if(b.id === "simReply"){
+    if(!S.go || !inc("lumen") || !S.conn.gmail || !S.conn.cal){ toast("Validez un lot incluant Lumen et connectez Gmail et Agenda avant cette simulation."); return; }
+    S.reply = true; S.rdv = true; render(); toast("Réponse de Claire : relance de J+3 à 14:06 annulée, rendez-vous ajouté jeudi 19 novembre à 10h."); return; }
+  if(b.id === "reset"){ S = fresh(); render(); toast("Démo remise à zéro."); return; }
+});
+document.addEventListener("keydown", e => { if(e.key==="Escape") $("modalRoot").innerHTML = ""; });
+render();
+})();
+</script>
+</body></html>

@@ -69,6 +69,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .nav .in{max-width:1160px;margin:0 auto;padding:12px max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;gap:20px}
 .brand{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-family:var(--f-display);font-weight:800;font-size:1.2rem;letter-spacing:-.03em}
 .brand b{color:var(--accent);font-weight:800}
+.flag{width:20px;height:auto;border-radius:2px;vertical-align:-3px;box-shadow:0 0 0 1px var(--line)}
+.lang{display:inline-flex;align-items:center;gap:6px}
 .brand svg{width:28px;height:28px;flex:none}
 .nav .links{display:flex;gap:18px;margin-left:auto;font-size:.92rem}
 .nav .links a{color:var(--muted);text-decoration:none}
@@ -446,10 +448,12 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
   <a class="brand" href="#accueil" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a>
   <div class="links" id="navLinks">
     <a href="#exemple" data-nav="exemple">Exemple</a>
+    <a href="app.html">Démo</a>
     <a href="#benefices" data-nav="benefices">Ce que ça change</a>
     <a href="#connexions" data-nav="connexions">Vos outils</a>
     <a href="#automation" data-nav="automation">Marketing <span class="tiny">bientôt</span></a>
     <a href="#contact" data-nav="contact">Réserver un appel</a>
+    <a href="en.html" hreflang="en" lang="en" class="lang" aria-label="English version"><svg class="flag" viewBox="0 0 19 10" aria-hidden="true"><rect width="19" height="10" fill="#B22234"/><g fill="#fff"><rect y="0.77" width="19" height="0.77"/><rect y="2.31" width="19" height="0.77"/><rect y="3.85" width="19" height="0.77"/><rect y="5.38" width="19" height="0.77"/><rect y="6.92" width="19" height="0.77"/><rect y="8.46" width="19" height="0.77"/></g><rect width="7.6" height="5.38" fill="#3C3B6E"/></svg> EN</a>
   </div>
   <a class="btn primary navcta" href="#outil" data-nav="outil">Essayer gratuitement</a>
   <button type="button" class="menu" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
@@ -461,24 +465,33 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
 <div class="page" data-page="accueil">
   <section class="hero" id="top">
     <div class="copy">
-      <span class="eyebrow"><span class="beta">Bêta</span> LinkSharp · votre assistant commercial</span>
+      <span class="eyebrow"><span class="beta">Bêta</span> LinkSharp · votre assistant de prospection B2B</span>
       <h1 class="big">Moins de temps à prospecter. <em>Plus de rendez-vous.</em></h1>
-      <p class="lede lede-big">LinkSharp trouve les entreprises, écrit les messages et relance pour vous. Vous validez en 5 minutes, vous appelez.</p>
+      <p class="lede lede-big">LinkSharp configure votre assistant de prospection B2B : entreprises à cibler, messages à relire et relances à suivre. Il travaille avec votre IA et les outils auxquels vous lui donnez accès. Vous gardez la validation des envois.</p>
       <div class="cta"><a class="btn primary" href="#outil">Essayer gratuitement</a><a class="btn ghost" href="#calcul">Calculer mon temps gagné</a></div>
-      <div class="facts"><span>Gratuit pendant la bêta</span><span>Vous validez chaque envoi</span><span>Prêt en dix minutes</span><span>Déjà un système ? Comptez 20 à 30 minutes de relecture</span></div>
+      <div class="facts"><span>Gratuit pendant la bêta</span><span>Vous validez chaque envoi</span><span>Configuration guidée</span><span>Déjà un système en place ? 20 à 30 minutes de relecture à l'installation</span></div>
     </div>
     <aside class="day" aria-label="Votre journée avec LinkSharp">
       <div class="top"><span class="eyebrow">Votre journée avec LinkSharp</span></div>
       <ol>
         <li><time>17:30</time><div><strong>Votre liste du lendemain est prête</strong><small>Des entreprises choisies, un message pour chacune</small></div></li>
-        <li class="you"><time>Soir</time><div><strong>Vous validez en cinq minutes</strong><small>Sans votre accord, rien ne part</small></div></li>
-        <li><time>07:15</time><div><strong>Vous recevez votre liste d'appels</strong><small>Qui appeler, son numéro, quoi lui dire</small></div></li>
-        <li><time>08:30</time><div><strong>Vos messages partent</strong><small>Depuis votre propre adresse email</small></div></li>
-        <li><time>13:10</time><div><strong>Quelqu'un a répondu ?</strong><small>Vous êtes prévenu tout de suite</small></div></li>
+        <li class="you"><time>Soir</time><div><strong>Vous relisez et validez</strong><small>Sans votre accord, rien ne part</small></div></li>
+        <li><time>07:15</time><div><strong>Vous recevez votre liste d'appels</strong><small>Les contacts des jours précédents : qui appeler, son numéro, quoi lui dire</small></div></li>
+        <li><time>08:30</time><div><strong>Les messages validés la veille partent</strong><small>Depuis votre propre adresse email</small></div></li>
+        <li><time>13:10</time><div><strong>Quelqu'un a répondu ?</strong><small>Les réponses sont contrôlées avant les relances</small></div></li>
         <li><time>14:00</time><div><strong>À partir de 14h, les relances partent</strong><small>Jamais à ceux qui ont déjà répondu</small></div></li>
       </ol>
       <p class="foot">Les heures s'adaptent à votre rythme.</p>
     </aside>
+  </section>
+
+  <section id="video" aria-labelledby="hVideo" style="padding:24px 0 56px">
+    <p class="eyebrow">La méthode en 50 secondes</p>
+    <h2 id="hVideo" style="margin:8px 0 18px">De la recherche du soir au rendez-vous dans l'agenda.</h2>
+    <video src="linksharp-methode.mp4" poster="linksharp-methode-poster.jpg" controls playsinline preload="metadata"
+      style="width:100%;display:block;border-radius:12px;border:1px solid var(--line);background:#0E1116;aspect-ratio:16/9"></video>
+    <p class="hint" style="margin-top:10px">Exemple fictif : entreprises et personnes inventées. Activez le son.</p>
+    <p style="margin-top:16px"><a class="btn" href="app.html">Essayer la démo interactive</a></p>
   </section>
 
 
@@ -494,7 +507,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
         </label>
       </div>
       <div class="calc-r" aria-live="polite">
-        <span class="eyebrow">Avec LinkSharp</span>
+        <span class="eyebrow">Estimation avec LinkSharp</span>
         <p class="gain"><span id="gH">0</span><small> h</small></p>
         <p class="gainlbl">récupérées par semaine</p>
         <div class="cmpbars">
@@ -502,11 +515,10 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
           <div><span>Avec LinkSharp</span><div class="track"><i id="barAfter" class="after"></i></div><b id="tAfter">0 h</b></div>
         </div>
         <ul class="gainlist">
-          <li><b id="gDays">0</b> journées de travail récupérées par an</li>
-          <li><b id="gEur">0 €</b> de votre temps par mois</li>
+                    <li><b id="gEur">0 €</b> de votre temps par mois</li>
         </ul>
         <a class="btn primary" href="#outil">Récupérer ce temps</a>
-        <p class="assume">Estimation : LinkSharp prend en charge environ 90 % de la recherche, 85 % de l'écriture et des relances, 90 % du suivi, la moitié du tri des mails et 60 % de la préparation des appels. Il vous reste 5 minutes de validation par jour. Calcul sur 46 semaines et des journées de 7 heures. Le gain réel dépend de votre activité et de la puissance de votre IA.</p>
+        <p class="assume">Hypothèses, pas des mesures : la bêta n'a pas encore de résultats réels à publier. On suppose que LinkSharp prend en charge environ 90 % de la recherche, 85 % de l'écriture et des relances, 90 % du suivi, la moitié du tri des mails et 60 % de la préparation des appels. Il vous reste 5 minutes de validation par jour. Calcul mensuel sur 46 semaines travaillées par an. Le gain réel dépend de votre activité et de la puissance de votre IA.</p>
       </div>
     </div>
   </section>
@@ -547,8 +559,8 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
     <div class="needs">
       <span class="eyebrow">Ce qu'il vous faut</span>
       <ul>
-        <li><b>Une IA que vous utilisez déjà</b> : Claude (idéal, tout s'installe tout seul), ChatGPT ou une autre</li>
-        <li><b>Une adresse Gmail</b> et votre agenda Google</li>
+        <li><b>Une IA que vous utilisez déjà</b> : Claude (le plus complet : il installe presque tout lui-même), ChatGPT ou une autre</li>
+        <li><b>Une adresse Gmail</b> et votre agenda Google (Outlook et Microsoft 365 ne sont pas encore pris en charge pendant la bêta)</li>
         <li><b>Dix minutes</b> pour tout mettre en place</li>
       </ul>
       <p class="hint">Le résultat dépend de la puissance de votre IA : plus elle est récente, en version payante et connectée à votre Gmail et à votre agenda, plus votre assistant sera précis et automatique. Pas à l'aise avec la technique ? <a href="#contact">Je l'installe avec vous.</a></p>
@@ -586,14 +598,14 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
 
   <section class="sec" id="garde-fous">
     <div class="band">
-      <div style="display:grid;gap:10px;align-content:start"><span class="eyebrow">Vous gardez le contrôle</span><h2>Automatique, mais jamais sans vous</h2><p>Ces règles sont les mêmes pour tout le monde, et rien ne peut les retirer.</p></div>
+      <div style="display:grid;gap:10px;align-content:start"><span class="eyebrow">Vous gardez le contrôle</span><h2>Automatique, mais jamais sans vous</h2><p>Ces règles sont écrites dans les consignes de chaque assistant. Une IA peut se tromper : c'est pour ça que vous relisez chaque lot.</p></div>
       <ul>
         <li>Rien ne part sans votre accord</li>
         <li>Un nombre de messages par jour que vous fixez</li>
-        <li>Aucune information inventée</li>
+        <li>Chaque fait est sourcé et daté, sinon l'entreprise est écartée</li>
         <li>Chacun peut dire « stop » en une phrase</li>
         <li>Une seule personne contactée par entreprise</li>
-        <li>Rien n'est jamais effacé chez vous</li>
+        <li>Consigne de ne jamais rien supprimer dans vos outils</li>
       </ul>
     </div>
   </section>
@@ -671,7 +683,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
         <a class="btn" id="openAI" href="https://claude.ai/new" target="_blank" rel="noopener">Ouvrir Claude dans un nouvel onglet</a>
       </div>
       <div id="keyBlock" hidden>
-        <p class="hint">Créez une clé sur <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> (rubrique « API Keys »). Elle reste dans votre navigateur et n'est envoyée qu'à Anthropic. Facturée à part de l'abonnement, quelques centimes au plus.</p>
+        <p class="hint">Créez une clé sur <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> (rubrique « API Keys »). Elle reste uniquement en mémoire jusqu’au rechargement de la page et n’est envoyée qu’à Anthropic. L’API est facturée séparément selon la consommation.</p>
         <div class="inline">
           <label class="f" style="flex:1 1 260px">Clé d'API<input type="password" id="keyInput" autocomplete="off" placeholder="sk-ant-…"></label>
           <button type="button" id="keySave" class="primary" style="align-self:end">Enregistrer</button>
@@ -723,7 +735,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
   </section>
   <!-- Étape 1 -->
   <section class="block" id="cible" aria-labelledby="h1s">
-    <div class="head"><div class="t"><span class="eyebrow">Étape 1</span><h2 id="h1s">Vos clients idéaux</h2></div></div>
+    <div class="head"><div class="t"><span class="eyebrow">Étape 1</span><h2 id="h1s">Vos entreprises clientes idéales</h2></div></div>
     <div class="panel pad">
       <label class="f">Décrivez votre produit ou service
         <small>Ce que vous vendez, à qui vous pensez le vendre, ce qui vous différencie. Quelques phrases suffisent.</small>
@@ -1012,7 +1024,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
       <article><span class="k">Temps</span><h3>Vos soirées et vos matinées libérées</h3><p>La préparation tourne seule à heure fixe. Il vous reste à relire le lot et dire « go ».</p></article>
       <article><span class="k">Qualité</span><h3>Chaque mail repose sur un fait vérifié</h3><p>Pas de raison claire de contacter une entreprise ? Elle est mise de côté. Votre réputation est protégée.</p></article>
       <article><span class="k">Régularité</span><h3>La prospection ne s'arrête plus</h3><p>Même les semaines chargées, le lot du lendemain est prêt. Les relances partent au bon moment.</p></article>
-      <article><span class="k">Contrôle</span><h3>Rien ne part sans vous</h3><p>Vous validez chaque envoi, vous fixez le nombre de messages par jour, rien n'est effacé chez vous.</p></article>
+      <article><span class="k">Contrôle</span><h3>Rien ne part sans vous</h3><p>Vous validez chaque envoi, vous fixez le nombre de messages par jour, et l'assistant a pour consigne de ne rien supprimer chez vous.</p></article>
     </div>
   </section>
 
@@ -1093,20 +1105,20 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
     <ul class="ticks">
       <li>Le site est une simple page : aucun serveur, aucun compte, aucune base de données.</li>
       <li>Par défaut, tout se passe dans votre propre compte Claude : le site ne voit rien.</li>
-      <li>Option clé d'API : la clé reste dans votre navigateur, les appels partent directement vers Anthropic, avec un plafond de dépense.</li>
+      <li>Option clé d'API : la clé reste dans votre navigateur, les appels partent directement vers Anthropic, avec un compteur de coût estimatif local, non garanti côté fournisseur.</li>
       <li>Le système installé agit avec vos propres connecteurs, dans vos propres outils.</li>
       <li>La dictée vocale utilise la reconnaissance vocale de votre navigateur.</li>
       <li>Pas de compte LinkSharp, donc pas de mot de passe à voler. La sécurité se joue sur vos propres comptes : activez la double authentification sur Google, Claude et votre CRM.</li>
       <li>Option « Protéger mes données » : l'IA remplit le formulaire sans ouvrir vos mails, votre Drive ni votre agenda.</li>
-      <li>Aucune donnée inventée : chaque email, numéro et signal doit venir d'une source vérifiable. C'est écrit dans les consignes et dans le bloc de garde-fous.</li>
+      <li>Aucune donnée inventée : chaque email, numéro et signal doit venir d'une source vérifiable. C'est écrit dans les consignes et dans le bloc de garde-fous. Comme toute IA, elle peut se tromper : relisez chaque lot avant le go.</li>
     </ul>
   </section>
 
   <section class="sec">
     <div class="intro"><span class="eyebrow">Questions fréquentes</span><h2>FAQ technique</h2></div>
-    <div class="faq">
+    <div class="faq"><details><summary>À quelles entreprises LinkSharp s’adresse-t-il ?</summary><p>Aux entreprises qui vendent à des professionnels : prestataires, agences, cabinets, recruteurs, fabricants et éditeurs de logiciels. Décrivez votre offre, les entreprises visées et les décideurs concernés. Cette version ne prépare pas de campagnes destinées aux particuliers.</p></details>
       <details><summary>Faut-il un abonnement Claude ?</summary><p>Oui, un abonnement Claude (Pro suffit) : c'est lui qui fait tourner votre assistant chaque jour. Le site prépare tout et vous collez dans Claude, sans clé ni carte bancaire. Une clé d'API est optionnelle, pour tout faire directement sur le site.</p></details>
-      <details><summary>Combien ça coûte ?</summary><p>Avec votre abonnement Claude : rien de plus. Avec une clé d'API (option) : moins d'un centime par génération avec Haiku, environ 0,10 $ avec Sonnet, avec un plafond de sécurité.</p></details>
+      <details><summary>Combien ça coûte ?</summary><p>Le coût dépend de votre abonnement, de vos outils et de votre consommation. L’option API est facturée séparément par Anthropic. Le compteur local est une estimation ; consultez les limites et la facturation de votre compte fournisseur.</p></details>
       <details><summary>Pourquoi ne pas envoyer les mails directement ?</summary><p>Parce que la validation humaine est le garde-fou principal. Le système prépare tout ; vous gardez la décision.</p></details>
       <details><summary>Et si je n'ai pas de CRM ?</summary><p>Choisissez « Aucun » : le Google Sheet de suivi devient le CRM, et les réponses sont lues dans Gmail.</p></details>
       <details><summary>Ça marche pour l'étranger ?</summary><p>Oui. Le pays choisi règle la langue des mails, le fuseau, les jours fériés connus et les mentions légales à prévoir (États-Unis, Canada, Allemagne…).</p></details>
@@ -1211,9 +1223,9 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
   <div class="cols">
     <div style="display:grid;gap:12px;align-content:start"><a class="brand" href="#accueil" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a><p>L'assistant qui vous aide à trouver de nouveaux clients, conçu et édité par Eliad Garnault. Prototype en bêta : gratuit pendant la phase de test, modèle économique en réflexion. Le site, son code, ses modèles et ses textes sont la propriété de LinkSharp.</p></div>
     <div><h3>Contact</h3><ul><li>Eliad Garnault</li><li><a href="mailto:egarnault@gmail.com">egarnault@gmail.com</a></li><li><a href="tel:+33607763994">+33 6 07 76 39 94</a></li><li><a href="https://www.linkedin.com/in/eliad-garnault" target="_blank" rel="noopener">linkedin.com/in/eliad-garnault</a></li></ul></div>
-    <div><h3>Le site</h3><ul><li><a href="#exemple">Exemple</a></li><li><a href="#benefices">Ce que ça change</a></li><li><a href="#connexions">Vos outils</a></li><li><a href="#technique">Pour les curieux</a></li><li><a href="#automation">Marketing automatique (bientôt)</a></li><li><a href="#outil">Essayer gratuitement</a></li><li><a href="#contact">Contact</a></li><li>Vos données et votre clé restent dans votre navigateur</li></ul></div>
+    <div><h3>Le site</h3><ul><li><a href="#exemple">Exemple</a></li><li><a href="#benefices">Ce que ça change</a></li><li><a href="#connexions">Vos outils</a></li><li><a href="#technique">Pour les curieux</a></li><li><a href="#automation">Marketing automatique (bientôt)</a></li><li><a href="#outil">Essayer gratuitement</a></li><li><a href="#contact">Contact</a></li><li>Vos réglages restent dans votre navigateur ; la clé API est temporaire</li></ul></div>
   </div>
-  <details><summary>Mentions légales</summary><p>Éditeur et directeur de la publication : Eliad Garnault (LinkSharp), France. Contact : egarnault@gmail.com · +33 6 07 76 39 94. Prototype en bêta, gratuit : aucune vente, aucun paiement ni abonnement n'y est proposé à ce stade. Hébergement : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. LinkSharp ne collecte aucune donnée personnelle : les informations saisies et la clé d'API restent dans le navigateur de l'utilisateur, et les appels à l'IA partent directement du navigateur vers Anthropic. Les règles de prospection indiquées dans l'outil sont des repères et ne constituent pas un avis juridique.</p></details>
+  <details><summary>Mentions légales</summary><p>Éditeur et directeur de la publication : Eliad Garnault (LinkSharp), entrepreneur individuel (micro-entreprise), SIRET 990 010 050 00013, France. Contact : egarnault@gmail.com · +33 6 07 76 39 94. Prototype en bêta, gratuit : aucune vente, aucun paiement ni abonnement n'y est proposé à ce stade. Hébergement : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. LinkSharp n'a ni compte utilisateur ni base de données : les informations saisies restent dans le navigateur de l'utilisateur, la clé d'API n'est gardée qu'en mémoire le temps de la visite, et les appels à l'IA partent directement du navigateur vers Anthropic. Comme tout site, la page fait appel à des services tiers qui reçoivent l'adresse IP du visiteur : GitHub (hébergement), Google Fonts (polices de caractères) et, seulement si vous ouvrez la prise de rendez-vous, Calendly, qui peut déposer ses propres cookies. Les règles de prospection indiquées dans l'outil sont des repères et ne constituent pas un avis juridique.</p></details>
   <div class="legal"><span>© 2026 LinkSharp · Eliad Garnault. Tous droits réservés.</span><span>Reproduction du site, du code ou des modèles interdite sans autorisation écrite.</span></div>
 </div></footer>
 
@@ -1342,62 +1354,103 @@ function capacity(d){
 
 /* ---------- Contexte commun aux modèles ---------- */
 const DATE_RE = /\b(\d{1,2})\/(\d{1,2})\/(\d{4})\b/g;
+/* Une précision = une ligne de l'utilisateur (jamais coupée au milieu). */
 function splitNotes(t){
-  return String(t||"").split(/\n+/).flatMap(l => l.split(/(?<=[.;])\s+(?=[A-ZÀ-Ý«])/)).map(l => l.replace(/^\s*[-*•]\s*/,"").trim()).filter(Boolean);
+  return String(t||"").split(/\n+/).map(l => l.replace(/^\s*[-*•]\s*/,"").trim()).filter(Boolean);
+}
+/* Phrases d'une ligne : pas de coupure après une abréviation, ni dans des parenthèses ou des guillemets. */
+function sentences(line){
+  const raw = String(line).split(/(?<=[.;])\s+(?=[A-ZÀ-Ý«])/), out = [];
+  raw.forEach(s => {
+    const prev = out[out.length-1];
+    const open = prev != null && ((prev.match(/\(/g)||[]).length > (prev.match(/\)/g)||[]).length || (prev.match(/«/g)||[]).length > (prev.match(/»/g)||[]).length);
+    if(prev != null && (open || /\b(ex|etc|cf|p\. ex|M|Mme|n°|env|resp)\.$/i.test(prev))) out[out.length-1] = prev+" "+s; else out.push(s);
+  });
+  return out;
 }
 const tokensOf = n => String(n).toLowerCase().split(/[^a-z0-9]+/).filter(Boolean).sort().join(" ");
 function existingNames(d){ return (String(d.existingDetails||"").match(/[a-z0-9]+(?:-[a-z0-9]+){1,}/gi)||[]).map(x=>x.toLowerCase()); }
 function existingTimes(d){ return (String(d.existingDetails||"").match(/\b([01]?\d|2[0-3])\s*[h:]\s*([0-5]\d)\b/g)||[]).map(t => { const m=t.match(/(\d+)\s*[h:]\s*(\d+)/); return (+m[1])*60+(+m[2]); }); }
 const hm = m => String(Math.floor(m/60)%24).padStart(2,"0")+":"+String(m%60).padStart(2,"0");
 
-/* Classement des précisions dans les sections concernées (précisions > formulaire > défauts). */
-const NOTE_TOPICS = [
-  ["sign", /signature|pied de mail|sign(e|é)/i],
-  ["write", /mail|message|objet|ton |tutoi|vouvoi|phrase|lien|mot|formul|accroche|langue|anglais|english/i],
-  ["hours", /\b\d{1,2}\s*h(\s*\d{2})?\b|\b\d{1,2}:\d{2}\b|cr(é|e)neau|matin|apr(è|e)s-midi|horaire|j\+\d/i],
-  ["volume", /plafond|par jour|quota|volume|\bj0\b/i],
-  ["tools", /hubspot|apollo|pipecorn|chrome|gmail|crm|onglet|sheet|kaspr|lemlist|connecteur/i],
-  ["target", /cible|secteur|exclu|ne pas contacter|concurrent|client/i]
+/* Classement des précisions dans les sections concernées (précisions > formulaire > défauts).
+   D'abord l'étiquette avant les deux-points, puis les mots-clés ; « write » en dernier (« mail » est partout). */
+const NOTE_LABELS = [
+  ["sign", /^(signature|pied de mail)/i],
+  ["hours", /^(horaires?|cr(é|e)neaux?|calendrier|jours)/i],
+  ["volume", /^(volume|plafond|quota|cadence)/i],
+  ["tools", /^(outils?|hubspot|crm|apollo|pipecorn|emails?|adresses?|sheet|fichier|onglets?|gmail|chrome)/i],
+  ["target", /^(cible|clients?|exclu|secteur|zone|prospects?)/i],
+  ["write", /^(format|ton|r(é|e)daction|salutation|preuves?|vocabulaire|sujets?|r(ô|o)les?|langue|objet|relance|j\+\d|j0|fintech|messages?)/i]
 ];
+const NOTE_TOPICS = [
+  ["sign", /signature|pied de mail/i],
+  ["hours", /\b\d{1,2}\s*h(\s*\d{2})?\b|\b\d{1,2}:\d{2}\b|cr(é|e)neau|apr(è|e)s-midi|horaire/i],
+  ["volume", /plafond|quota|volume|par jour/i],
+  ["tools", /hubspot|apollo|pipecorn|chrome|gmail|crm|onglet|sheet|kaspr|lemlist|connecteur|verified/i],
+  ["target", /cible|secteur|exclu|ne pas contacter|concurrent/i],
+  ["write", /mail|message|objet|ton |tutoi|vouvoi|phrase|lien|mot|formul|accroche|langue|anglais|english|j\+\d/i]
+];
+function topicOf(line){
+  const label = (line.match(/^([^:]{1,40}):/)||[])[1];
+  const byLabel = label && NOTE_LABELS.find(([k,re]) => re.test(label.trim()));
+  if(byLabel) return byLabel[0];
+  const t = NOTE_TOPICS.find(([k,re]) => re.test(line));
+  return t ? t[0] : "other";
+}
+const SIGN_RE = /(pas de|sans|aucune?)\s+(signature|pied)|signature[^.]*\b(ajout|automatique|d(é|e)j(à|a))/i;
 function analyse(d){
   const conflicts = [], notes = {sign:[],write:[],hours:[],volume:[],tools:[],target:[],other:[]};
   const exNames = existingNames(d);
   let footer = String(d.footer||"").trim();
   let cap = parseInt(d.cap,10);
-  const extraHol = [];
+  const extraHol = [], kept = [];
   let proofs = String(d.proofs||"").split(/\n+/).map(x=>x.trim()).filter(Boolean);
-  let noLinks = false;
-  splitNotes(d.aiNotes).forEach(line => {
-    // Jours fériés : une seule liste, dans la section calendrier
-    const dates = [...line.matchAll(DATE_RE)];
-    if(dates.length >= 2 || /f(é|e)ri(é|e)s?/i.test(line) && dates.length){
-      dates.forEach(m => extraHol.push(m[3]+"-"+m[2].padStart(2,"0")+"-"+m[1].padStart(2,"0")));
-      notes.hours.push("Jours fériés : voir la liste unique de la section « Jours ouvrés et calendrier ».");
-      return;
-    }
-    // Système existant : traité dans sa propre section, jamais recopié tel quel
-    if(d.existing !== "aucun" && exNames.some(n => line.toLowerCase().includes(n))) return;
-    if(d.existing !== "aucun" && /plafond partag|autre (skill|syst)/i.test(line)) return;
-    if(/(pas de|sans|aucune?)\s+(signature|pied)|signature[^.]*\b(ajout|automatique|d(é|e)j(à|a))/i.test(line)){
-      if(footer){ conflicts.push("Pied de mail : vos précisions disent que la messagerie ajoute la signature, donc aucun pied de mail n'est ajouté (le champ « Pied de mail » est ignoré)."); }
-      footer = ""; notes.sign.push(line); return;
-    }
+  let noLinks = false, signByMailbox = false, holNote = false;
+  const offs = String(d.cadence).split(",").map(Number), seqTxt = offs.map(lab).join(", ");
+  splitNotes(d.aiNotes).forEach(line0 => {
+    // Système existant : la ligne entière est retirée (traitée dans sa propre section), jamais une moitié de ligne
+    if(d.existing !== "aucun" && (exNames.some(n => line0.toLowerCase().includes(n)) || /plafond partag|autre (skill|syst)/i.test(line0))) return;
+    let rest = [];
+    sentences(line0).forEach(s => {
+      // Jours fériés : une seule liste, dans la section calendrier
+      const dates = [...s.matchAll(DATE_RE)];
+      if(dates.length >= 2 || (/f(é|e)ri(é|e)s?/i.test(s) && dates.length)){
+        dates.forEach(m => extraHol.push(m[3]+"-"+m[2].padStart(2,"0")+"-"+m[1].padStart(2,"0")));
+        holNote = true; return;
+      }
+      if(SIGN_RE.test(s)){
+        if(footer){ conflicts.push("Pied de mail : vos précisions disent que la messagerie ajoute la signature, donc aucun pied de mail n'est ajouté (le champ « Pied de mail » est ignoré)."); }
+        footer = ""; signByMailbox = true; notes.sign.push(s); return;
+      }
+      rest.push(s);
+    });
+    let line = rest.join(" ").trim();
+    if(!line || /^[^:]{1,40}:\s*$/.test(line)) return;
+    kept.push(line);
     const capM = line.match(/(\d{1,3})\s*(mails?|envois?|messages?)\s*(par|\/|chaque)\s*jour/i);
     if(capM && +capM[1] !== cap){ conflicts.push("Plafond : vos précisions disent "+capM[1]+" mails par jour, le formulaire "+cap+". Les précisions l'emportent : "+capM[1]+"."); cap = +capM[1]; }
     const noCite = line.match(/ne (pas|jamais) citer\s+([^.,;]+)/i);
     if(noCite){ const term = noCite[2].trim().toLowerCase(); const before = proofs.length; proofs = proofs.filter(p => !p.toLowerCase().includes(term)); if(proofs.length < before) conflicts.push("Preuves : « "+noCite[2].trim()+" » retiré des preuves citables, comme demandé dans vos précisions."); }
-    if(/(pas de|sans|aucun)\s+liens?/i.test(line)) noLinks = true;
+    // « Aucun lien » seulement si la phrase ne limite pas sa portée (premier mail, J0, sauf…)
+    sentences(line).forEach(s => { if(/(pas de|sans|aucun)\s+liens?/i.test(s) && !/premier|\bj0\b|sauf|seule|uniquement|hors|except/i.test(s)) noLinks = true; });
     if(/(en|in)\s+(anglais|english)/i.test(line) && d.lang === "fr") conflicts.push("Langue : vos précisions parlent d'anglais, le formulaire de français. À vérifier : la langue du formulaire est appliquée.");
-    if(/j\+\d/i.test(line) && !line.includes(String(d.cadence).split(",").map(n=>n==="0"?"J0":"J+"+n).join(", "))) conflicts.push("Séquence : vos précisions mentionnent une séquence ; le formulaire indique "+String(d.cadence).split(",").map(n=>n==="0"?"J0":"J+"+n).join(", ")+". Vérifiez qu'elles concordent.");
-    const t = NOTE_TOPICS.find(([k,re]) => re.test(line));
-    notes[t ? t[0] : "other"].push(line);
+    // Séquence : seulement un J+n absent de la séquence du formulaire
+    const js = [...line.matchAll(/j\s*\+\s*(\d+)/gi)].map(m => +m[1]).filter(n => !offs.includes(n));
+    if(js.length) conflicts.push("Séquence : vos précisions mentionnent "+[...new Set(js)].map(lab).join(", ")+", absent de la séquence du formulaire ("+seqTxt+"). Vérifiez qu'elles concordent.");
+    notes[topicOf(line)].push(line);
   });
+  if(holNote) notes.hours.push("Jours fériés : voir la liste unique de la section « Jours ouvrés et calendrier ».");
+  return finishAnalyse({conflicts, notes, footer, cap, extraHol, proofs, noLinks, signByMailbox, kept, holNote});
+}
+function finishAnalyse(r){
+  let footer = r.footer;
   // Pied de mail : jamais le nom de l'entreprise en double
   if(footer){
     const parts = footer.split(/\s*·\s*/); const seen = new Set();
     footer = parts.filter(p => { const k = p.toLowerCase().trim(); if(!k || seen.has(k)) return false; seen.add(k); return true; }).join(" · ");
   }
-  return {conflicts, notes, footer, cap, extraHol, proofs, noLinks};
+  return Object.assign({}, r, {footer});
 }
 const pnote = arr => arr.length ? arr.map(l => "- Précision de l'utilisateur (prioritaire) : "+l).join("\n")+"\n" : "";
 
@@ -1413,7 +1466,7 @@ function ctx(d){
   const icpTitle = ((String(d.icpDoc||"").match(/^#\s+(.+)$/m)||[])[1]||"").replace(/^ICP\s*[–-]\s*/i,"").trim();
   const conflicts = A.conflicts.slice();
   // Noms des skills : jamais un nom qui ne diffère d'un existant que par l'ordre des mots
-  const exNames = existingNames(d), exTok = new Set(exNames.map(tokensOf));
+  const exNames = existingNames(d).concat((String(d.aiNotes||"").match(/«\s*([a-z0-9]+(?:-[a-z0-9]+)+)\s*»/gi)||[]).map(m => m.replace(/[«»\s]/g,"").toLowerCase())), exTok = new Set(exNames.map(tokensOf));
   const pick = cands => cands.find(n => !exTok.has(tokensOf(n)) && !exNames.includes(n)) || cands[cands.length-1]+"-v2";
   const prospName = d.existing === "aucun" ? pick(["prospection-du-jour-"+sl,"linksharp-prospection-"+sl]) : pick(["linksharp-prospection-"+sl,"linksharp-lot-quotidien-"+sl]);
   const briefName = pick(["brief-du-matin-"+sl,"linksharp-brief-"+sl]);
@@ -1453,6 +1506,9 @@ function ctx(d){
     crm: noCrm ? "le sheet" : d.crm, replies: replies1, replies1, replies2, access,
     hubspot: d.crm==="HubSpot", chrome: sendMethod==="chrome",
     prospName, briefName, coexist: d.existing==="coexister", replace: d.existing==="remplacer",
+    // Un brief existant n'est jamais désactivé ni doublé : on y ajoute un bloc (coexister, ou remplacer avec un brief existant)
+    addon: d.existing==="coexister" || (d.existing==="remplacer" && /brief/i.test(String(d.existingDetails||""))),
+    ctrlExisting: d.existing==="coexister" && /contr(ô|o)le/i.test(String(d.existingDetails||"")),
     labs:c.off.map(lab).join(", "), rels:c.off.slice(1).map(lab).join(", "),
     N, cap:c.cap, mailbox, briefTo, sender:v(d,"sender"), footer:A.footer, senderIsValidator,
     source: noSource ? "la recherche web" : d.source,
@@ -1474,7 +1530,7 @@ function holidaysText(x){
 function footerRule(x){
   const d = x.d, post = filled(d,"postal") ? d.postal.trim() : "";
   if(x.footer) return "- Pied de mail (chaque mail, J0 et relances) : "+x.footer+(post && !x.footer.includes(post) && needsPostal(d) ? " · "+post : "")+".";
-  return "- Pied de mail : aucun. La messagerie ajoute la signature : ne rien écrire après la phrase d'opposition."+(needsPostal(d) ? " La signature de "+x.mailbox+" doit contenir l'adresse postale"+(post?" ("+post+")":" [À COMPLÉTER : Adresse postale]")+" : le vérifier avant le premier envoi." : "");
+  return (x.A.signByMailbox ? "- Pied de mail : aucun. La messagerie ajoute la signature : ne rien écrire après la phrase d'opposition." : "- Pied de mail : aucun pied de mail ajouté, ne rien écrire après la phrase d'opposition. Avant le premier envoi, vérifier que la signature de "+x.mailbox+" identifie l'expéditeur (nom, entreprise) ; sinon, prévenir "+x.validator+".")+(needsPostal(d) ? " La signature de "+x.mailbox+" doit contenir l'adresse postale"+(post?" ("+post+")":" [À COMPLÉTER : Adresse postale]")+" : le vérifier avant le premier envoi." : "");
 }
 function legalText(x){
   const rules = {
@@ -1494,7 +1550,7 @@ const mailEnd = x => x.footer ? "la phrase d'opposition, puis le pied de mail" :
 function signalLines(d){
   const ls = String(d.icpDoc||"").split(/\n/); let on = false; const out = [];
   ls.forEach(l => {
-    if(/^\s*#{1,6}\s/.test(l) || /^\s*[A-ZÉÈÀ][^:]{2,40}:\s*$/.test(l)){ on = /signa|d(é|e)clencheur/i.test(l); return; }
+    if(/^\s*#{1,6}\s/.test(l) || /^\s*[A-ZÉÈÀ][^:]{2,}:\s*$/.test(l)){ on = /signa|d(é|e)clencheur|faits publics|besoin|trigger/i.test(l); return; }
     if(on && /^\s*[-*•]/.test(l)) out.push(l.replace(/^\s*[-*•]\s*/,"").trim());
   });
   return out;
@@ -1518,13 +1574,13 @@ description: Chaque jour ouvré à ${x.brief}, envoyer à ${x.briefTo} un mail u
 function volumeText(x){
   const c = x.c, warm = c.warm ? `\nDomaine récent : plafond effectif de ${c.warm[0]} mails par jour la 1re semaine d'envoi, ${c.warm[1]} la 2e, puis ${c.cap}. La date du premier envoi est notée dans ${x.reportRef}.` : "";
   const steps = x.prio === "j0"
-    ? `1. D = mails de prospection déjà envoyés aujourd'hui depuis ${x.mailbox} + déjà programmés pour aujourd'hui (tous systèmes confondus).
+    ? `1. D = mails de prospection déjà envoyés aujourd'hui depuis ${x.mailbox} + déjà programmés pour aujourd'hui (tous systèmes confondus)${x.coexist ? " + mails préparés et non encore programmés par l'autre système pour ce jour (lignes de son onglet du jour cible en attente de « go »)" : ""}.
 2. Place = ${x.cap} − D.
 3. Relances prioritaires : celles qui ont déjà glissé de ${x.reportMax} jour${x.reportMax>1?"s":""} ouvré${x.reportMax>1?"s":""} ou plus. Elles passent en premier et réduisent d'autant la place.
 4. Nouveaux contacts (J0) = le plus petit nombre entre ${x.N}, les prospects qualifiés disponibles et la place restante.
 5. Autres relances dues, dans la place restante : les reportées d'abord, puis les plus anciennes.
 6. Ce qui ne rentre pas glisse au jour ouvré suivant, statut « Reportée (volume) ». Une relance n'est jamais supprimée.`
-    : `1. D = mails de prospection déjà envoyés aujourd'hui depuis ${x.mailbox} + déjà programmés pour aujourd'hui (tous systèmes confondus).
+    : `1. D = mails de prospection déjà envoyés aujourd'hui depuis ${x.mailbox} + déjà programmés pour aujourd'hui (tous systèmes confondus)${x.coexist ? " + mails préparés et non encore programmés par l'autre système pour ce jour (lignes de son onglet du jour cible en attente de « go »)" : ""}.
 2. Place = ${x.cap} − D.
 3. Relances dues, dans la place : celles qui ont glissé de ${x.reportMax} jour${x.reportMax>1?"s":""} ouvré${x.reportMax>1?"s":""} ou plus d'abord, puis les reportées, puis les plus anciennes.
 4. Nouveaux contacts (J0) = le plus petit nombre entre ${x.N}, les prospects qualifiés disponibles et la place restante.
@@ -1546,12 +1602,16 @@ function coexistText(x){
   const d = x.d, det = String(d.existingDetails||"").trim();
   if(x.coexist) return `
 ## Coexistence avec le système existant
-- Un autre système de prospection utilise déjà ${x.mailbox}. Les deux partagent le même plafond : le point 1 de la règle de volume compte tous les mails partis ou programmés depuis cette boîte, quel que soit le système.
+- Un autre système de prospection utilise déjà ${x.mailbox}. Les deux partagent le même plafond : le point 1 de la règle de volume compte tous les mails partis, programmés ou préparés en attente de « go » pour cette boîte, quel que soit le système.
+- Au moment du « go », recompter juste avant de programmer (l'autre système a pu programmer entre-temps). Si le total du jour dépasse ${x.cap}, retirer d'abord des nouveaux contacts LinkSharp, jamais des mails de l'autre système.
 - Dédoublonnage : lire aussi les onglets et le suivi de l'autre système avant de retenir un prospect. Un domaine déjà contacté par l'un est exclu par l'autre.
 - Ne jamais modifier, déplacer ni annuler un mail programmé par l'autre système.
-- Pas de second brief : le bloc LinkSharp s'ajoute au brief existant.
+- Pas de second brief : le bloc LinkSharp s'ajoute au brief existant.${x.ctrlExisting ? "\n- Pas de second contrôle des relances : le contrôle existant est étendu aux relances LinkSharp." : ""}
 `;
-  if(x.replace) return "";
+  if(x.replace && x.addon) return `
+## Remplacement du système existant
+- LinkSharp remplace l'ancienne prospection. Le brief du matin existant n'est ni désactivé ni doublé : sa section prospection est remplacée par le bloc « À ajouter à ton brief existant ».
+`;
   return "";
 }
 
@@ -1718,7 +1778,7 @@ function guardProsp(x){
 ## Garde-fous non négociables (bloc fixe, prioritaire sur tout le reste)
 - Aucun brouillon, aucune programmation, aucun envoi avant le « go » explicite de ${x.validator}. Une correction invalide le go pour les éléments modifiés.
 - Jamais plus de ${x.cap} mails de prospection par jour depuis ${x.mailbox}${x.c.warm?" (plafond réduit la 1re et la 2e semaine : "+x.c.warm[0]+" puis "+x.c.warm[1]+")":""} ; au moins 2 minutes entre deux envois ; jours ouvrés seulement (${x.tz}).
-- Chaque mail se termine par : « ${x.L.opt} »${x.footer?", puis le pied de mail":""}.
+- Chaque mail se termine par : « ${x.L.opt} »${x.footer?", puis le pied de mail.":""}
 - Ne jamais inventer d'email, de numéro, de signal, de preuve ou de vérification. En cas de doute, écarter le prospect et le signaler.
 - Dédoublonnage par domaine ; une seule personne par entreprise à la fois.
 - Refus, désinscriptions et rebonds appliqués immédiatement.
@@ -1816,10 +1876,16 @@ function calBrief(x){
 `;
 }
 
+const WORDS = ["aucune","une","deux","trois"];
+const taskCount = x => 1 + (x.addon ? 0 : 1) + (x.ctrlExisting ? 0 : 1);
+/* Lignes du système existant à désactiver : jamais le brief (il couvre souvent d'autres sujets). */
+function toDisable(d){ return String(d.existingDetails||"").split(/\n+/).map(l=>l.trim()).filter(l => l && !/brief/i.test(l)); }
+/* Précisions transmises à l'IA : seulement les lignes gardées après tri, jamais le texte brut. */
+function notesForAI(x){ const k = x.A.kept.slice(); if(x.A.holNote) k.push("Jours fériés : voir la liste unique dans le skill."); if(x.A.signByMailbox) k.push("Pas de pied de mail : la messagerie ajoute la signature."); return k.join("\n"); }
 function genTasks(d){
   const x = ctx(d);
-  const brief = x.coexist ? `────────────────────────────────────────
-## 2. Brief du matin
+  const brief = x.addon ? `────────────────────────────────────────
+## Brief du matin (pas de tâche)
 Pas de nouvelle tâche : un brief tourne déjà. Ajoute le bloc « À ajouter à ton brief existant » (onglet « Brief du matin ») dans ses consignes.
 ` : `────────────────────────────────────────
 ## 2. Brief du matin – ${x.brief}
@@ -1828,14 +1894,25 @@ Planification : lundi-vendredi ${x.brief} (cron « ${cronOf(d.briefTime)} »). A
 Prompt :
 Utilise le skill « ${x.briefName} ». Lis d'abord le rapport dans ${x.reportRef}, puis les autres sources. N'écris rien dans le sheet${x.noCrm?"":" ni dans "+x.crm}. Envoie un seul mail de ${x.briefTo} à ${x.briefTo}, au format du skill. Si une source est inaccessible, écris-le en haut du mail et envoie le reste.
 `;
-  const disable = x.replace && String(d.existingDetails||"").trim() ? `## À désactiver d'abord
-LinkSharp remplace le système existant. Avant de créer les tâches ci-dessous, désactive :
-${String(d.existingDetails).split(/\n+/).map(l=>l.trim()).filter(Boolean).map(l=>"- "+l).join("\n")}
-
+  const disable = x.replace && toDisable(d).length ? `## À désactiver d'abord
+LinkSharp remplace le système de prospection existant. Avant de créer les tâches ci-dessous, désactive (sans supprimer) :
+${toDisable(d).map(l=>"- "+l).join("\n")}
+${x.addon ? "Ne désactive pas le brief du matin existant : il couvre peut-être d'autres sujets. Remplace seulement sa section prospection par le bloc « À ajouter à ton brief existant ».\n" : ""}
 ` : "";
+  const ctrl = x.ctrlExisting ? `────────────────────────────────────────
+## ${x.addon ? 2 : 3}. Contrôle des relances
+Pas de nouvelle tâche : un contrôle des relances tourne déjà. Ajoute à sa consigne : « Lis aussi l'onglet du jour LinkSharp (format « ${x.tabDay} ») et signale de la même façon les relances LinkSharp à annuler. »
+` : `────────────────────────────────────────
+## ${x.addon ? 2 : 3}. Contrôle des relances – ${x.ctrl}
+Planification : lundi-vendredi ${x.ctrl} (cron « ${cronOf(d.ctrlTime)} »). Approbation automatique : le mail ne part que vers ${x.briefTo}.
+
+Prompt :
+Pour la prospection ${x.co} : dans le sheet « ${x.sheetName} », lis l'onglet du jour (format « ${x.tabDay} ») et liste les relances prévues aujourd'hui (${x.rel}, ${x.tz}). Pour chacune, cherche dans ${x.replies1} une réponse, un rebond ou une demande d'arrêt depuis le dernier envoi. S'il y en a : envoie un seul mail à ${x.briefTo}, objet « Relances à annuler avant ${fmtH(d.slotRa)} (${x.tz}) », avec le lead, l'heure et la raison, et le rappel « Annuler l'envoi dans Gmail, ne jamais supprimer ». Sinon : n'envoie rien. Ne modifie rien. Jour férié (${x.country}) : ne fais rien.
+`;
+  const nT = taskCount(x);
   return `# Tâches planifiées – ${x.co}
 
-${disable}Trois tâches, du lundi au vendredi, à l'heure de ${x.validator} (fuseau de son compte Claude). Les heures d'envoi aux prospects restent en ${x.tz}. Chaque prompt est autonome.
+${disable}${WORDS[nT][0].toUpperCase()+WORDS[nT].slice(1)} tâche${nT>1?"s":""} à créer, du lundi au vendredi, à l'heure de ${x.validator} (fuseau de son compte Claude). Les heures d'envoi aux prospects restent en ${x.tz}. Chaque prompt est autonome.
 
 ────────────────────────────────────────
 ## 1. Préparation du lot – ${x.prep}
@@ -1845,13 +1922,7 @@ Prompt :
 Utilise le skill « ${x.prospName} » en Temps 1 (préparation) pour le prochain jour ouvré (fuseau ${x.tz}, jours fériés ${x.country}). Exécute uniquement les étapes 1 à 10. Ne crée aucun brouillon, ne programme rien, n'envoie rien aux prospects, ne supprime rien. Seule exception : applique tout de suite les refus, désinscriptions et rebonds. Respecte la règle de volume (${x.cap} mails par jour au maximum depuis ${x.mailbox}) et les règles de vérification : en cas de doute, écarte le prospect. Si un accès manque, arrête l'étape et dis-le. À la fin, écris « Lot prêt, en attente du go » dans ${x.reportRef}, puis envoie un seul mail à ${x.briefTo} : « Lot du [JJ/MM] prêt – [N] mails, en attente du go », avec le calcul de volume, les destinataires, les heures et les prospects écartés par motif.
 
 ${brief}
-────────────────────────────────────────
-## 3. Contrôle des relances – ${x.ctrl}
-Planification : lundi-vendredi ${x.ctrl} (cron « ${cronOf(d.ctrlTime)} »). Approbation automatique : le mail ne part que vers ${x.briefTo}.
-
-Prompt :
-Pour la prospection ${x.co} : dans le sheet « ${x.sheetName} », lis l'onglet du jour (format « ${x.tabDay} ») et liste les relances prévues aujourd'hui (${x.rel}, ${x.tz}). Pour chacune, cherche dans ${x.replies1} une réponse, un rebond ou une demande d'arrêt depuis le dernier envoi. S'il y en a : envoie un seul mail à ${x.briefTo}, objet « Relances à annuler avant ${fmtH(d.slotRa)} (${x.tz}) », avec le lead, l'heure et la raison, et le rappel « Annuler l'envoi dans Gmail, ne jamais supprimer ». Sinon : n'envoie rien. Ne modifie rien. Jour férié (${x.country}) : ne fais rien.
-`;
+${ctrl}`;
 }
 
 function genChecklist(d){
@@ -1866,7 +1937,7 @@ ${x.conflicts.length ? "\n## 0. Arbitrages faits automatiquement\n"+x.conflicts.
 ## 1. Avant de commencer
 - [ ] Domaine de ${x.mailbox} : SPF, DKIM et DMARC configurés${c.warm?" ; montée progressive "+c.warm.join(" → ")+" mails par jour":""}
 - [ ] ${x.footer ? "Pied de mail : "+x.footer : "Signature de "+x.mailbox+" vérifiée (aucun pied de mail n'est ajouté)"}${needsPostal(d)?" + adresse postale (obligatoire pour "+x.country+")":""}
-- [ ] Preuves et phrase d'opposition validées en ${x.L.n} : « ${x.L.opt} »${x.C.legal==="de"?"\n- [ ] Allemagne : faire valider le cadre légal de la prospection par email avant tout envoi":""}${x.replace && String(d.existingDetails||"").trim() ? "\n- [ ] Ancien système désactivé (liste dans « Tâches planifiées »)" : ""}
+- [ ] Preuves et phrase d'opposition validées en ${x.L.n} : « ${x.L.opt} »${x.C.legal==="de"?"\n- [ ] Allemagne : faire valider le cadre légal de la prospection par email avant tout envoi":""}${x.replace && toDisable(d).length ? "\n- [ ] Ancienne prospection désactivée (liste dans « Tâches planifiées »)"+(x.addon?" ; brief existant gardé, section prospection remplacée":"") : ""}
 
 ## 2. Connecteurs à brancher dans Claude
 ${conns.map(s=>"- [ ] "+s).join("\n")}
@@ -1880,11 +1951,11 @@ ${x.chrome ? "- [ ] Claude dans Chrome, avec "+x.mailbox+" ouverte dans ce Chrom
 
 ## 4. Skills
 - [ ] « ${x.prospName} » : envoyer le fichier à Claude et demander « crée ce skill »
-- [ ] ${x.coexist ? "Brief existant : y ajouter le bloc « À ajouter à ton brief existant »" : "« "+x.briefName+" » : même méthode"}
+- [ ] ${x.addon ? "Brief existant : y ajouter le bloc « À ajouter à ton brief existant »" : "« "+x.briefName+" » : même méthode"}
 - [ ] Relire les fichiers : aucun « [À COMPLÉTER] » ni « [À ADAPTER] » ne doit rester
 
 ## 5. Tâches planifiées
-- [ ] Préparation : ${x.prep}${x.coexist ? "" : " · Brief : "+x.brief+" (approbation automatique)"} · Contrôle : ${x.ctrl} (approbation automatique)
+- [ ] Préparation : ${x.prep}${x.addon ? "" : " · Brief : "+x.brief+" (approbation automatique)"}${x.ctrlExisting ? " · Contrôle existant étendu aux relances LinkSharp" : " · Contrôle : "+x.ctrl+" (approbation automatique)"}
 Coller chaque prompt de l'onglet « Tâches planifiées » et demander à Claude de créer la tâche.
 
 ## 6. Premier test
@@ -1924,7 +1995,7 @@ ${c.notes.map(n=>"- "+n.t).join("\n")}
 }
 
 const tplProsp = d => { const x = ctx(d); return frontProsp(x)+"\n"+bodyProsp(x)+guardProsp(x); };
-const tplBrief = d => { const x = ctx(d); return x.coexist ? briefAddon(x) : frontBrief(x)+"\n"+bodyBrief(x)+guardBrief(x); };
+const tplBrief = d => { const x = ctx(d); return x.addon ? briefAddon(x) : frontBrief(x)+"\n"+bodyBrief(x)+guardBrief(x); };
 
 const SIGN = "\n---\nGénéré avec LinkSharp · Eliad Garnault · egarnault@gmail.com\n";
 const TABS = [
@@ -1944,8 +2015,9 @@ const PRICES = {
 const LSget = k => { try{ return localStorage.getItem("kp."+k) || ""; }catch(e){ return ""; } };
 const LSset = (k,v) => { try{ localStorage.setItem("kp."+k, v); }catch(e){} };
 let mem = {};  // repli si le navigateur bloque le stockage
-const getK = k => LSget(k) || mem[k] || "";
-const setK = (k,v) => { mem[k] = v; LSset(k,v); };
+const getK = k => k === "key" ? (mem[k] || "") : LSget(k) || mem[k] || "";
+const setK = (k,v) => { mem[k] = v; if(k !== "key") LSset(k,v); };
+try { localStorage.removeItem("kp.key"); } catch(e) {}
 let aiReady = false;
 const capOf = () => parseFloat(getK("cap")) || 1;
 const spentOf = () => parseFloat(getK("spent")) || 0;
@@ -1980,7 +2052,7 @@ function refreshAccess(){
     : "Chaque bouton copie une demande toute prête : vous la collez dans "+(aiKey()==="autre"?"votre IA":ai.n)+". Certaines étapes peuvent rester manuelles : elle vous dira lesquelles.";
   const pill = $("aiPill");
   if(mode !== "api"){ pill.textContent = "Avec "+ai.n+" · copier-coller, sans clé"; pill.className = "pill on"; }
-  else if(getK("key")){ pill.textContent = "IA prête · "+PRICES[modelOf()].label; pill.className = "pill on"; $("keyMsg").textContent = "Clé enregistrée dans ce navigateur."; }
+  else if(getK("key")){ pill.textContent = "IA prête · "+PRICES[modelOf()].label; pill.className = "pill on"; $("keyMsg").textContent = "Clé conservée en mémoire jusqu’au rechargement ou à la fermeture de cette page."; }
   else { pill.textContent = "Ajoutez votre clé d'API pour activer l'IA"; pill.className = "pill off"; }
   const who = aiKey()==="autre" ? "mon IA" : ai.n;
   $("btnIcp").textContent = mode === "api" ? "Trouver mes 3 types de clients" : "Copier la demande pour "+who;
@@ -2034,8 +2106,8 @@ function aiVersion(kind, d){
 }
 function installPrompt(d){
   const x = ctx(d), k = aiKey(), name = k === "autre" ? "votre IA" : AIS[k].n;
-  const aP = aiVersion("prosp", d), aB = aiVersion("brief", d), adapted = aP && (aB || x.coexist);
-  const payload = {co:x.co, offer:d.offer, proofs:x.A.proofs.join("\n"), tone:d.tone, lang:x.L.n, country:x.country, tz:x.tz, source:x.noSource?"recherche web":x.source+" et recherche web", icpDoc:d.icpDoc, aiNotes:d.aiNotes, refProsp: aP ? aP.text : tplProsp(d), refBrief: aB ? aB.text : tplBrief(d)};
+  const aP = aiVersion("prosp", d), aB = aiVersion("brief", d), adapted = aP && (aB || x.addon);
+  const payload = {co:x.co, offer:d.offer, proofs:x.A.proofs.join("\n"), tone:d.tone, lang:x.L.n, country:x.country, tz:x.tz, source:x.noSource?"recherche web":x.source+" et recherche web", icpDoc:d.icpDoc, aiNotes:notesForAI(x), refProsp: aP ? aP.text : tplProsp(d), refBrief: aB ? aB.text : tplBrief(d)};
   let p = skillsPrompt(payload);
   const intro = k === "claude"
     ? "Tu vas installer dans mon compte Claude mon assistant de prospection, préparé avec LinkSharp. Tu es expert en prospection B2B et en rédaction de skills (fichiers SKILL.md qu'un agent suit à la lettre, chaque jour, sans supervision)."
@@ -2044,16 +2116,16 @@ function installPrompt(d){
   p = p.replace("- Ne réécris pas les blocs « Garde-fous » : ils sont ajoutés automatiquement.", "- Garde les blocs « Garde-fous non négociables » mot pour mot, à la fin de chaque document.");
   if(adapted) p = p.replace("Ils sont corrects mais génériques. Réécris-les pour qu'ils soient le plus efficaces possible pour CE cas précis.", "Ils ont déjà été adaptés à ce métier avec LinkSharp. Ne les réécris pas : vérifie seulement qu'aucun marqueur « [À ADAPTER » ne reste et complète ce qui manque.");
   const check = "0. Lis tout le pack. Vérifie la cohérence entre les deux documents, les tâches et la checklist (noms, horaires, fuseau, plafond, séquence, adresses, nom du sheet, onglets, emplacement du rapport). Si tu trouves une incohérence, corrige-la et signale-la-moi en une ligne. S'il reste des « [À COMPLÉTER] », pose-moi d'abord ces questions, toutes en une fois, et attends mes réponses. N'invente jamais une information manquante.\n0 bis. Ouvre le sheet « "+x.sheetName+" » et lis la liste de ses onglets. Pour chaque rôle (suivi, exclusions, onglet du jour, numéros, rapport), réutilise l'onglet existant qui le remplit déjà, sous son nom exact, et corrige les documents si le nom diffère. Ne crée un onglet qu'après mon accord, et seulement si aucun onglet existant ne remplit ce rôle."
-    + (x.replace ? "\n0 ter. LinkSharp remplace mon système actuel. Avant de créer quoi que ce soit, désactive (sans les supprimer) :\n"+String(d.existingDetails||"(à lister : skills et tâches de prospection actifs)").split(/\n+/).filter(l=>l.trim()).map(l=>"   - "+l.trim()).join("\n")+"\n   Puis vérifie qu'aucune autre tâche ne prépare ni n'envoie de prospection depuis "+x.mailbox+"." : "")
-    + (x.coexist ? "\n0 ter. Un système de prospection tourne déjà et reste actif. Ne le modifie pas, ne le désactive pas, ne crée pas de second brief du matin : ajoute seulement le bloc « À ajouter à ton brief existant » au brief qui tourne déjà." : "");
+    + (x.replace ? "\n0 ter. LinkSharp remplace ma prospection actuelle. Avant de créer quoi que ce soit, désactive (sans les supprimer) :\n"+(toDisable(d).length ? toDisable(d).map(l=>"   - "+l).join("\n") : "   - (à lister : skills et tâches de prospection actifs)")+(x.addon ? "\n   Ne désactive pas le brief du matin existant : remplace seulement sa section prospection par le bloc « À ajouter à ton brief existant »." : "")+"\n   Puis vérifie qu'aucune autre tâche ne prépare ni n'envoie de prospection depuis "+x.mailbox+"." : "")
+    + (x.coexist ? "\n0 ter. Un système de prospection tourne déjà et reste actif. Ne le modifie pas, ne le désactive pas, ne crée pas de second brief du matin : ajoute seulement le bloc « À ajouter à ton brief existant » au brief qui tourne déjà."+(x.ctrlExisting ? " Ne crée pas de second contrôle des relances : étends le contrôle existant comme indiqué dans les tâches." : "") : "");
   const finalCheck = "6. Vérification finale : relis ce que tu as créé. Aucun « [À ADAPTER » ni « [À COMPLÉTER » ne doit rester ; sinon, dis-moi lesquels.";
   const conns = "Gmail ("+x.mailbox+(x.briefTo!==x.mailbox?" et "+x.briefTo:"")+"), Google Agenda et Google Drive / Sheets"+(x.noCrm?"":", ainsi que "+x.crm)+(x.noSource?"":" et "+x.source);
-  const skillNames = x.coexist ? "Garde le nom du skill « "+x.prospName+" » et son en-tête. Le second document est un bloc à ajouter au brief existant, pas un skill." : "Garde les noms des skills (« "+x.prospName+" » et « "+x.briefName+" ») et leur en-tête.";
-  const nTasks = x.coexist ? "deux" : "trois";
+  const skillNames = x.addon ? "Garde le nom du skill « "+x.prospName+" » et son en-tête. Le second document est un bloc à ajouter au brief existant, pas un skill." : "Garde les noms des skills (« "+x.prospName+" » et « "+x.briefName+" ») et leur en-tête.";
+  const nTasks = WORDS[taskCount(x)];
   let steps;
   if(k === "claude") steps = `${check}
 1. ${aP ? "Les documents sont déjà adaptés à mon métier : garde-les." : "Adapte les deux documents ci-dessous à mon cas, selon les consignes."} ${skillNames}
-2. Montre-moi en quelques lignes ce que tu as adapté, puis crée ${x.coexist ? "le skill" : "les deux skills"} dans mon compte.
+2. Montre-moi en quelques lignes ce que tu as adapté, puis crée ${x.addon ? "le skill" : "les deux skills"} dans mon compte.
 3. Crée les ${nTasks} tâches planifiées décrites plus bas, avec leurs horaires.
 4. Vérifie que ${conns} sont connectés. Dis-moi simplement ce qui manque et comment le connecter.
 5. Lance un premier test : prépare un lot de 3 prospects au maximum, sans rien envoyer ni programmer, et montre-le-moi.
@@ -2076,7 +2148,7 @@ Sois honnête sur tes limites : pour chaque étape que tu ne peux pas faire toi-
 ${finalCheck}
 Sois honnête sur tes limites : pour chaque étape que tu ne peux pas faire toi-même, donne-moi l'alternative manuelle exacte.`;
   p = p.replace(/FORMAT \(strict\)[\s\S]*?(?=SKILL PROSPECTION DE RÉFÉRENCE)/, "CE QUE TU DOIS FAIRE, DANS L'ORDRE\n"+steps+"\n\n");
-  if(x.coexist) p = p.replace("SKILL BRIEF DE RÉFÉRENCE", "BLOC À AJOUTER AU BRIEF EXISTANT");
+  if(x.addon) p = p.replace("SKILL BRIEF DE RÉFÉRENCE", "BLOC À AJOUTER AU BRIEF EXISTANT");
   const today = new Date().toLocaleDateString("fr-FR");
   const manual = k === "claude" ? "" : `> **Ce qui restera manuel** avec ${name} : programmer les envois dans Gmail (« Programmer l'envoi »), ouvrir la boîte ${x.mailbox} pour revérifier les réponses juste avant de programmer, et lancer les tâches à la main si ${name} ne sait pas les programmer.
 
@@ -2090,8 +2162,8 @@ ${manual}Contenu du pack :
 1. Consignes d'installation
 2. Votre cas : offre, clients visés, réglages
 3. « ${x.prospName} » : la prospection quotidienne
-4. ${x.coexist ? "Le bloc à ajouter à votre brief existant" : "« "+x.briefName+" » : le brief du matin"}
-5. Les ${nTasks} tâches planifiées
+4. ${x.addon ? "Le bloc à ajouter à votre brief existant" : "« "+x.briefName+" » : le brief du matin"}
+5. ${taskCount(x) > 1 ? "Les "+nTasks+" tâches planifiées" : "La tâche planifiée"}
 6. La checklist de vérification
 
 Réglages clés : ${x.cap} mails par jour au maximum depuis ${x.mailbox} · séquence ${x.labs} en jours ouvrés · prospects en ${x.country} (${x.tz}) · validation par ${x.validator} avant tout envoi · rapport dans ${x.reportRef}.
@@ -2100,9 +2172,13 @@ ${arb}---
 
 `;
   const out = head + p + "\n\nTÂCHES PLANIFIÉES À CRÉER\n<<<\n" + genTasks(d) + "\n>>>\n\nCHECKLIST D'INSTALLATION (pour vérifier à la fin)\n<<<\n" + genChecklist(d) + "\n>>>\n";
-  if(k === "claude") return out;
+  // Filet de sécurité : les garde-fous figurent toujours en entier dans le pack.
+  const gP = guardProsp(x).trim(), gB = x.addon ? "" : guardBrief(x).trim();
+  const miss = [gP, gB].filter(g => g && !out.includes(g));
+  const out2 = miss.length ? out + "\nGARDE-FOUS À AJOUTER TELS QUELS À LA FIN DES DOCUMENTS\n<<<\n" + miss.join("\n\n") + "\n>>>\n" : out;
+  if(k === "claude") return out2;
   // Le titre « Préparé avec LinkSharp » ne contient pas « Claude » : vocabulaire appliqué à tout le pack.
-  return vocab(out, k);
+  return vocab(out2, k);
 }
 
 async function callAI(prompt, maxTokens, onText, signal){
@@ -2235,12 +2311,12 @@ Phrases courtes et directes. Reste concis : pas de répétition entre sections.
 
 SKILL PROSPECTION DE RÉFÉRENCE
 <<<
-${cut(d.refProsp, 22000)}
+${String(d.refProsp ?? "").trim()}
 >>>
 
 SKILL BRIEF DE RÉFÉRENCE
 <<<
-${cut(d.refBrief, 8000)}
+${String(d.refBrief ?? "").trim()}
 >>>`;
 }
 
@@ -2346,7 +2422,7 @@ function cleanAi(t){
 }
 function assemble(kind, d, body){
   const x = ctx(d);
-  if(kind==="brief" && x.coexist) return body;
+  if(kind==="brief" && x.addon) return body;
   return (kind==="prosp"?frontProsp(x):frontBrief(x))+"\n"+body+(kind==="prosp"?guardProsp(x):guardBrief(x));
 }
 function splitSkills(t){
@@ -2377,7 +2453,7 @@ async function runGen(){
     ai.brief = Object.assign({text: b.trim() ? assemble("brief",d,cleanAi(b)) : "", status: st(status,b), note: status==="done"&&!b.trim()?"réponse incomplète":note}, meta);
   };
   apply("", "run"); version = "ai"; renderProg(); renderOut();
-  const payload = {co:x.co, offer:d.offer, proofs:d.proofs, tone:d.tone, lang:x.L.n, country:x.country, tz:x.tz, source:x.noSource?"recherche web":x.source+" et recherche web", icpDoc:d.icpDoc, aiNotes:d.aiNotes, refProsp:bodyProsp(x), refBrief:x.coexist ? briefAddon(x) : bodyBrief(x)};
+  const payload = {co:x.co, offer:d.offer, proofs:d.proofs, tone:d.tone, lang:x.L.n, country:x.country, tz:x.tz, source:x.noSource?"recherche web":x.source+" et recherche web", icpDoc:d.icpDoc, aiNotes:notesForAI(x), refProsp:bodyProsp(x), refBrief:x.addon ? briefAddon(x) : bodyBrief(x)};
   try{
     const {text, truncated} = await callAI(skillsPrompt(payload), 10000, t => { apply(t,"run"); if(tab==="prosp"||tab==="brief") renderOut(); }, genCtl.signal);
     apply(text, truncated ? "err" : "done", truncated ? "réponse coupée" : "");
@@ -2516,7 +2592,7 @@ $("keyInput").value = getK("key") ? "••••••••" : "";
 $("capSel").value = ["0.5","1","2","5","10"].includes(getK("cap")) ? getK("cap") : (getK("cap") ? "custom" : "1");
 $("capCustom").hidden = $("capSel").value !== "custom"; $("capCustom").value = getK("cap");
 $("modelSel").value = modelOf();
-$("keySave").onclick = () => { const k = $("keyInput").value.trim(); if(!/^sk-ant-/.test(k)){ setStatus("keyMsg","Une clé d'API Anthropic commence par « sk-ant- ».",true); return; } setK("key",k); $("keyInput").value = "••••••••"; setStatus("keyMsg","Clé enregistrée dans ce navigateur."); refreshAccess(); };
+$("keySave").onclick = () => { const k = $("keyInput").value.trim(); if(!/^sk-ant-/.test(k)){ setStatus("keyMsg","Une clé d'API Anthropic commence par « sk-ant- ».",true); return; } setK("key",k); $("keyInput").value = "••••••••"; setStatus("keyMsg","Clé conservée en mémoire jusqu’au rechargement ou à la fermeture de cette page."); refreshAccess(); };
 $("keyForget").onclick = () => { setK("key",""); try{ localStorage.removeItem("kp.key"); }catch(e){} $("keyInput").value = ""; setStatus("keyMsg","Clé effacée de ce navigateur."); refreshAccess(); };
 $("keyInput").addEventListener("focus", () => { if($("keyInput").value.startsWith("•")) $("keyInput").value = ""; });
 $("capSel").onchange = () => { const v = $("capSel").value; $("capCustom").hidden = v !== "custom"; if(v !== "custom") setK("cap", v); refreshAccess(); };
@@ -2659,7 +2735,6 @@ route();
     $("tNow").textContent = fmt(now)+" h"; $("tAfter").textContent = fmt(after)+" h";
     const max = Math.max(now, 1);
     $("barNow").style.width = (now/max*100)+"%"; $("barAfter").style.width = (after/max*100)+"%";
-    $("gDays").textContent = Math.round(gain*46/7);
     $("gEur").textContent = Math.round(gain*rate*46/12).toLocaleString("fr-FR")+" €";
   }
   update();
@@ -2779,6 +2854,12 @@ function parseAnswers(text){
 }
 const HM = t => { const m = String(t||"").match(/(\d{1,2})\s*[h:]\s*(\d{2})?/); return m ? String(+m[1]).padStart(2,"0")+":"+(m[2]||"00") : ""; };
 function ensureOpt(el, val, label){ if(![...el.options].some(o => o.value === val)){ const o = document.createElement("option"); o.value = val; o.textContent = label || val; el.appendChild(o); } el.value = val; }
+function validCadence(value){
+  const raw = String(value).trim();
+  if(!/^(?:J\+?)?\d+(?:\s*,\s*(?:J\+?)?\d+)*$/i.test(raw)) return false;
+  const days = raw.split(',').map(v => Number(v.trim().replace(/^J\+?/i,'')));
+  return days.length <= 12 && days[0] === 0 && days.every((n,i) => Number.isSafeInteger(n) && n <= 365 && (i === 0 || n > days[i-1]));
+}
 function normAnswers(a){
   const r = Object.assign({}, a);
   if(r.cadence){ const nums = String(r.cadence).match(/\d+/g); if(nums && nums[0] === "0") r.cadence = nums.map(x=>String(+x)).join(","); else delete r.cadence; }
@@ -2820,7 +2901,10 @@ function setSelect(id, val){
   if(opt){ el.value = opt.value; return true; } return false;
 }
 function applyAnswers(text){
-  const a = normAnswers(parseAnswers(text)); const keys = Object.keys(a);
+  const parsed = parseAnswers(text);
+  if(parsed.cadence && !validCadence(parsed.cadence)){ setStatus("ansMsg","Séquence refusée : commencez par J0, puis des jours croissants sans doublon (12 étapes maximum, jusqu’à J+365). Aucun champ n’a été modifié.",true); return; }
+  if(parsed.cap && (!/^\d+$/.test(parsed.cap) || !Number.isSafeInteger(Number(parsed.cap)) || Number(parsed.cap) < 1)){ setStatus("ansMsg","Le plafond doit être un nombre entier positif. Aucun champ n’a été modifié.",true); return; }
+  const a = normAnswers(parsed); const keys = Object.keys(a);
   if(!keys.length){ setStatus("ansMsg","Je n'ai rien reconnu. Vérifiez que le texte commence par « LINKSHARP v2 » (ou v1).",true); return; }
   let n = 0;
   if(a.country && setSelect("country", a.country)){ fillTz($("country").value); n++; }
