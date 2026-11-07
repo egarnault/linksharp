@@ -376,6 +376,48 @@ table.cmp td{color:var(--muted)}
 
 h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
 .mirror{max-width:52ch;margin:0;padding:10px 14px;border-left:3px solid var(--accent);color:var(--ink);font-size:.98rem;line-height:1.5}
+/* Réveil */
+.rvhead .cta{margin-top:4px}
+.rvtypes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:980px){.rvtypes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.rvtypes{grid-template-columns:minmax(0,1fr)}}
+.rvtypes article{display:grid;gap:8px;align-content:start;padding:20px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.rvtypes .k{font-family:var(--f-mono);font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.rvtypes h3{font-size:1.05rem}
+.rvtypes p{color:var(--muted);font-size:.93rem}
+.rvmail{max-width:760px;overflow:hidden}
+.rvm-top{display:grid;gap:4px;padding:16px 20px;border-bottom:1px solid var(--line);background:var(--sunk)}
+.rvm-top b{font-size:1.05rem}
+.rvm-lead{display:grid;gap:8px;padding:18px 20px;border-bottom:1px solid var(--line)}
+.rvm-h{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.rvm-h span{color:var(--muted);font-size:.9rem}
+.rvm-h .score{margin-left:auto;font-family:var(--f-mono);font-size:.78rem;color:var(--accent)}
+.rvm-lead p{font-size:.94rem}
+.rvm-msg{padding:12px 14px;border-left:3px solid var(--accent);background:var(--accent-soft);color:var(--ink);border-radius:0 8px 8px 0}
+.rvm-more{padding:14px 20px}
+.rvdetail{display:grid;gap:12px}
+.rvdetail > summary{margin-bottom:12px}
+pre.rvout{margin:0;padding:18px;background:var(--code);font-family:var(--f-mono);font-size:.8rem;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;max-height:560px;overflow:auto}
+.rvrules{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px;max-width:900px}
+@media (max-width:700px){.rvrules{grid-template-columns:minmax(0,1fr)}}
+.rvrules li{padding-left:22px;position:relative;font-size:.96rem}
+.rvrules li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-weight:700}
+#rvMissing:empty{display:none}
+.choose{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:6px}
+@media (max-width:700px){.choose{grid-template-columns:minmax(0,1fr)}}
+.pick{display:grid;gap:8px;align-content:start;padding:20px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s}
+.pick:hover{border-color:var(--accent);transform:translateY(-2px)}
+.pick:first-child{border-color:var(--accent);background:var(--accent-soft)}
+.pick .k{font-family:var(--f-mono);font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.pick b{font-size:1.15rem}
+.pick span:not(.k):not(.go){color:var(--muted);font-size:.93rem}
+.pick .go{font-weight:600;font-size:.9rem;color:var(--accent)}
+.mini3{display:flex;flex-wrap:wrap;gap:8px 22px;margin:4px 0 0;padding:0;list-style:none;counter-reset:m;font-size:.92rem;color:var(--muted)}
+.mini3 li{counter-increment:m}
+.mini3 li::before{content:counter(m) ". ";font-family:var(--f-mono);color:var(--accent)}
+.mini3 b{color:var(--ink)}
+.capmore summary{cursor:pointer;font-size:.85rem;color:var(--muted)}
+.capmore[open]{display:grid;gap:10px}
 .lede-big{font-size:clamp(1.1rem,1.6vw,1.3rem);color:var(--ink);max-width:40ch}
 .calc{margin-block:8px 28px}
 .calc-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
@@ -452,7 +494,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
     <a href="app.html">Démo</a>
     <a href="#benefices" data-nav="benefices">Ce que ça change</a>
     <a href="#connexions" data-nav="connexions">Vos outils</a>
-    <a href="#automation" data-nav="automation">Marketing <span class="tiny">bientôt</span></a>
+    <a href="#reveil" data-nav="reveil">Leads endormis <span class="tiny">nouveau</span></a>
     <a href="#outil" data-nav="outil">Essayer l'outil</a>
     <a href="en.html" hreflang="en" lang="en" class="lang" aria-label="English version"><svg class="flag" viewBox="0 0 19 10" aria-hidden="true"><rect width="19" height="10" fill="#B22234"/><g fill="#fff"><rect y="0.77" width="19" height="0.77"/><rect y="2.31" width="19" height="0.77"/><rect y="3.85" width="19" height="0.77"/><rect y="5.38" width="19" height="0.77"/><rect y="6.92" width="19" height="0.77"/><rect y="8.46" width="19" height="0.77"/></g><rect width="7.6" height="5.38" fill="#3C3B6E"/></svg> EN</a>
   </div>
@@ -591,9 +633,9 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
   <section class="sec">
     <div class="intro"><span class="eyebrow">Explorer</span><h2>Tout comprendre avant de vous lancer</h2></div>
     <div class="teasers">
+      <a href="#reveil"><span class="k">Nouveau · Réveil</span><h3>Réveillez les leads endormis de votre boîte mail : devis sans suite, clients d'une fois, prospects oubliés</h3><span class="go">Découvrir Réveil →</span></a>
       <a href="#exemple"><span class="k">Exemple</span><h3>Ce que LinkSharp prépare pour une entreprise, du choix des clients au premier message</h3><span class="go">Voir l'exemple →</span></a>
       <a href="#benefices"><span class="k">Ce que ça change</span><h3>Moins de temps perdu, plus de réponses, une prospection qui ne s'arrête plus</h3><span class="go">Voir les gains →</span></a>
-      <a href="#connexions"><span class="k">Vos outils</span><h3>Votre boîte mail, votre agenda, vos fichiers : tout reste chez vous</h3><span class="go">Voir les outils →</span></a>
       <a href="#automation" class="soonc"><span class="k">Bientôt</span><h3>Le marketing automatique, prochain module en préparation</h3><span class="go">Être prévenu →</span></a>
     </div>
   </section>
@@ -668,11 +710,16 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
   <section class="tool" id="acces">
     <span class="eyebrow">Essayer</span>
     <h2>Créez votre assistant commercial</h2>
-    <p class="lede">Gratuit pendant la bêta. Votre IA habituelle suffit : le site prépare tout, vous collez, elle fait le reste.</p>
+    <p class="lede">Deux façons de faire. Choisissez celle qui vous ressemble.</p>
+    <div class="choose">
+      <a class="pick" href="#contact"><span class="k">Le plus simple</span><b>On l'installe ensemble</b><span>20 minutes en visio, gratuites. Vous parlez de votre métier, on règle tout pendant l'appel.</span><span class="go">Réserver mon créneau →</span></a>
+      <a class="pick" href="#rapide"><span class="k">En autonomie · 10 minutes</span><b>Je le fais moi-même</b><span>Votre IA remplit le formulaire en lisant vos mails, vous vérifiez les cases orange, vous copiez le résultat dans votre IA.</span><span class="go">Commencer →</span></a>
+    </div>
+    <ol class="mini3"><li><b>Votre IA remplit</b> le formulaire à votre place</li><li><b>Vous vérifiez</b> uniquement les cases orange</li><li><b>Vous copiez</b> l'assistant dans votre IA, il s'installe</li></ol>
     <span class="pill" id="aiPill">Ajoutez votre clé d'API pour activer l'IA</span>
   <section class="panel access" aria-labelledby="hAcc">
     <div class="acc-l">
-      <h3 id="hAcc">Quelle IA utilisez-vous ?</h3>
+      <h3 id="hAcc">Avant de commencer : quelle IA utilisez-vous ?</h3>
       <div class="modes three" role="radiogroup" aria-label="Votre IA">
         <button type="button" class="mode" data-mode="claude" role="radio" aria-checked="true"><b>Claude</b><span>Recommandé · tout s'installe tout seul</span></button>
         <button type="button" class="mode" data-mode="chatgpt" role="radio" aria-checked="false"><b>ChatGPT</b><span>Avec votre compte ChatGPT</span></button>
@@ -713,8 +760,8 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
   </section>
     <section class="panel quick" id="rapide" aria-labelledby="hQuick">
       <div class="q-l">
-        <span class="eyebrow">Le plus rapide · 2 minutes</span>
-        <h3 id="hQuick">Laissez votre IA remplir le formulaire pour vous</h3>
+        <span class="eyebrow">Étape 1 · 2 minutes</span>
+        <h3 id="hQuick">Votre IA remplit le formulaire pour vous</h3>
         <p class="hint">Votre IA fouille vos mails, vos documents et vos conversations, remplit tout à votre place et vous donne directement un fichier : vous le déposez ici, tout se remplit. Rien à écrire.</p>
         <ol class="qsteps">
           <li><button type="button" class="primary" id="btnAsk">1. Copier la demande</button></li>
@@ -730,14 +777,14 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
       </details>
     </section>
     <nav class="flow" aria-label="Étapes">
-    <a href="#cible"><span class="n">Étape 1</span><span class="l">Vos clients idéaux</span></a>
-    <a href="#reglages"><span class="n">Étape 2</span><span class="l">Vos réglages</span></a>
-    <a href="#kit"><span class="n">Étape 3</span><span class="l">Votre assistant, prêt</span></a>
+    <a href="#cible"><span class="n">Sans IA connectée</span><span class="l">Remplir à la main</span></a>
+    <a href="#reglages"><span class="n">Étape 2</span><span class="l">Vérifier les cases orange</span></a>
+    <a href="#kit"><span class="n">Étape 3</span><span class="l">Installer dans votre IA</span></a>
   </nav>
   </section>
   <!-- Étape 1 -->
   <section class="block" id="cible" aria-labelledby="h1s">
-    <div class="head"><div class="t"><span class="eyebrow">Étape 1</span><h2 id="h1s">Vos entreprises clientes idéales</h2></div></div>
+    <div class="head"><div class="t"><span class="eyebrow">Sans IA connectée à vos mails</span><h2 id="h1s">Décrivez votre activité, on trouve vos clients idéaux</h2><p class="hint">Votre IA a déjà rempli le formulaire à l'étape 1 ? Passez directement à l'<a href="#reglages">étape 2</a>.</p></div></div>
     <div class="panel pad">
       <label class="f">Décrivez votre produit ou service
         <small>Ce que vous vendez, à qui vous pensez le vendre, ce qui vous différencie. Quelques phrases suffisent.</small>
@@ -761,7 +808,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
 
   <!-- Étape 2 -->
   <section class="block" id="reglages" aria-labelledby="h2s">
-    <div class="head"><div class="t"><span class="eyebrow">Étape 2</span><h2 id="h2s">Vos réglages</h2><p class="hint">Ouvrez seulement ce qui est marqué « à compléter ». Le reste est déjà réglé pour vous.</p></div>
+    <div class="head"><div class="t"><span class="eyebrow">Étape 2</span><h2 id="h2s">Vérifiez les cases orange</h2><p class="hint">Seules les cases orange sont à remplir. Tout le reste est déjà réglé pour vous : n'y touchez que si vous le souhaitez.</p></div>
       <button type="button" class="ghost" id="btnReset">Tout effacer</button></div>
     <div class="grid">
       <form class="panel pad" id="f" autocomplete="off" novalidate>
@@ -927,8 +974,9 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
 
       <aside class="side">
         <section class="panel cap" aria-label="Capacité">
-          <span class="eyebrow">Capacité, régime établi</span>
+          <span class="eyebrow">Votre volume, une fois lancé</span>
           <div class="kpis" id="kpis"></div>
+          <details class="capmore"><summary>Voir le détail du calcul</summary>
           <div class="cadence" id="cadenceLine"></div>
           <div style="display:grid;gap:6px">
             <span class="hint" style="font-size:.82rem">Mails par jour ouvré, depuis le lancement</span>
@@ -936,6 +984,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
             <div class="bars-axis" id="barsAxis"></div>
           </div>
           <ul class="notes" id="capNotes"></ul>
+          </details>
         </section>
         <section class="panel missing-box" id="missingBox" aria-live="polite"></section>
       </aside>
@@ -944,7 +993,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
 
   <!-- Étape 3 -->
   <section class="block" id="kit" aria-labelledby="h3s">
-    <div class="head"><div class="t"><span class="eyebrow">Étape 3</span><h2 id="h3s">Votre assistant, prêt à installer</h2></div></div>
+    <div class="head"><div class="t"><span class="eyebrow">Étape 3</span><h2 id="h3s">Installez votre assistant dans votre IA</h2><p class="hint">Copiez le premier onglet, collez-le dans votre IA : elle installe tout et vous pose ses questions s'il manque quelque chose.</p></div></div>
     <div class="panel genbar">
       <div class="l">
         <h3>Adapter à votre métier</h3>
@@ -1168,6 +1217,103 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
   </section>
 </div>
 
+<!--REVEIL-->
+<div class="page" data-page="reveil" hidden>
+  <section class="pagehead rvhead">
+    <span class="eyebrow"><span class="beta">Nouveau</span> LinkSharp Réveil</span>
+    <h1>Vos prochains clients sont déjà dans votre boîte mail.</h1>
+    <p class="lede">Un devis resté sans suite, un salon jamais relancé, un client qui a commandé une fois puis plus rien. Réveil fouille votre Gmail depuis la création de votre entreprise, retrouve ces leads endormis, vérifie ce qu'ils sont devenus et vous envoie par mail les 5 à relancer en priorité, avec le message déjà prêt.</p>
+    <div class="cta"><a class="btn primary" href="#rv-kit">Créer mon kit Réveil</a><a class="btn ghost" href="#contact">Le faire avec moi en 20 min</a></div>
+    <div class="facts"><span>Gratuit pendant la bêta</span><span>Aucun mail ne part sans vous</span><span>Fonctionne avec votre IA connectée à Gmail</span></div>
+  </section>
+
+  <section class="sec">
+    <div class="intro"><span class="eyebrow">Ce qu'il retrouve</span><h2>Des contacts qui vous connaissent déjà</h2><p class="hint">Les relancer est bien plus simple qu'une prospection à froid : vous ouvrez avec « nous nous étions parlé en 2023 », pas avec une présentation.</p></div>
+    <div class="rvtypes">
+      <article><span class="k">Le prospect oublié</span><h3>Il vous a écrit, personne n'a répondu</h3><p>Une demande de tarif ou une question restée sans réponse, parce que vous étiez pris par le reste.</p></article>
+      <article><span class="k">Le devis sans suite</span><h3>Une proposition envoyée, puis le silence</h3><p>Le besoin existait. Le timing ou le budget n'y était pas encore.</p></article>
+      <article><span class="k">La commande unique</span><h3>Un client d'une fois</h3><p>Une première commande, puis plus rien depuis des mois.</p></article>
+      <article><span class="k">La rencontre non suivie</span><h3>Un salon, un appel, une démo</h3><p>Un bon échange qui n'a jamais eu de deuxième étape.</p></article>
+    </div>
+    <p class="hint">Ce qu'il écarte : les refus clairs, les clients actifs, les personnes qui ont demandé à ne plus être contactées, vos fournisseurs et toutes les newsletters.</p>
+  </section>
+
+  <section class="sec">
+    <div class="intro"><span class="eyebrow">Ce que vous recevez</span><h2>Un mail clair, avec 5 leads et leurs messages prêts</h2></div>
+    <div class="rvmail panel">
+      <div class="rvm-top"><span class="hint">Exemple fictif · entreprises et personnes inventées</span><b>Réveil · vos 5 leads endormis à relancer</b><span class="hint">2 140 fils parcourus de 2021 à aujourd'hui · 63 entreprises candidates · 5 retenues</span></div>
+      <div class="rvm-lead">
+        <div class="rvm-h"><b>1. Maison Verdal</b> <span>importateur, Lyon</span><span class="score">86/100 · confiance élevée</span></div>
+        <p><b>Ce qui s'est passé :</b> le 14 mars 2024, Claire Dumas vous demandait un tarif pour 200 unités. Personne n'a répondu.</p>
+        <p><b>Depuis :</b> ils ont ouvert une boutique à Bordeaux (septembre 2026). De votre côté, la gamme pro est sortie.</p>
+        <p class="rvm-msg">« Bonjour Claire, vous m'aviez demandé un tarif en mars 2024 et je ne vous avais pas répondu, c'est de mon côté. J'ai vu l'ouverture de Bordeaux : notre nouvelle gamme pro est pensée pour ce format. Un appel de 15 minutes la semaine prochaine ? »</p>
+        <span class="hint">Brouillon prêt dans Gmail · à relire et envoyer</span>
+      </div>
+      <div class="rvm-more hint">2. Atelier Rocamar · devis sans suite · 81/100 &nbsp;·&nbsp; 3. Nordhal Group · commande unique · 77/100 &nbsp;·&nbsp; …</div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="intro"><span class="eyebrow">Comment ça marche</span><h2>Trois étapes, une seule fois</h2></div>
+    <ol class="steps3">
+      <li><h3>Remplissez 4 champs</h3><p>Ce que vous vendez, ce qui a changé chez vous, depuis quand fouiller, et où recevoir le récapitulatif.</p></li>
+      <li><h3>Collez la demande dans votre IA</h3><p>Claude ou ChatGPT, connecté à votre Gmail. Elle fouille, lit les échanges, vérifie sur le web ce que chaque entreprise est devenue.</p></li>
+      <li><h3>Recevez vos leads par mail</h3><p>Les 5 prioritaires, notés et justifiés, avec un message de reprise prêt en brouillon. Vous relisez, vous envoyez.</p></li>
+    </ol>
+  </section>
+
+  <section class="sec" id="rv-kit">
+    <div class="intro"><span class="eyebrow">Votre kit Réveil</span><h2>Créez votre demande</h2><p class="hint">Les champs se gardent dans votre navigateur. Rien n'est envoyé à LinkSharp.</p></div>
+    <div class="panel pad">
+      <div class="row">
+        <label class="f" data-rv="co">Nom de votre entreprise<input type="text" id="rvCo" autocomplete="organization"></label>
+        <label class="f" data-rv="to">Adresse qui reçoit le récapitulatif<input type="email" id="rvTo" autocomplete="email" placeholder="vous@entreprise.fr"></label>
+      </div>
+      <label class="f" data-rv="offer">Ce que vous vendez aujourd'hui<small>2 ou 3 phrases : votre offre, pour qui, ce qui vous différencie.</small><textarea id="rvOffer" rows="3"></textarea></label>
+      <label class="f">Ce qui a changé chez vous depuis vos débuts<small>Nouvelles offres, références clients, chiffres, nouveaux marchés. C'est ce qui rend la reprise crédible.</small><textarea id="rvNews" rows="3" placeholder="ex. Nouvelle gamme pro depuis 2025, 40 clients en Europe, entrepôt à Lille"></textarea></label>
+      <div class="row3">
+        <label class="f">Fouiller depuis<small>Création de l'entreprise ou de la boîte</small><input type="number" id="rvSince" min="1995" max="2026" placeholder="2021"></label>
+        <label class="f">Leads prioritaires<select id="rvTop"><option>3</option><option selected>5</option><option>10</option></select></label>
+        <label class="f">Votre IA<select id="rvAi"><option value="claude">Claude</option><option value="chatgpt">ChatGPT</option><option value="other">Autre IA</option></select></label>
+      </div>
+      <details class="adv"><summary>Facultatif : signature, exclusions, analyse chaque mois</summary>
+        <div class="pad" style="padding-inline:0">
+          <label class="f">Signature des messages<small>Prénom Nom, fonction</small><input type="text" id="rvSender"></label>
+          <label class="f">À exclure<small>Clients actuels, concurrents, domaines à ignorer. Une ligne par élément.</small><textarea id="rvExcl" rows="3"></textarea></label>
+          <label class="f">Fréquence<select id="rvFreq"><option value="once">Une seule analyse</option><option value="monthly">Une analyse chaque mois (tâche planifiée)</option></select></label>
+        </div>
+      </details>
+      <p class="hint" id="rvMissing" role="status"></p>
+      <div class="inline">
+        <button type="button" class="primary" id="rvCopyAll">1. Copier la demande complète</button>
+        <a class="btn" id="rvOpen" href="https://claude.ai/new" target="_blank" rel="noopener">2. La coller dans Claude</a>
+        <button type="button" class="ghost" id="rvDl">Télécharger le kit (.md)</button>
+      </div>
+      <p class="hint" id="rvAiHint"></p>
+      <span class="toast" id="rvToast" role="status"></span>
+    </div>
+
+    <details class="adv rvdetail"><summary>Voir le contenu du kit, dossier par dossier</summary>
+      <div class="tabs" role="tablist" id="rvTabs"></div>
+      <div class="panel outcard">
+        <div class="outbar"><span class="meta" id="rvMeta"></span><span class="btns"><button type="button" id="rvCopyOne">Copier ce dossier</button></span></div>
+        <pre id="rvOut" class="rvout" tabindex="0"></pre>
+      </div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <div class="intro"><span class="eyebrow">Vous gardez le contrôle</span><h2>Les règles de Réveil</h2></div>
+    <ul class="rvrules">
+      <li>Votre boîte est lue, jamais modifiée : rien n'est supprimé, déplacé ni marqué comme lu.</li>
+      <li>Aucun mail ne part vers un prospect : les messages restent des brouillons que vous relisez.</li>
+      <li>Chaque lead est justifié par un mail daté ou une source web. Sans preuve, il n'est pas retenu.</li>
+      <li>Ceux qui ont dit non ou demandé à ne plus être contactés sont écartés d'office.</li>
+    </ul>
+    <div class="ctaband"><div><h2>Vous préférez qu'on le lance ensemble ?</h2><p class="hint">20 minutes en visio, gratuites : on branche Réveil sur votre boîte et on lit le premier récapitulatif ensemble.</p></div><div class="cta"><a class="btn primary" href="#contact">Réserver mon appel</a></div></div>
+  </section>
+</div>
+
 <!--AUTOMATION-->
 <div class="page" data-page="automation" hidden>
   <section class="pagehead soonhead">
@@ -1225,7 +1371,7 @@ h1.big{font-size:clamp(2.6rem,6.4vw,4.9rem);line-height:.98}
   <div class="cols">
     <div style="display:grid;gap:12px;align-content:start"><a class="brand" href="#accueil" aria-label="LinkSharp, accueil"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="currentColor" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" style="stroke:var(--accent)" stroke-width="2.6"/></svg><span>Link<b>Sharp</b></span></a><p>L'assistant qui vous aide à trouver de nouveaux clients, conçu et édité par Eliad Garnault. Prototype en bêta : gratuit pendant la phase de test, modèle économique en réflexion. Le site, son code, ses modèles et ses textes sont la propriété de LinkSharp.</p></div>
     <div><h3>Contact</h3><ul><li>Eliad Garnault</li><li><a href="mailto:egarnault@gmail.com">egarnault@gmail.com</a></li><li><a href="tel:+33607763994">+33 6 07 76 39 94</a></li><li><a href="https://www.linkedin.com/in/eliad-garnault" target="_blank" rel="noopener">linkedin.com/in/eliad-garnault</a></li></ul></div>
-    <div><h3>Le site</h3><ul><li><a href="#exemple">Exemple</a></li><li><a href="#benefices">Ce que ça change</a></li><li><a href="#connexions">Vos outils</a></li><li><a href="#technique">Pour les curieux</a></li><li><a href="#automation">Marketing automatique (bientôt)</a></li><li><a href="#outil">Essayer gratuitement</a></li><li><a href="#contact">Contact</a></li><li>Vos réglages restent dans votre navigateur ; la clé API est temporaire</li></ul></div>
+    <div><h3>Le site</h3><ul><li><a href="#exemple">Exemple</a></li><li><a href="#benefices">Ce que ça change</a></li><li><a href="#technique">Pour les curieux</a></li><li><a href="#reveil">Réveil : leads endormis</a></li><li><a href="#connexions">Vos outils</a></li><li><a href="#automation">Marketing automatique (bientôt)</a></li><li><a href="#outil">Essayer gratuitement</a></li><li><a href="#contact">Contact</a></li><li>Vos réglages restent dans votre navigateur ; la clé API est temporaire</li></ul></div>
   </div>
   <details><summary>Mentions légales</summary><p>Éditeur et directeur de la publication : Eliad Garnault (LinkSharp), entrepreneur individuel (micro-entreprise), SIRET 990 010 050 00013, France. Contact : egarnault@gmail.com · +33 6 07 76 39 94. Prototype en bêta, gratuit : aucune vente, aucun paiement ni abonnement n'y est proposé à ce stade. Hébergement : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. LinkSharp n'a ni compte utilisateur ni base de données : les informations saisies restent dans le navigateur de l'utilisateur, la clé d'API n'est gardée qu'en mémoire le temps de la visite, et les appels à l'IA partent directement du navigateur vers Anthropic. Comme tout site, la page fait appel à des services tiers qui reçoivent l'adresse IP du visiteur : GitHub (hébergement), Google Fonts (polices de caractères) et, seulement si vous ouvrez la prise de rendez-vous, Calendly, qui peut déposer ses propres cookies. Les règles de prospection indiquées dans l'outil sont des repères et ne constituent pas un avis juridique.</p></details>
   <div class="legal"><span>© 2026 LinkSharp · Eliad Garnault. Tous droits réservés.</span><span>Reproduction du site, du code ou des modèles interdite sans autorisation écrite.</span></div>
@@ -2682,7 +2828,7 @@ renderIcsList();
 })();
 
 /* ---------- Pages ---------- */
-const TITLES = {accueil:"LinkSharp", "choisir-ia":"Choisir mon IA · LinkSharp", exemple:"Exemple · LinkSharp", benefices:"Ce que ça change · LinkSharp", technique:"Pour les curieux · LinkSharp", connexions:"Vos outils · LinkSharp", automation:"Marketing automatique · LinkSharp", contact:"Contact · LinkSharp", outil:"Essayer · LinkSharp"};
+const TITLES = {accueil:"LinkSharp", reveil:"Réveil · leads endormis · LinkSharp", "choisir-ia":"Choisir mon IA · LinkSharp", exemple:"Exemple · LinkSharp", benefices:"Ce que ça change · LinkSharp", technique:"Pour les curieux · LinkSharp", connexions:"Vos outils · LinkSharp", automation:"Marketing automatique · LinkSharp", contact:"Contact · LinkSharp", outil:"Essayer · LinkSharp"};
 let calLoaded=false;
 function loadCal(){ if(calLoaded) return; calLoaded=true; const sc=document.createElement("script"); sc.src="https://assets.calendly.com/assets/external/widget.js"; sc.async=true; document.body.appendChild(sc); }
 function route(){
@@ -2966,6 +3112,263 @@ syncGroups(true);
 try{ window.__ls = {read, ctx, tplProsp, tplBrief, genTasks, genChecklist, genCapacity, installPrompt, setK, vocab}; }catch(e){}
 })();
 
+</script>
+<script>
+/* ---------- LinkSharp Réveil : kit de réactivation des leads endormis ---------- */
+(function(){
+  const g = id => document.getElementById(id);
+  if(!g("rvCo")) return;
+  const FIELDS = ["rvCo","rvTo","rvOffer","rvNews","rvSince","rvTop","rvAi","rvSender","rvExcl","rvFreq"];
+  const KEY = "ls.reveil";
+  try{ const s = JSON.parse(localStorage.getItem(KEY)||"{}"); FIELDS.forEach(k => { if(s[k] != null && g(k)) g(k).value = s[k]; }); }catch(e){}
+
+  const AI = {
+    claude:{name:"Claude", url:"https://claude.ai/new", gmail:"le connecteur Gmail (Paramètres › Connecteurs)", web:"la recherche web", sched:"Crée ensuite une tâche planifiée", hint:"Dans Claude, activez le connecteur Gmail et la recherche web avant de coller la demande. Pour les grosses boîtes, l'analyse peut prendre un moment : laissez-la travailler."},
+    chatgpt:{name:"ChatGPT", url:"https://chatgpt.com/", gmail:"Gmail dans les connecteurs de ChatGPT", web:"la recherche web", sched:"Si tu peux créer une tâche planifiée, crée", hint:"Dans ChatGPT, connectez Gmail (Paramètres › Connecteurs) et utilisez un modèle avec recherche web. Si ChatGPT ne peut pas créer de brouillons, il écrira les messages dans sa réponse."},
+    other:{name:"votre IA", url:"", gmail:"un accès à la boîte Gmail", web:"la recherche web", sched:"Si tu peux créer une tâche planifiée, crée", hint:"Votre IA doit pouvoir lire votre Gmail et chercher sur le web (Gemini avec Gmail, Copilot avec Outlook, etc.). Sans accès à la boîte, l'analyse est impossible."}
+  };
+
+  function read(){
+    const v = k => (g(k) ? String(g(k).value||"").trim() : "");
+    const year = new Date().getFullYear();
+    let since = parseInt(v("rvSince"),10); if(!(since >= 1995 && since <= year)) since = 0;
+    const sender = v("rvSender");
+    return {
+      co: v("rvCo"), to: v("rvTo"), offer: v("rvOffer"), news: v("rvNews"),
+      since, top: v("rvTop") || "5", ai: AI[v("rvAi")] ? v("rvAi") : "claude",
+      sender, first: sender ? sender.split(/[ ,]/)[0] : "moi",
+      excl: v("rvExcl"), freq: v("rvFreq") || "once"
+    };
+  }
+  const T = (s, d) => s || "[À COMPLÉTER : "+d+"]";
+
+  function dossiers(d){
+    const A = AI[d.ai], since = d.since || "la création de l'entreprise (date du plus ancien mail de la boîte)";
+    const co = T(d.co,"nom de l'entreprise"), to = T(d.to,"adresse du récapitulatif"), offer = T(d.offer,"ce que nous vendons");
+    const news = d.news || "non précisé : déduis-le de nos mails envoyés récents (nouvelles offres, nouveaux clients, nouveaux marchés) et signale que c'est une déduction.";
+    const excl = d.excl ? d.excl.split(/\n+/).map(x=>"  - "+x.trim()).filter(x=>x.trim()!=="-").join("\n") : "  - aucune exclusion supplémentaire";
+    const sign = d.sender || "le titulaire de la boîte (signature habituelle de ses mails)";
+    const N = d.top;
+    const L = [];
+
+    L.push({id:"lancement", l:"00 · Lancement", t:
+`# 00 · LANCEMENT : ANALYSE RÉVEIL
+
+Tu vas réaliser pour moi l'analyse « Réveil » de LinkSharp : retrouver dans ma boîte Gmail les relations commerciales qui n'ont pas abouti, évaluer lesquelles méritent d'être réveillées aujourd'hui, et me préparer les ${N} meilleures, avec un message de reprise pour chacune.
+
+QUI JE SUIS
+- Entreprise : ${co}
+- Ce que nous vendons aujourd'hui : ${offer}
+- Ce qui a changé chez nous depuis nos débuts : ${news}
+- Période à fouiller : depuis ${since}, jusqu'à aujourd'hui
+- Récapitulatif à envoyer à : ${to}
+- Nombre de leads prioritaires : ${N}
+- Signature des messages : ${sign}
+
+AVANT DE COMMENCER
+1. Vérifie que tu as ${A.gmail} et ${A.web}. S'il te manque l'un des deux, arrête-toi et dis-moi exactement quoi activer.
+2. Annonce ton plan en 3 lignes, puis lance-toi sans attendre ma validation.
+
+ORDRE DE TRAVAIL
+01 Fouille → 02 Tri et première note → 03 Ce qui a changé → 02 note finale → 04 Messages de reprise → 05 Récapitulatif.
+Les garde-fous du dossier 06 s'appliquent à chaque étape, sans exception.
+
+C'est un travail de fond : la profondeur compte plus que la vitesse. Si ta session a une limite, avance par tranches et tiens un tableau de travail (Google Sheet « Réveil – travail » ou fichier) pour ne rien perdre d'un passage à l'autre. Ne me rends pas un résultat partiel en le présentant comme complet.`});
+
+    L.push({id:"fouille", l:"01 · Fouille", t:
+`# 01 · FOUILLE DE LA BOÎTE MAIL
+
+Objectif : retrouver TOUTES les relations commerciales qui ont existé dans cette boîte depuis ${since}, pas seulement les plus récentes.
+
+1. DÉCOUPE LE TEMPS
+Tranches de 6 mois, de ${since} à aujourd'hui. Fouille chaque tranche séparément (opérateurs after: et before:). Ne t'arrête jamais à la première page de résultats : pagine jusqu'au bout de chaque tranche.
+
+2. CINQ FAMILLES DE RECHERCHES PAR TRANCHE
+(adapte la syntaxe si ton outil Gmail diffère ; cherche en français ET en anglais)
+A. Argent et engagement : devis OR proposition OR "offre commerciale" OR tarif OR prix OR commande OR "bon de commande" OR facture OR acompte OR contrat OR quote OR quotation OR proposal OR pricing OR order OR "purchase order" OR invoice OR contract
+B. Rencontres : rendez-vous OR rdv OR visio OR appel OR démo OR salon OR stand OR "suite à notre échange" OR "ravi de vous avoir rencontré" OR meeting OR call OR demo OR "trade show" OR "nice meeting you" OR "following our conversation"
+C. Intérêt exprimé : intéressé OR "pas pour le moment" OR "plus tard" OR "l'année prochaine" OR budget OR échantillon OR essai OR "revenir vers vous" OR interested OR "not right now" OR "next quarter" OR "next year" OR sample OR trial
+D. Messages restés sans réponse de NOTRE part : fils dont le dernier message vient de l'extérieur, datant de plus de 30 jours. Ce sont souvent les meilleurs leads : ouvre chaque fil pour le vérifier.
+E. Nos relances restées sans réponse : in:sent, fils dont le dernier message est de nous, sans réponse depuis plus de 30 jours.
+À exclure à chaque recherche : -category:promotions -category:social -from:noreply -from:no-reply -from:notifications, et les newsletters.
+
+3. REGROUPE PAR ENTREPRISE
+Par domaine de l'adresse, pas par personne. Une adresse gmail.com, outlook.com, etc. est rattachée à l'entreprise de sa signature quand c'est possible.
+
+4. FICHE PAR ENTREPRISE
+Nom, domaine, contact(s) et fonction, date du premier et du dernier échange, qui a écrit en dernier (nous ou eux), nombre de fils, et la preuve de chaque étape franchie (sujet du mail + date) : demande, devis, rendez-vous, commande, facture.
+
+5. ÉCARTE DÈS MAINTENANT
+Nos fournisseurs et prestataires, banques, administrations, recruteurs et candidats, outils et abonnements, partenaires déjà actifs, et la liste d'exclusion du dossier 06.
+
+6. COUVERTURE
+Compte les fils parcourus par tranche de 6 mois. Une tranche à 0 résultat est recherchée une seconde fois avec des termes plus larges avant de conclure. Ces chiffres figureront dans le récapitulatif.
+
+Résultat de cette étape : la liste brute de toutes les entreprises candidates (même 50 ou 200), avant tout tri.`});
+
+    L.push({id:"grille", l:"02 · Grille de priorité", t:
+`# 02 · TRI ET GRILLE DE PRIORITÉ
+
+A. STATUT DE CHAQUE ENTREPRISE
+- OUBLIÉ : ils ont écrit en dernier ; une question ou une ouverture est restée sans réponse de notre part.
+- DEVIS SANS SUITE : une proposition chiffrée est partie, puis silence.
+- COMMANDE UNIQUE : au moins une commande ou facture, puis plus rien depuis 6 mois ou plus.
+- REPORTÉ : ils ont dit « pas maintenant », « budget », « l'année prochaine », « recontactez-nous ».
+- RENCONTRE NON SUIVIE : salon, appel, démo ou introduction, sans suite concrète.
+- ÉCARTÉ, à sortir de la liste : refus clair et motivé ; demande de ne plus être contacté ; litige, plainte ou impayé ; client actif ou échange en cours depuis moins de 60 jours ; entreprise fermée ; concurrent direct.
+
+Lis le fil COMPLET de chaque candidat restant, pas seulement l'aperçu, avant de le noter.
+
+B. NOTE SUR 100
+1. Profondeur de la relation passée : 30 points
+   commande ou facture 30 · devis ou proposition chiffrée 24 · rendez-vous, appel ou démo 18 · plusieurs échanges sur un besoin réel 12 · un seul échange 5
+2. Raison de l'arrêt : 20 points
+   oubli de notre côté 20 · report explicite (timing, budget) 16 · silence après notre relance 10 · raison inconnue 8 · légère insatisfaction 3
+3. Adéquation avec ce que ${co} vend AUJOURD'HUI : 20 points
+   leur besoin d'alors est couvert par notre offre actuelle 20 · proche 12 · lointain 4
+4. Signal récent chez eux, vérifié au dossier 03 : 20 points
+   croissance, levée, recrutement dans le domaine concerné, nouveau produit, site ou marché, nouvel acheteur 20 · activité stable 8 · aucun signal trouvé 4 · signes de difficulté 0
+5. Âge du dernier échange : 10 points
+   6 à 24 mois 10 · 3 à 6 mois ou 2 à 4 ans 7 · plus de 4 ans 3 · moins de 3 mois : pas encore endormi, à sortir
+
+Première note sans le critère 4. Note finale après le dossier 03.
+
+C. CALIBRAGE
+- Pas de preuve, pas de point : chaque point s'appuie sur un mail précis (sujet + date) ou une source web (lien + date).
+- Confiance de chaque lead : ÉLEVÉE (preuves directes dans les mails + signal web daté de moins de 12 mois), MOYENNE (l'un des deux manque), FAIBLE (déductions). Un lead de confiance FAIBLE n'entre jamais dans le top ${N}.
+- Égalité : d'abord le statut OUBLIÉ, puis la commande ou le devis le plus élevé, puis l'échange le plus récent.
+- Sois exigeant : 3 leads solides valent mieux que ${N} dont certains sont faibles. S'il y en a moins de ${N} qui passent, dis-le clairement.`});
+
+    L.push({id:"veille", l:"03 · Ce qui a changé", t:
+`# 03 · CE QUI A CHANGÉ DEPUIS
+
+Pour les 15 meilleures entreprises après la première note, recherche sur le web :
+- leur site officiel : actualités, nouveaux produits, nouvelles implantations ;
+- leur page LinkedIn : taille, recrutements récents, publications ;
+- la presse et les communiqués : levée de fonds, rachat, nouveaux marchés, distinctions ;
+- le contact d'origine : est-il toujours en poste ? Sinon, qui occupe aujourd'hui la fonction équivalente ?
+
+Compare ensuite avec notre évolution :
+- Ce qui a changé chez ${co} : ${news}
+- Ce que nous vendons aujourd'hui : ${offer}
+
+Pour chaque entreprise, écris en 2 ou 3 phrases POURQUOI MAINTENANT : ce qui rend une collaboration plus logique aujourd'hui qu'à l'époque (leur croissance et notre nouvelle offre, leur nouveau marché et nos références, etc.).
+
+Règles :
+- Chaque fait a sa source (lien) et sa date. Un fait de plus de 18 mois ne compte pas comme « signal récent ».
+- Rien trouvé ? Écris « Aucun signal public trouvé ». N'invente jamais une actualité.
+- Si le contact d'origine est parti, le lead reste valable : le message ira à son successeur, en citant l'échange avec l'entreprise sans dévoiler son contenu privé.`});
+
+    L.push({id:"messages", l:"04 · Messages", t:
+`# 04 · MESSAGES DE REPRISE
+
+Pour chaque lead du top ${N}, rédige un message de reprise et crée-le en BROUILLON dans Gmail, de préférence en réponse dans le fil d'origine pour que le contexte reste visible des deux côtés. Si tu ne peux pas créer de brouillon, écris le message dans le récapitulatif.
+
+Structure, 90 mots maximum :
+1. Le lien commun, précis et daté : « Nous avions échangé en mars 2023 au sujet de… » ou « Nous nous étions croisés au salon… en 2024 ».
+2. L'honnêteté sur le silence, si c'est nous qui n'avons pas donné suite : « Je n'avais pas relancé, c'est de mon côté. »
+3. Pourquoi maintenant, en une phrase : leur actualité et ce qui a changé chez nous.
+4. Une demande légère : un appel de 15 minutes, un échantillon, une question simple.
+5. Une sortie facile : « Si ce n'est plus d'actualité, dites-le-moi et je ne reviendrai pas vers vous. »
+
+Règles :
+- Même langue et même registre (tu ou vous, prénom ou nom) que le dernier échange.
+- Signé : ${sign}. Depuis la même adresse que l'échange d'origine.
+- Pas de pièce jointe, pas de lien de suivi, pas de formule publicitaire.
+- Uniquement des faits vérifiés dans les mails ou dans les sources du dossier 03.
+- Jamais de détail sensible tiré du fil : prix négocié, problème interne, information personnelle.`});
+
+    L.push({id:"recap", l:"05 · Récapitulatif", t:
+`# 05 · LE RÉCAPITULATIF PAR MAIL
+
+Envoie un seul mail à ${to}. Si tu ne peux pas envoyer de mail, crée-le en brouillon adressé à ${to}, et donne-moi aussi le contenu dans ta réponse.
+Objet : « Réveil · vos ${N} leads endormis à relancer » suivi de la date du jour.
+
+Contenu, dans cet ordre :
+1. En 3 lignes : nombre de fils parcourus, période couverte, nombre d'entreprises candidates, nombre retenu.
+2. Les ${N} leads, du plus prioritaire au moins prioritaire. Pour chacun :
+   - Entreprise · contact (fonction) · note /100 · confiance
+   - Statut (OUBLIÉ, DEVIS SANS SUITE, COMMANDE UNIQUE, REPORTÉ, RENCONTRE NON SUIVIE)
+   - Notre histoire : premier contact, étapes franchies, dernier échange (dates et sujets des mails)
+   - Pourquoi ça s'est arrêté
+   - Ce qui a changé chez eux (avec sources) et chez nous
+   - Pourquoi maintenant
+   - Le message proposé, en entier, et « brouillon prêt dans Gmail » s'il a été créé
+   - La prochaine étape conseillée et son délai (ex. « appeler jeudi s'il n'y a pas de réponse »)
+3. Les 10 suivants, en tableau : entreprise, statut, note, une ligne de raison.
+4. Ce qui a été écarté, en nombre par motif.
+5. Les limites : tranches peu couvertes, recherches impossibles, doutes.
+
+Ton : direct et utile, comme un collègue commercial qui a fait le travail. Pas de jargon.`});
+
+    L.push({id:"regles", l:"06 · Garde-fous", t:
+`# 06 · GARDE-FOUS (non négociables)
+
+- Lecture seule sur la boîte : tu ne supprimes, n'archives, ne déplaces et ne marques rien comme lu.
+- Aucun mail n'est envoyé à un prospect. Les messages de reprise restent des brouillons ; ${d.first} les relit et les envoie.
+- Le seul mail que tu peux envoyer est le récapitulatif, uniquement à ${to}.
+- Personne de la liste d'exclusion, aucune personne ayant demandé à ne plus être contactée, aucun client actif.
+- Aucune information inventée : sans preuve, pas d'affirmation. En cas de doute, écris-le.
+- Le contenu des mails sert uniquement à cette analyse ; il n'est recopié nulle part ailleurs que dans le récapitulatif.
+
+Liste d'exclusion :
+${excl}`});
+
+    if(d.freq === "monthly") L.push({id:"mensuel", l:"07 · Chaque mois", t:
+`# 07 · ANALYSE CHAQUE MOIS
+
+Une fois la première analyse terminée :
+1. Tiens un journal des leads déjà proposés (Google Doc « Réveil – journal » ou ta mémoire) : entreprise, date de proposition, suite donnée si je te l'indique (relancé, sans réponse, gagné, « non »).
+2. ${A.sched} une tâche planifiée le premier lundi de chaque mois à 8 h : refaire l'analyse sur les fils devenus endormis depuis la dernière fois, et revérifier les leads proposés mais pas encore relancés.
+3. Ne repropose jamais un lead marqué « non » ou « gagné ». Un lead déjà proposé ne revient que si un nouveau signal (dossier 03) le justifie, et tu le dis.
+4. Même récapitulatif, même destinataire (${to}), mêmes garde-fous.`});
+    return L;
+  }
+
+  function full(d){ return dossiers(d).map(x => x.t).join("\n\n---\n\n"); }
+
+  let cur = "lancement";
+  function render(){
+    const d = read();
+    try{ const s = {}; FIELDS.forEach(k => s[k] = g(k) ? g(k).value : ""); localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){}
+    const miss = [];
+    if(!d.co) miss.push("le nom de votre entreprise");
+    if(!d.offer) miss.push("ce que vous vendez");
+    if(!d.to) miss.push("l'adresse du récapitulatif");
+    document.querySelectorAll("[data-rv]").forEach(el => el.classList.toggle("missing", (el.dataset.rv==="co"&&!d.co)||(el.dataset.rv==="offer"&&!d.offer)||(el.dataset.rv==="to"&&!d.to)));
+    g("rvMissing").textContent = miss.length ? "À compléter : "+miss.join(", ")+". Vous pouvez copier quand même, votre IA vous les demandera." : "";
+    const A = AI[d.ai];
+    g("rvOpen").hidden = !A.url;
+    if(A.url){ g("rvOpen").href = A.url; g("rvOpen").textContent = "2. La coller dans "+A.name; }
+    g("rvAiHint").textContent = A.hint;
+    const L = dossiers(d);
+    if(!L.find(x => x.id===cur)) cur = "lancement";
+    const tabs = g("rvTabs"); tabs.innerHTML = "";
+    L.forEach(x => { const b = document.createElement("button"); b.type="button"; b.className="tab"; b.setAttribute("role","tab"); b.textContent = x.l; b.setAttribute("aria-selected", String(x.id===cur)); b.onclick = () => { cur = x.id; render(); }; tabs.appendChild(b); });
+    const t = L.find(x => x.id===cur);
+    g("rvOut").textContent = t.t;
+    g("rvMeta").textContent = t.l+" · "+t.t.split(/\s+/).filter(Boolean).length+" mots";
+  }
+
+  let tt;
+  function say(m){ g("rvToast").textContent = m; clearTimeout(tt); tt = setTimeout(() => g("rvToast").textContent = "", 6000); }
+  async function copy(text, msg){
+    try{ await navigator.clipboard.writeText(text); say(msg); return; }catch(e){}
+    const ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select();
+    let ok = false; try{ ok = document.execCommand("copy"); }catch(e){}
+    ta.remove();
+    say(ok ? msg : "Copie bloquée par le navigateur : ouvrez « Voir le contenu du kit » et copiez le texte à la main.");
+  }
+  g("rvCopyAll").onclick = () => copy(full(read()), "Demande copiée. Collez-la dans votre IA, dans une nouvelle conversation.");
+  g("rvCopyOne").onclick = () => { const t = dossiers(read()).find(x => x.id===cur); copy(t.t, "Dossier copié."); };
+  g("rvDl").onclick = () => {
+    const d = read(), name = "reveil-"+((d.co||"kit").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"kit")+".md";
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([full(d)],{type:"text/markdown;charset=utf-8"})); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    say("Kit téléchargé : "+name);
+  };
+  FIELDS.forEach(k => { const el = g(k); if(el){ el.addEventListener("input", render); el.addEventListener("change", render); } });
+  render();
+})();
 </script>
 </body>
 </html>
