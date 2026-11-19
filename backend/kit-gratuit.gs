@@ -1,7 +1,7 @@
 /**
  * LinkSharp · kit gratuit contre une adresse email
  * ------------------------------------------------------------
- * À coller dans Google Apps Script, connecté au compte eliad@linksharp.fr.
+ * À coller dans Google Apps Script, connecté au compte egarnault@gmail.com.
  * Les mails partent de ce compte.
  *
  * Quand quelqu'un demande le kit sur linksharp.fr/kit.html :
@@ -19,7 +19,7 @@
 // ---------- Réglages ----------
 const SHEET_ID       = "";   // vide = le Sheet « LinkSharp – Inscrits kit » est créé au 1er envoi
 const NOM_EXPEDITEUR = "Eliad · LinkSharp";
-const NOTIFIER_A     = "eliad@linksharp.fr";  // "" pour désactiver
+const NOTIFIER_A     = "egarnault@gmail.com";  // "" pour désactiver
 const SITE           = "https://linksharp.fr";
 const CALENDLY       = "https://calendly.com/egarnault/30min";
 const MAX_PAR_JOUR   = 80;
