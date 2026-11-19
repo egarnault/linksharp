@@ -7,9 +7,9 @@
  * Quand quelqu'un demande le kit sur linksharp.fr/kit.html :
  *   1. vérifie la demande (adresse valide, accord coché, anti-robot) ;
  *   2. limite les envois (1 par adresse toutes les 10 min, 80 par jour) ;
- *   3. envoie un mail court (texte brut, sans pièce jointe) avec le lien
- *      linksharp.fr/mon-kit.html?a=… : la page fabrique les 4 fichiers,
- *      personnalisés avec ce que la personne vend ;
+ *   3. envoie un mail court de contact (texte brut, sans lien ni pièce jointe) ;
+ *      le kit lui-même s'ouvre sur linksharp.fr/mon-kit.html?a=… juste après
+ *      le formulaire ;
  *   4. note la demande dans le Google Sheet « LinkSharp – Inscrits kit »
  *      (date, email, activité, accord pour les nouvelles, source) ;
  *   5. prévient Eliad à chaque inscrit (NOTIFIER_A).
@@ -77,22 +77,19 @@ function doPost(e) {
 function doGet() { return rep({ ok: true, service: "LinkSharp kit" }); }
 
 // ---------- Envoi ----------
-// Mail volontairement simple pour ne pas tomber en spam :
-// texte brut, aucune pièce jointe, un seul lien (vers linksharp.fr).
-// Le kit lui-même est construit sur la page linksharp.fr/mon-kit.html.
+// Le kit s'ouvre directement sur le site après le formulaire (mon-kit.html).
+// Ce mail sert seulement à garder le contact. Pour passer les filtres anti-spam
+// (Gmail en particulier), il ressemble à un mail écrit à la main : texte brut,
+// aucun lien, aucune pièce jointe, aucune URL dans le texte.
 function envoyerKit(email, activite) {
-  const lien = SITE + "/mon-kit.html" + (activite ? "?a=" + encodeURIComponent(activite) : "");
   const texte =
     "Bonjour,\n\n" +
-    "Merci pour votre demande. Votre kit LinkSharp est prêt ici :\n" +
-    lien + "\n\n" +
-    "Il permet à votre Claude de vous préparer chaque jour quelques entreprises à contacter, avec un mail court pour chacune. " +
-    "L'installation prend 10 minutes, tout est expliqué sur la page.\n\n" +
-    "Si vous préférez qu'on l'installe ensemble (20 minutes, gratuit), répondez simplement à ce mail.\n\n" +
+    "Merci d'avoir pris le kit LinkSharp" + (activite ? " (réglé pour : " + activite + ")" : "") + ".\n\n" +
+    "Si vous voulez qu'on l'installe ensemble, c'est gratuit et ça prend 20 minutes : répondez simplement à ce mail avec un créneau qui vous arrange.\n\n" +
+    "Et si vous avez fermé la page du kit, répondez « kit » : je vous le renvoie.\n\n" +
     "Bonne journée,\n" +
-    "Eliad Garnault\n" +
-    "LinkSharp\n";
-  const options = { name: NOM_EXPEDITEUR };
+    "Eliad\n";
+  const options = { name: "Eliad Garnault" };
   if (BCC_HUBSPOT) options.bcc = BCC_HUBSPOT;
   GmailApp.sendEmail(email, "Votre kit LinkSharp", texte, options);
 }
