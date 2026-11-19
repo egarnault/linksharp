@@ -1,20 +1,22 @@
-# Brancher l'envoi automatique du kit (10 minutes)
+# Brancher l'envoi automatique du kit gratuit (5 minutes)
 
-À faire une fois que l'adresse @linksharp.fr existe.
+Le formulaire de https://linksharp.fr/kit.html envoie l'adresse à un petit script Google.
+Le script envoie le kit depuis eliad@linksharp.fr et note l'inscrit dans un Google Sheet.
 
-1. Connecté au compte @linksharp.fr, ouvrir https://script.google.com, puis **Nouveau projet**. Le nommer « LinkSharp – envoi du kit ».
-2. Effacer le contenu de `Code.gs` et coller tout `envoi-kit.gs`.
-3. En haut du fichier, vérifier `NOTIFIER_A` (l'adresse qui est prévenue à chaque inscrit). `SHEET_ID` peut rester vide : le Sheet « LinkSharp – Inscrits bêta » se crée tout seul.
-4. Choisir la fonction `autoriser`, cliquer sur **Exécuter** et accepter les autorisations (Gmail et Sheets). Une ligne de test apparaît dans le Sheet : vous pouvez la supprimer.
-5. **Déployer → Nouveau déploiement → Application Web**
-   - Exécuter en tant que : **Moi** (l'adresse @linksharp.fr)
+1. Connecté à **eliad@linksharp.fr**, ouvrir https://script.google.com → **Nouveau projet**. Le nommer « LinkSharp – kit gratuit ».
+2. Effacer le contenu de `Code.gs` et coller tout `kit-gratuit.gs`.
+3. Choisir la fonction `autoriser` en haut, cliquer sur **Exécuter**, accepter les autorisations (Gmail, Sheets, Drive).
+   Vous recevez un kit de test sur eliad@linksharp.fr, et le Sheet « LinkSharp – Inscrits kit » apparaît dans le Drive.
+4. **Déployer → Nouveau déploiement → Application Web**
+   - Exécuter en tant que : **Moi**
    - Qui a accès : **Tout le monde**
    - Copier l'URL qui finit par `/exec`.
-6. Dans `outil.html`, remplacer `const KIT_ENDPOINT = "";` par `const KIT_ENDPOINT = "https://script.google.com/macros/s/…/exec";`
-7. Pousser sur GitHub, puis tester avec votre propre adresse sur https://linksharp.fr/outil.html#outil.
+5. Dans `kit.html`, remplacer `const KIT_ENDPOINT = "";` par `const KIT_ENDPOINT = "https://script.google.com/macros/s/…/exec";`, puis pousser sur GitHub.
+6. Tester avec une autre adresse sur https://linksharp.fr/kit.html.
 
-Tant que `KIT_ENDPOINT` est vide, le site fonctionne quand même : le kit s'affiche à l'écran, mais il n'est pas envoyé et l'email n'est pas enregistré.
+Tant que `KIT_ENDPOINT` est vide, le formulaire affiche : « écrivez kit à eliad@linksharp.fr ».
 
-Après une modification du script, faites **Déployer → Gérer les déploiements → Modifier → Nouvelle version**. L'URL ne change pas.
+Après une modification du script : **Déployer → Gérer les déploiements → Modifier → Nouvelle version** (l'URL ne change pas).
 
-Limites prévues dans le script : 1 kit par adresse toutes les 10 minutes, 80 kits par jour au total, vérification que le contenu sort bien du générateur LinkSharp, et un champ caché contre les robots.
+Limites : 1 kit par adresse toutes les 10 minutes, 80 kits par jour, champ caché anti-robot.
+Pour suivre la source d'un inscrit, ajoutez `?src=linkedin` (par exemple) au lien du kit.

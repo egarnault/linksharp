@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kit gratuit – LinkSharp</title>
+<meta name="description" content="Le kit gratuit LinkSharp : les fichiers pour que votre Claude vous prépare chaque jour les entreprises à contacter et les mails. Reçu par mail, tout de suite.">
+<link rel="canonical" href="https://linksharp.fr/kit.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://linksharp.fr/kit.html">
+<meta property="og:site_name" content="LinkSharp">
+<meta property="og:title" content="LinkSharp – Le kit gratuit">
+<meta property="og:description" content="Je trouve les entreprises qui ont besoin de vous en ce moment. Je prépare le mail. Vous l'envoyez.">
+<meta property="og:image" content="https://linksharp.fr/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E1116'/%3E%3Crect x='4.5' y='9.5' width='12' height='12' rx='1.5' transform='rotate(45 10.5 15.5)' fill='none' stroke='%23fff' stroke-width='2.6'/%3E%3Crect x='15.5' y='9.5' width='12' height='12' rx='1.5' transform='rotate(45 21.5 15.5)' fill='none' stroke='%235B76FF' stroke-width='2.6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+form{margin-top:48px;display:grid;gap:18px;max-width:520px}
+label{display:grid;gap:6px;font-size:15px;font-weight:500}
+label small{font-weight:400;color:var(--muted)}
+input[type=email],input[type=text]{font:inherit;font-size:17px;padding:14px 16px;border:1px solid #D9DCE1;border-radius:12px;background:#fff;color:var(--ink)}
+input[type=email]:focus,input[type=text]:focus{outline:none;border-color:var(--ink)}
+.check{display:flex;gap:12px;align-items:flex-start;font-weight:400;font-size:15px;color:var(--muted);grid-template-columns:none}
+.check input{margin-top:5px;width:18px;height:18px;accent-color:var(--ink);flex:none}
+form .cta{margin-top:8px;border:0;cursor:pointer;font-family:inherit;justify-self:start}
+form .cta:disabled{opacity:.5;cursor:wait}
+.hp{position:absolute;left:-9999px}
+.msg{font-size:15px;min-height:1.5em}
+.msg.ok{color:var(--ink)}.msg.err{color:#B42318}
+.done h2{margin-top:8px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="LinkSharp, accueil">
+      <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="#0E1116" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" stroke="#5B76FF" stroke-width="2.6"/></svg>
+      LinkSharp
+    </a>
+    <nav aria-label="Navigation">
+      <a href="offres.html">Offres</a>
+      <a href="kit.html">Kit gratuit</a>
+      <a class="hide-s" href="en.html" hreflang="en" lang="en">EN</a>
+      <a class="link" href="https://calendly.com/egarnault/30min">Réserver<span class="hide-s"> un appel</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="top">
+  <div class="wrap">
+    <h1>Le kit <em>gratuit</em>.</h1>
+    <p class="sub">Les fichiers pour que votre Claude vous prépare chaque jour les entreprises à contacter, et le mail pour chacune.</p>
+    <p class="lead">Laissez votre adresse, vous le recevez tout de suite par mail : un guide PDF et 4 fichiers à donner à Claude. 10 minutes pour l'installer.</p>
+
+    <form id="kit" novalidate>
+      <label>Votre adresse email
+        <input type="email" name="email" autocomplete="email" required placeholder="vous@entreprise.fr">
+      </label>
+      <label>Ce que vous vendez <small>facultatif, pour adapter le kit</small>
+        <input type="text" name="activite" maxlength="300" placeholder="Ex. : formations en cuisine pour restaurateurs">
+      </label>
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="check"><input type="checkbox" name="consent" required> <span>J'accepte de recevoir le kit par mail.</span></label>
+      <label class="check"><input type="checkbox" name="nouvelles"> <span>Et quelques nouvelles d'Eliad de temps en temps. Désinscription en un mot.</span></label>
+      <button class="cta" type="submit">Recevoir le kit</button>
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="label">Dans le kit</div>
+    <ul class="list" style="margin-top:0">
+      <li>Le mode d'emploi, en PDF</li>
+      <li>Les instructions pour votre Claude, adaptées à ce que vous vendez</li>
+      <li>La méthode : comment écrire un mail court qui obtient une réponse</li>
+      <li>Les phrases à copier chaque matin, et un tableau de suivi</li>
+    </ul>
+    <p class="note">Il fonctionne avec Claude, une IA comme ChatGPT (abonnement Pro, environ 22 €/mois).</p>
+  </div>
+</section>
+
+<section class="end">
+  <div class="wrap">
+    <h2>Plus simple : on l'installe ensemble.</h2>
+    <a class="cta" href="https://calendly.com/egarnault/30min">Réserver 20 minutes</a>
+    <p class="note">En visio, gratuit. Vous repartez avec un kit déjà réglé pour vous.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span>© 2026 LinkSharp · Eliad Garnault EI</span>
+      <nav aria-label="Pied de page"><a href="offres.html">Offres</a><a href="kit.html">Kit gratuit</a><a href="en.html" hreflang="en" lang="en">English</a></nav>
+    </div>
+    <details>
+      <summary>Mentions légales</summary>
+      <p>Éditeur : Eliad Garnault, entrepreneur individuel (EI), nom commercial LinkSharp · SIREN 990 010 050 · SIRET 990 010 050 00013 · immatriculé au Registre national des entreprises (RNE) · siège : Route de Niort, 86400 Savigné, France · eliad@linksharp.fr · +33 6 07 76 39 94. TVA non applicable, art. 293 B du CGI. Directeur de la publication : Eliad Garnault. Hébergement : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. Kit gratuit : votre adresse email et ce que vous vendez sont enregistrés (Google Workspace) pour vous envoyer le kit et, si vous l'acceptez, quelques nouvelles. Suppression sur simple demande à eliad@linksharp.fr. Aucun cookie de mesure d'audience. Polices chargées depuis Google Fonts ; la prise de rendez-vous passe par Calendly.</p>
+    </details>
+  </div>
+</footer>
+
+<script>
+// Adresse du script Google (voir backend/INSTALLATION.md). Vide = envoi pas encore branché.
+const KIT_ENDPOINT = "";
+const f = document.getElementById("kit"), msg = document.getElementById("msg"), t0 = Date.now();
+f.addEventListener("submit", async e => {
+  e.preventDefault();
+  const email = f.email.value.trim();
+  msg.className = "msg err";
+  if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) { msg.textContent = "Cette adresse ne semble pas valide."; f.email.focus(); return; }
+  if (!f.consent.checked) { msg.textContent = "Cochez la case pour recevoir le kit."; return; }
+  if (!KIT_ENDPOINT) { msg.innerHTML = 'L\'envoi automatique arrive très vite. En attendant, écrivez « kit » à <a class="link" href="mailto:eliad@linksharp.fr?subject=Kit%20LinkSharp">eliad@linksharp.fr</a>.'; return; }
+  const b = f.querySelector("button"); b.disabled = true; b.textContent = "Envoi…"; msg.textContent = "";
+  const data = { email, activite: f.activite.value.trim(), consent: true, nouvelles: f.nouvelles.checked,
+                 website: f.website.value, t: Date.now() - t0, source: new URLSearchParams(location.search).get("src") || "site" };
+  const erreurs = { email: "Cette adresse ne semble pas valide.", consent: "Cochez la case pour recevoir le kit.",
+                    deja_envoye: "Le kit vient de vous être envoyé. Regardez vos mails (et les indésirables).",
+                    quota: "Trop de demandes aujourd'hui. Réessayez demain.", trop_rapide: "Patientez une seconde et réessayez." };
+  try {
+    const r = await fetch(KIT_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(data) });
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.err || "serveur");
+    f.innerHTML = '<div class="done"><div class="label" style="margin-bottom:12px">C\'est envoyé</div><h2>Regardez vos mails.</h2><p class="lead">Le kit arrive dans une minute, de la part d\'Eliad · LinkSharp. Pensez aux indésirables.</p></div>';
+  } catch (err) {
+    b.disabled = false; b.textContent = "Recevoir le kit";
+    msg.innerHTML = erreurs[err.message] || 'Un souci technique. Écrivez « kit » à <a class="link" href="mailto:eliad@linksharp.fr?subject=Kit%20LinkSharp">eliad@linksharp.fr</a>, je vous l\'envoie.';
+  }
+});
+</script>
+
+</body>
+</html>
