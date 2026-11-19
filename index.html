@@ -58,6 +58,11 @@ h1 em{font-style:normal;color:var(--accent)}
 .about p.m{color:var(--muted)}
 .end h2{font-size:clamp(34px,6vw,48px);font-weight:600;letter-spacing:-.03em;line-height:1.1}
 .contact{margin-top:40px;display:flex;flex-wrap:wrap;gap:12px 28px;font-size:15px;color:var(--muted)}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:88px;padding-top:32px;border-top:1px solid var(--line)}
+.stats b{display:block;font-size:34px;font-weight:600;letter-spacing:-.03em;line-height:1.1}
+.stats span{display:block;font-size:14px;color:var(--muted);margin-top:8px;line-height:1.45}
+@media(max-width:600px){.stats{grid-template-columns:1fr;gap:22px;margin-top:64px}}
 footer{border-top:1px solid var(--line);padding:40px 0 60px;font-size:13px;color:var(--muted)}
 footer details summary{cursor:pointer;list-style:none}
 footer details summary::-webkit-details-marker{display:none}
@@ -86,6 +91,11 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <p class="sub">Peu de prospects. Les bons. Au bon moment.</p>
     <p class="lead">Je contacte seulement les entreprises qui ont une raison de vous écouter maintenant. Vous validez chaque mail. Vous gardez la vente.</p>
     <a class="cta" href="https://calendly.com/egarnault/30min">Parlons-en 20 minutes</a>
+    <div class="stats">
+      <div><b>5 clients</b><span>trouvés pour Raphael Fitoussi, architecte IA</span></div>
+      <div><b>10+ rendez-vous</b><span>avec des décideurs, pour Beyond Sustainable Tech</span></div>
+      <div><b>1 h 30</b><span>entre un premier mail et un « oui », nov. 2026</span></div>
+    </div>
   </div>
 </section>
 
@@ -144,8 +154,8 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <div class="n">190 €</div>
     </div>
     <div class="price">
-      <div><b>Ensuite, si le bilan vous convainc</b><span>Suivi, prospection continue ou pilotage complet. Sans engagement.</span></div>
-      <div class="n">190–890 €<span style="display:inline;font-size:14px;font-weight:500"> /mois</span></div>
+      <div><b>Ensuite, à la carte</b><span>Suivi 190 € · Prospection continue 390 € · Pilotage complet 890 €. Par mois, sans engagement.</span></div>
+      <div class="n">dès 190 €</div>
     </div>
     <p class="fine">TVA non applicable, art. 293 B du CGI. Outil nécessaire : Claude Pro (environ 22 €/mois).</p>
   </div>
@@ -177,7 +187,6 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <div class="wrap">
     <div class="row">
       <span>© 2026 LinkSharp</span>
-      <a href="outil.html">Outil (bêta)</a>
     </div>
     <details>
       <summary style="margin-top:14px">Mentions légales</summary>
