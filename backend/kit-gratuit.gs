@@ -22,6 +22,7 @@ const SHEET_ID       = "";   // vide = le Sheet « LinkSharp – Inscrits kit »
 const NOM_EXPEDITEUR = "Eliad · LinkSharp";
 const NOTIFIER_A     = "egarnault@gmail.com";  // "" pour désactiver
 const SITE           = "https://linksharp.fr";
+const BCC_HUBSPOT    = "149816576@bcc.eu1.hubspot.com";  // journalise chaque kit envoyé dans HubSpot ("" pour désactiver)
 const MAX_PAR_JOUR   = 80;
 
 // ---------- Point d'entrée ----------
@@ -91,7 +92,9 @@ function envoyerKit(email, activite) {
     "Bonne journée,\n" +
     "Eliad Garnault\n" +
     "LinkSharp\n";
-  GmailApp.sendEmail(email, "Votre kit LinkSharp", texte, { name: NOM_EXPEDITEUR });
+  const options = { name: NOM_EXPEDITEUR };
+  if (BCC_HUBSPOT) options.bcc = BCC_HUBSPOT;
+  GmailApp.sendEmail(email, "Votre kit LinkSharp", texte, options);
 }
 
 // ---------- Google Sheet ----------
