@@ -63,6 +63,9 @@ h1 em{font-style:normal;color:var(--accent)}
 .stats b{display:block;font-size:34px;font-weight:600;letter-spacing:-.03em;line-height:1.1}
 .stats span{display:block;font-size:14px;color:var(--muted);margin-top:8px;line-height:1.45}
 @media(max-width:600px){.stats{grid-template-columns:1fr;gap:22px;margin-top:64px}}
+.reply{margin-top:28px;margin-left:30px;display:flex;align-items:baseline;gap:18px}
+.reply span{font-size:14px;color:var(--muted)}
+.reply b{font-size:28px;font-weight:600;color:var(--accent);letter-spacing:-.02em}
 footer{border-top:1px solid var(--line);padding:40px 0 60px;font-size:13px;color:var(--muted)}
 footer details summary{cursor:pointer;list-style:none}
 footer details summary::-webkit-details-marker{display:none}
@@ -129,16 +132,17 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <section>
   <div class="wrap">
-    <div class="label">Un mail, pour une seule entreprise</div>
+    <div class="label">Un vrai mail. Une vraie réponse.</div>
     <div class="mail">
-      <p class="obj">Objet : Votre nouvelle boutique de Villeurbanne</p>
-      <p>Bonjour Claire,</p>
-      <p>J'ai vu que la Maison Verdier recrutait deux vendeurs pour l'ouverture de Villeurbanne en janvier. J'imagine que la carte traiteur doit suivre dès les premières semaines.</p>
-      <p>Chez Atelier Nord, nous livrons des plats de chefs prêts à mettre en vitrine, partout en région lyonnaise.</p>
-      <p>Est-ce un sujet chez vous en ce moment ?</p>
-      <p class="sig">Thomas · Atelier Nord</p>
+      <p class="obj">Objet : Sept niveaux de sous vide</p>
+      <p>Bonjour [Prénom],</p>
+      <p>Sept niveaux de techniques de cuisson sous vide, dont les quatre derniers créés par [votre organisme], enseignés en immersion dans un restaurant : peu de formations culinaires vont aussi loin. Et l'atelier pâtisserie du 7 décembre approche.</p>
+      <p>Petite confidence : ce message, c'est mon système de prospection qui vous a repéré et préparé ces recherches. Si vous voulez envoyer ce genre de mail à vos propres prospects, je vous le montre en 15 minutes.</p>
+      <p>Il vous suffit de répondre « oui » à ce mail.</p>
+      <p class="sig">Eliad Garnault · LinkSharp</p>
     </div>
-    <p class="note">Exemple fictif. Un fait, une hypothèse, une seule question.</p>
+    <div class="reply"><span>Réponse, 1 h 27 plus tard</span><b>oui</b></div>
+    <p class="note">Envoyé le 10 nov. 2026 à 16 h 32. Réponse à 17 h 59. Pilote lancé une semaine plus tard. Noms retirés.</p>
   </div>
 </section>
 
