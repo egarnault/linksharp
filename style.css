@@ -1,0 +1,106 @@
+/* LinkSharp — une seule DA pour tout le site : encre, blanc, un bleu. Inter. */
+:root{--ink:#0E1116;--muted:#6B7280;--line:#ECEDF0;--soft:#F7F8FA;--accent:#5B76FF}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:#fff;font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:680px;margin:0 auto;padding:0 28px}
+
+/* En-tête commun */
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;height:88px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px}
+nav{display:flex;align-items:center;gap:24px;font-size:15px}
+nav a{color:var(--muted);white-space:nowrap}
+nav a:hover,nav a[aria-current]{color:var(--ink)}
+.link{font-size:15px;font-weight:500;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:1px}
+.link:hover{color:var(--accent);border-color:var(--accent)}
+@media(max-width:600px){nav{gap:16px;font-size:14px}nav .hide-s{display:none}}
+
+/* Sections */
+section{padding:120px 0;border-top:1px solid var(--line)}
+section.hero{border-top:0;padding:140px 0 150px}
+section.top{border-top:0;padding:110px 0 90px}
+h1{font-size:clamp(44px,8vw,72px);font-weight:600;letter-spacing:-.035em;line-height:1.04}
+h1 em,h2 em{font-style:normal;color:var(--accent)}
+h2{font-size:32px;font-weight:600;letter-spacing:-.025em;line-height:1.2}
+.sub{font-size:22px;margin-top:36px;font-weight:500;letter-spacing:-.01em}
+.lead{color:var(--muted);margin-top:16px;max-width:540px}
+.cta{display:inline-block;margin-top:48px;background:var(--ink);color:#fff;padding:16px 26px;border-radius:999px;font-size:16px;font-weight:500;transition:background .2s}
+.cta:hover{background:var(--accent)}
+.cta.s{margin-top:32px}
+.label{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:40px}
+.note{font-size:14px;color:var(--muted);margin-top:28px}
+.more{display:inline-block;margin-top:32px}
+
+/* Chiffres */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:88px;padding-top:32px;border-top:1px solid var(--line)}
+.stats b{display:block;font-size:34px;font-weight:600;letter-spacing:-.03em;line-height:1.1}
+.stats span{display:block;font-size:14px;color:var(--muted);margin-top:8px;line-height:1.45}
+
+/* Trois idées */
+.trio{display:grid;gap:56px}
+.trio p{color:var(--muted);margin-top:8px}
+
+/* Mail exemple */
+.mail{border-left:2px solid var(--ink);padding:4px 0 4px 28px}
+.mail p{margin-bottom:14px}
+.mail .obj{color:var(--muted);font-size:15px;margin-bottom:22px}
+.mail .sig{color:var(--muted)}
+.reply{margin-top:28px;margin-left:30px;display:flex;align-items:baseline;gap:18px}
+.reply span{font-size:14px;color:var(--muted)}
+.reply b{font-size:28px;font-weight:600;color:var(--accent);letter-spacing:-.02em}
+
+/* Tarifs */
+.price{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:28px 0;border-bottom:1px solid var(--line)}
+.price:first-of-type{border-top:1px solid var(--line)}
+.price b{font-weight:600;font-size:20px;letter-spacing:-.01em}
+.price span{display:block;color:var(--muted);font-size:16px;margin-top:4px}
+.price .n{font-size:22px;font-weight:600;white-space:nowrap;text-align:right}
+.price .n small{display:block;font-size:13px;font-weight:400;color:var(--muted)}
+.price a{border-bottom:1px solid var(--ink)}
+.price a:hover{color:var(--accent);border-color:var(--accent)}
+.price .tag,.tag{display:inline-block;margin-top:0;font-size:12px;font-weight:500;color:var(--accent);margin-left:8px;vertical-align:2px}
+.fine{font-size:14px;color:var(--muted);margin-top:28px}
+
+/* Listes et étapes */
+.list{list-style:none;margin-top:32px;display:grid;gap:14px}
+.list li{padding-left:22px;position:relative}
+.list li::before{content:"";position:absolute;left:0;top:.75em;width:8px;height:1px;background:var(--ink)}
+.steps{list-style:none;margin-top:40px;display:grid;gap:28px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:44px 1fr;counter-increment:s}
+.steps li::before{content:"0" counter(s);font-size:14px;color:var(--accent);font-weight:500;padding-top:3px}
+.steps b{font-weight:600}
+.steps span{display:block;color:var(--muted)}
+
+/* Questions */
+.faq details{border-top:1px solid var(--line);padding:22px 0}
+.faq details:last-of-type{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:20px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--muted)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin-top:10px;color:var(--muted)}
+
+/* Qui / fin */
+.about p{margin-bottom:16px}
+.about p.m{color:var(--muted)}
+.end h2{font-size:clamp(34px,6vw,48px);letter-spacing:-.03em;line-height:1.1}
+.contact{margin-top:40px;display:flex;flex-wrap:wrap;gap:12px 28px;font-size:15px;color:var(--muted)}
+.contact a:hover{color:var(--ink)}
+
+/* Pied de page commun */
+footer{border-top:1px solid var(--line);padding:40px 0 60px;font-size:13px;color:var(--muted)}
+footer .row{display:flex;justify-content:space-between;gap:12px 20px;flex-wrap:wrap}
+footer .row nav{gap:20px;font-size:13px}
+footer details summary{cursor:pointer;list-style:none;margin-top:14px}
+footer details summary::-webkit-details-marker{display:none}
+footer details p{margin-top:12px;line-height:1.6}
+
+@media(max-width:600px){
+  section{padding:88px 0}section.hero{padding:96px 0 110px}section.top{padding:80px 0 64px}
+  h2{font-size:27px}
+  .stats{grid-template-columns:1fr;gap:22px;margin-top:64px}
+  .price{flex-direction:column;gap:6px}.price .n{text-align:left}.price .n small{display:inline;margin-left:6px}
+  header .wrap{height:76px}
+}

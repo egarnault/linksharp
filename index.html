@@ -17,72 +17,26 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E1116'/%3E%3Crect x='4.5' y='9.5' width='12' height='12' rx='1.5' transform='rotate(45 10.5 15.5)' fill='none' stroke='%23fff' stroke-width='2.6'/%3E%3Crect x='15.5' y='9.5' width='12' height='12' rx='1.5' transform='rotate(45 21.5 15.5)' fill='none' stroke='%235B76FF' stroke-width='2.6'/%3E%3C/svg%3E">
+<link rel="alternate" hreflang="en" href="https://linksharp.fr/en.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{--ink:#0E1116;--muted:#6B7280;--line:#ECEDF0;--accent:#5B76FF}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:#fff;font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:680px;margin:0 auto;padding:0 28px}
-header .wrap{display:flex;justify-content:space-between;align-items:center;height:88px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px}
-.link{font-size:15px;font-weight:500;border-bottom:1px solid var(--ink);padding-bottom:1px}
-.link:hover{color:var(--accent);border-color:var(--accent)}
-section{padding:120px 0;border-top:1px solid var(--line)}
-section.hero{border-top:0;padding:140px 0 150px}
-h1{font-size:clamp(44px,8vw,72px);font-weight:600;letter-spacing:-.035em;line-height:1.04}
-h1 em{font-style:normal;color:var(--accent)}
-.sub{font-size:22px;color:var(--ink);margin-top:36px;font-weight:500;letter-spacing:-.01em}
-.lead{color:var(--muted);margin-top:16px;max-width:520px}
-.cta{display:inline-block;margin-top:48px;background:var(--ink);color:#fff;padding:16px 26px;border-radius:999px;font-size:16px;font-weight:500;transition:background .2s}
-.cta:hover{background:var(--accent)}
-.label{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:40px}
-.trio{display:grid;gap:56px}
-.trio h2{font-size:32px;font-weight:600;letter-spacing:-.025em;line-height:1.2}
-.trio p{color:var(--muted);margin-top:8px}
-.mail{border-left:2px solid var(--ink);padding:4px 0 4px 28px;color:var(--ink)}
-.mail p{margin-bottom:14px}
-.mail .obj{color:var(--muted);font-size:15px;margin-bottom:22px}
-.mail .sig{color:var(--muted)}
-.note{font-size:14px;color:var(--muted);margin-top:28px}
-.price{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:28px 0;border-bottom:1px solid var(--line)}
-.price:first-of-type{border-top:1px solid var(--line)}
-.price b{font-weight:600;font-size:20px;letter-spacing:-.01em}
-.price span{display:block;color:var(--muted);font-size:16px;margin-top:4px}
-.price .n{font-size:22px;font-weight:600;white-space:nowrap}
-.fine{font-size:14px;color:var(--muted);margin-top:28px}
-.about p{margin-bottom:16px}
-.about p.m{color:var(--muted)}
-.end h2{font-size:clamp(34px,6vw,48px);font-weight:600;letter-spacing:-.03em;line-height:1.1}
-.contact{margin-top:40px;display:flex;flex-wrap:wrap;gap:12px 28px;font-size:15px;color:var(--muted)}
-
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:88px;padding-top:32px;border-top:1px solid var(--line)}
-.stats b{display:block;font-size:34px;font-weight:600;letter-spacing:-.03em;line-height:1.1}
-.stats span{display:block;font-size:14px;color:var(--muted);margin-top:8px;line-height:1.45}
-@media(max-width:600px){.stats{grid-template-columns:1fr;gap:22px;margin-top:64px}}
-.reply{margin-top:28px;margin-left:30px;display:flex;align-items:baseline;gap:18px}
-.reply span{font-size:14px;color:var(--muted)}
-.reply b{font-size:28px;font-weight:600;color:var(--accent);letter-spacing:-.02em}
-footer{border-top:1px solid var(--line);padding:40px 0 60px;font-size:13px;color:var(--muted)}
-footer details summary{cursor:pointer;list-style:none}
-footer details summary::-webkit-details-marker{display:none}
-footer details p{margin-top:12px;line-height:1.6}
-footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-@media(max-width:600px){section{padding:88px 0}section.hero{padding:96px 0 110px}.trio h2{font-size:27px}.price{flex-direction:column;gap:6px}}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="LinkSharp">
+    <a class="brand" href="index.html" aria-label="LinkSharp, accueil">
       <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><rect x="4.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 10.5 15.5)" fill="none" stroke="#0E1116" stroke-width="2.6"/><rect x="15.5" y="9.5" width="12" height="12" rx="1.5" transform="rotate(45 21.5 15.5)" fill="none" stroke="#5B76FF" stroke-width="2.6"/></svg>
       LinkSharp
     </a>
-    <a class="link" href="https://calendly.com/egarnault/30min">Réserver un appel</a>
+    <nav aria-label="Navigation">
+      <a href="offres.html">Offres</a>
+      <a href="outil.html">Kit gratuit</a>
+      <a class="hide-s" href="en.html" hreflang="en" lang="en">EN</a>
+      <a class="link" href="https://calendly.com/egarnault/30min">Réserver<span class="hide-s"> un appel</span></a>
+    </nav>
   </div>
 </header>
 
@@ -112,11 +66,11 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       </div>
       <div>
         <h2>Les bons.</h2>
-        <p>Chacun a un signal public, vérifié et daté : une ouverture, un recrutement, un changement de direction.</p>
+        <p>Le décideur vérifié, dans une entreprise qui ressemble à vos meilleurs clients. Un seul mail par entreprise.</p>
       </div>
       <div>
-        <h2>Peu de temps.</h2>
-        <p>Vous relisez, vous validez, vous envoyez. Le reste est préparé.</p>
+        <h2>Au bon moment.</h2>
+        <p>Un signal public, vérifié et daté : une ouverture, un recrutement, un changement de direction. Vous relisez, vous validez, vous envoyez.</p>
       </div>
     </div>
   </div>
@@ -150,18 +104,22 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <div class="wrap">
     <div class="label">Commencer</div>
     <div class="price">
+      <div><b>Kit gratuit<span class="tag">bêta</span></b><span>Votre IA prospecte par signal, vous validez. <a href="outil.html">Créer mon kit</a></span></div>
+      <div class="n">0 €</div>
+    </div>
+    <div class="price">
       <div><b>Pilote 30 jours</b><span>60 prospects qualifiés, mails et relances prêts. Bilan à 30 jours.</span></div>
-      <div class="n">390 €</div>
+      <div class="n">390 €<small>une fois</small></div>
     </div>
     <div class="price">
       <div><b>Formation</b><span>2 heures pour prospecter vous-même avec la méthode.</span></div>
-      <div class="n">190 €</div>
+      <div class="n">190 €<small>une fois</small></div>
     </div>
     <div class="price">
-      <div><b>Ensuite, à la carte</b><span>Suivi 190 € · Prospection continue 390 € · Pilotage complet 890 €. Par mois, sans engagement.</span></div>
-      <div class="n">dès 190 €</div>
+      <div><b>Ensuite, si ça vous convient</b><span>Suivi, prospection continue ou pilotage complet. Sans engagement. <a href="offres.html">Voir les offres</a></span></div>
+      <div class="n">dès 190 €<small>par mois</small></div>
     </div>
-    <p class="fine">TVA non applicable, art. 293 B du CGI. Outil nécessaire : Claude Pro (environ 22 €/mois).</p>
+    <p class="fine">TVA non applicable, art. 293 B du CGI.</p>
   </div>
 </section>
 
@@ -170,7 +128,7 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <div class="label">Qui</div>
     <p>Eliad Garnault. J'ai prospecté en France, aux États-Unis et au Canada.</p>
     <p class="m">Je travaille avec peu de clients, pour bien le faire.</p>
-    <a class="link" href="https://www.linkedin.com/in/eliad-garnault">LinkedIn</a>
+    <a class="link" href="https://www.linkedin.com/in/eliad-garnault/">LinkedIn</a>
   </div>
 </section>
 
@@ -179,8 +137,8 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <h2>Une raison de se parler ?</h2>
     <a class="cta" href="https://calendly.com/egarnault/30min">Réserver 20 minutes</a>
     <div class="contact">
-      <span>eliad@linksharp.fr</span>
-      <span>+33 6 07 76 39 94</span>
+      <a href="mailto:eliad@linksharp.fr">eliad@linksharp.fr</a>
+      <a href="tel:+33607763994">+33 6 07 76 39 94</a>
     </div>
   </div>
 </section>
@@ -190,10 +148,11 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <footer>
   <div class="wrap">
     <div class="row">
-      <span>© 2026 LinkSharp</span>
+      <span>© 2026 LinkSharp · Eliad Garnault EI</span>
+      <nav aria-label="Pied de page"><a href="offres.html">Offres</a><a href="outil.html">Kit gratuit</a><a href="en.html" hreflang="en" lang="en">English</a></nav>
     </div>
     <details>
-      <summary style="margin-top:14px">Mentions légales</summary>
+      <summary>Mentions légales</summary>
       <p>Éditeur : Eliad Garnault, entrepreneur individuel (EI), nom commercial LinkSharp · SIREN 990 010 050 · SIRET 990 010 050 00013 · immatriculé au Registre national des entreprises (RNE) · siège : Route de Niort, 86400 Savigné, France · eliad@linksharp.fr · +33 6 07 76 39 94. TVA non applicable, art. 293 B du CGI. Directeur de la publication : Eliad Garnault. Hébergement : GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. Kit gratuit (page Outil) : si vous le demandez, votre adresse email, le nom de votre entreprise et le kit sont transmis à LinkSharp (Google Workspace) pour vous l'envoyer ; suppression sur simple demande à eliad@linksharp.fr. Aucun cookie de mesure d'audience. Polices chargées depuis Google Fonts ; la prise de rendez-vous passe par Calendly.</p>
     </details>
   </div>
