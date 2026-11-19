@@ -1,7 +1,9 @@
 # Brancher l'envoi automatique du kit gratuit (5 minutes)
 
 Le formulaire de https://linksharp.fr/kit.html envoie l'adresse à un petit script Google.
-Le script envoie le kit depuis eliad@linksharp.fr et note l'inscrit dans un Google Sheet.
+Le script envoie un mail court (texte brut, sans pièce jointe) avec un lien vers https://linksharp.fr/mon-kit.html, qui fabrique les 4 fichiers du kit, et note l'inscrit dans un Google Sheet.
+
+Pourquoi pas de pièce jointe : un premier mail automatique avec des fichiers (.md, PDF) part en spam chez beaucoup d'entreprises.
 
 1. Connecté à **eliad@linksharp.fr**, ouvrir https://script.google.com → **Nouveau projet**. Le nommer « LinkSharp – kit gratuit ».
 2. Effacer le contenu de `Code.gs` et coller tout `kit-gratuit.gs`.

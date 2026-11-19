@@ -60,7 +60,7 @@ form .cta:disabled{opacity:.5;cursor:wait}
   <div class="wrap">
     <h1>Le kit <em>gratuit</em>.</h1>
     <p class="sub">Les fichiers pour que votre Claude vous prépare chaque jour les entreprises à contacter, et le mail pour chacune.</p>
-    <p class="lead">Laissez votre adresse, vous le recevez tout de suite par mail : un guide PDF et 4 fichiers à donner à Claude. 10 minutes pour l'installer.</p>
+    <p class="lead">Laissez votre adresse, vous recevez tout de suite par mail le lien vers vos 4 fichiers à donner à Claude. 10 minutes pour l'installer.</p>
 
     <form id="kit" novalidate>
       <label>Votre adresse email
@@ -82,7 +82,7 @@ form .cta:disabled{opacity:.5;cursor:wait}
   <div class="wrap">
     <div class="label">Dans le kit</div>
     <ul class="list" style="margin-top:0">
-      <li>Le mode d'emploi, en PDF</li>
+      <li>Le mode d'emploi, pas à pas</li>
       <li>Les instructions pour votre Claude, adaptées à ce que vous vendez</li>
       <li>La méthode : comment écrire un mail court qui obtient une réponse</li>
       <li>Les phrases à copier chaque matin, et un tableau de suivi</li>
@@ -135,7 +135,7 @@ f.addEventListener("submit", async e => {
     const r = await fetch(KIT_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(data) });
     const j = await r.json();
     if (!j.ok) throw new Error(j.err || "serveur");
-    f.innerHTML = '<div class="done"><div class="label" style="margin-bottom:12px">C\'est envoyé</div><h2>Regardez vos mails.</h2><p class="lead">Le kit arrive dans une minute, de la part d\'Eliad · LinkSharp. Pensez aux indésirables.</p></div>';
+    f.innerHTML = '<div class="done"><div class="label" style="margin-bottom:12px">C\'est envoyé</div><h2>Regardez vos mails.</h2><p class="lead">Le kit arrive dans une minute, de la part d\'Eliad · LinkSharp (egarnault@gmail.com).</p><p class="note">Pas reçu d\'ici 2 minutes ? Regardez dans les indésirables (spams) et cliquez sur « Ce n\'est pas du spam » : les prochains mails arriveront normalement.</p></div>';
   } catch (err) {
     b.disabled = false; b.textContent = "Recevoir le kit";
     msg.innerHTML = erreurs[err.message] || 'Un souci technique. Écrivez « kit » à <a class="link" href="mailto:eliad@linksharp.fr?subject=Kit%20LinkSharp">eliad@linksharp.fr</a>, je vous l\'envoie.';
