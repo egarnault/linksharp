@@ -150,3 +150,11 @@ footer details p{margin-top:12px;line-height:1.6}
 .who img{width:64px;height:64px;border-radius:50%;flex:none;object-fit:cover}
 .who p{margin:0}
 .steps li > div{display:block}
+
+/* Page Questions */
+.qas .qa{padding:44px 0;border-bottom:1px solid var(--line)}
+.qas .qa:first-child{padding-top:0}
+.qas .qa:last-child{border-bottom:0}
+.qas .qa h2{font-size:26px;line-height:1.25;letter-spacing:-.02em}
+.qas .qa p{color:var(--muted);margin-top:12px}
+@media(max-width:600px){.qas .qa{padding:34px 0}.qas .qa h2{font-size:22px}}
