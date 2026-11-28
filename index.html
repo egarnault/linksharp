@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LinkSharp – Les bons clients, au bon moment</title>
-<meta name="description" content="Chaque mois, les entreprises qui vivent un changement, avec la source et le mail prêt à envoyer. Prospection B2B, prix fixes.">
+<meta name="description" content="Je repère les entreprises qui vivent un changement, je vérifie la source et j'écris le mail. Vous l'envoyez. Prospection B2B, prix fixes.">
 <link rel="canonical" href="https://linksharp.fr/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://linksharp.fr/">
 <meta property="og:site_name" content="LinkSharp">
-<meta property="og:title" content="LinkSharp – Les bons clients, au bon moment.">
-<meta property="og:description" content="Je trouve les entreprises qui ont besoin de vous en ce moment. Je prépare le mail. Vous l'envoyez.">
+<meta property="og:title" content="LinkSharp – Les bons clients, au bon moment">
+<meta property="og:description" content="Je repère les entreprises qui vivent un changement, je vérifie la source et j'écris le mail. Vous l'envoyez. Prospection B2B, prix fixes.">
 <meta property="og:image" content="https://linksharp.fr/og-image.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="627">
@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -32,8 +32,10 @@
       LinkSharp
     </a>
     <nav aria-label="Navigation">
+      <a href="clients.html">Clients</a>
+      <a href="signaux.html">Signaux</a>
       <a href="offres.html">Offres</a>
-      <a href="questions.html">Questions</a>
+      <a class="hide-m" href="a-propos.html">Qui est derrière</a>
       <a class="hide-s" href="en.html" hreflang="en" lang="en">EN</a>
       <a class="link" href="#contact">Contact</a>
     </nav>
@@ -42,131 +44,176 @@
 
 <main id="top">
 
-<section class="hero">
-  <div class="wrap">
-    <h1>Les bons clients,<br>au bon <em>moment</em>.</h1>
-    <p class="sub">Chaque mois, je vous livre les entreprises qui vivent un changement. Pour chacune : ce qui se passe, la source, et le mail prêt à envoyer.</p>
-    <a class="more link" href="#exemple">Voir un extrait</a>
-  </div>
-</section>
-
-<section id="exemple">
-  <div class="wrap">
-    <div class="label">Ce que vous recevez</div>
-    <h2>Un fichier, pas une promesse.</h2>
-    <p class="lead">Un extrait réel. Les noms sont retirés.</p>
-    <table class="sample">
-      <thead><tr><th>Entreprise</th><th>Ce qui se passe</th><th>Source</th></tr></thead>
-      <tbody>
-        <tr><td>Start-up deeptech, Isère</td><td>Lève 7,3 M€ en seed, annoncé le 17/11/2026</td><td>Communiqué de presse</td></tr>
-        <tr><td>Biotech, Val-de-Marne</td><td>Lève 30 M€ en série A, annoncé le 12/11/2026</td><td>Presse spécialisée</td></tr>
-        <tr><td>Organisme de formation culinaire</td><td>Atelier pâtisserie prévu le 07/12/2026</td><td>Son site</td></tr>
-      </tbody>
-    </table>
-    <p class="note">Pour chaque ligne : le bon interlocuteur, son email vérifié, un premier mail et deux relances.</p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="label">Un mail envoyé</div>
-    <div class="mail">
-      <p class="obj">Objet : Sept niveaux de sous vide</p>
-      <p>Bonjour [Prénom],</p>
-      <p>Sept niveaux de techniques de cuisson sous vide, dont les quatre derniers créés par [votre organisme], enseignés en immersion dans un restaurant : peu de formations culinaires vont aussi loin. Et l'atelier pâtisserie du 7 décembre approche.</p>
-      <p class="sig">[…]</p>
+<section class="hero2">
+  <div class="wide">
+    <div>
+      <h1>Les bons clients,<br>au bon <em>moment</em>.</h1>
+      <p class="sub">Je repère les entreprises qui vivent un changement. Je vérifie la source, j'écris le mail. Vous l'envoyez.</p>
+      <div class="actions">
+        <a class="cta" href="https://calendly.com/egarnault/30min">Réserver 20 minutes</a>
+        <a class="link" href="offres.html">Voir les offres</a>
+      </div>
+      <p class="hero-proof">Déjà choisi par <a href="clients.html#classy-partners">Classy Partners</a>, <a href="clients.html#inekto">inekto</a> et <a href="clients.html#cfc-solutions">CFC Solutions</a>.</p>
     </div>
-    <p class="note">Envoyé le 10/11/2026. Réponse le jour même. Une semaine plus tard, on travaillait ensemble. Extrait, noms retirés.</p>
+    <aside class="feed" id="feed" aria-label="Signaux repérés cette semaine">
+      <div class="feed-head"><b><span class="dot" aria-hidden="true"></span>Repéré cette semaine</b><span class="feed-week"></span></div>
+      <ol class="feed-list"></ol>
+      <div class="feed-mail" aria-live="polite"></div>
+      <a class="feed-foot" href="signaux.html"><span>Tous les signaux de la semaine</span></a>
+      <noscript><p style="padding:8px">Les signaux de la semaine sont <a class="link" style="color:#fff;border-color:#fff" href="signaux.html">sur cette page</a>.</p></noscript>
+    </aside>
+  </div>
+</section>
+
+<section class="trust" aria-label="Clients">
+  <div class="wide">
+    <p>Ils me font confiance</p>
+    <ul>
+      <li><a href="clients.html#classy-partners">Classy Partners</a></li>
+      <li><a href="clients.html#inekto">inekto</a></li>
+      <li><a href="clients.html#cfc-solutions">CFC Solutions</a></li>
+      <li class="past"><a href="clients.html#avant">Beyond Sustainable Tech</a></li>
+      <li class="past"><a href="clients.html#avant">Asie Facile</a></li>
+    </ul>
   </div>
 </section>
 
 <section>
-  <div class="wrap">
-    <div class="label">Comment ça marche</div>
-    <div class="trio">
-      <div><h2>Je cherche.</h2><p>Les entreprises qui vivent un changement : elles lèvent des fonds, recrutent, ouvrent, changent de dirigeant. C'est souvent à ce moment-là qu'elles achètent.</p></div>
-      <div><h2>J'écris.</h2><p>Un mail court pour chacune, qui parle de ce qui leur arrive. Jamais de message copié-collé.</p></div>
-      <div><h2>Vous envoyez.</h2><p>Vous relisez, vous validez, le mail part de votre adresse. Le client reste le vôtre.</p></div>
+  <div class="wide">
+    <div class="sect-head"><h2>Une méthode simple, faite à la main.</h2></div>
+    <div class="how">
+      <div><h3>Je repère.</h3><p>Une levée de fonds, un recrutement, une ouverture, un nouveau dirigeant. C'est souvent à ce moment-là qu'une entreprise achète.</p></div>
+      <div><h3>J'écris.</h3><p>Un mail court pour chacune, qui part d'un fait vérifié et daté. Jamais de copier-coller.</p></div>
+      <div><h3>Vous envoyez.</h3><p>Vous relisez, vous validez, le mail part de votre adresse. Le client reste le vôtre.</p></div>
     </div>
     <p class="note">Pas de bonne raison d'écrire à une entreprise ? Je ne lui écris pas.</p>
   </div>
 </section>
 
 <section>
-  <div class="wrap">
-    <div class="label">Pour qui</div>
-    <div class="cols">
-      <div><b>Pour vous</b><p>Si vous vendez des prestations à forte valeur, en B2B, et qu'un seul nouveau client compte vraiment.</p></div>
-      <div><b>Pas pour vous</b><p>Si vous cherchez du volume, des milliers de mails ou des résultats garantis.</p></div>
+  <div class="wide">
+    <div class="sect-head"><h2>Ce que je fais pour mes clients.</h2><a class="link" href="clients.html">Voir les clients en détail</a></div>
+    <div class="cases">
+      <article class="case" id="classy-partners">
+        <span class="since">Pilote depuis novembre 2026</span>
+        <h3>Classy Partners</h3>
+        <p class="what">Produits élaborés par des chefs MOF et formation en cuisine, livrés partout en France.</p>
+        <h4>Les signaux que je surveille</h4>
+        <ul><li>Ouverture ou reprise d'un établissement</li><li>Nouveau chef ou nouvelle direction</li><li>Recrutement en cuisine</li></ul>
+        <div class="ex"><span>Exemple réel, nom retiré</span><br>Restaurant, Loire-Atlantique : cherche un chef du midi « dans le cadre d'un changement de direction ».<b>Objet : Votre nouveau chef du midi</b></div>
+      </article>
+      <article class="case" id="inekto">
+        <span class="since">Client depuis le 26 novembre 2026</span>
+        <h3>inekto</h3>
+        <p class="what">Reprise, maintenance et refonte de logiciels métier, à prix fixe. Paris et Aix-en-Provence.</p>
+        <h4>Les signaux que je surveille</h4>
+        <ul><li>Montée de version d'ERP annoncée</li><li>Développeur AS400 ou WinDev introuvable</li><li>Chef de projet ERP recruté</li></ul>
+        <div class="ex"><span>Exemple réel, nom retiré</span><br>Industriel, 400 salariés, Nouvelle-Aquitaine : recrute un chef de projet pour la montée de version de son ERP.<b>Objet : Votre montée de version ERP</b></div>
+      </article>
+      <article class="case" id="cfc-solutions">
+        <span class="since">Cliente depuis novembre 2026</span>
+        <h3>CFC Solutions</h3>
+        <p class="what">Credit management et relance des factures pour les entreprises, depuis Lille.</p>
+        <h4>Les signaux que je surveille</h4>
+        <ul><li>Création d'un poste de credit manager</li><li>Départ en retraite au recouvrement</li><li>Recrutement d'un trésorier</li></ul>
+        <div class="ex"><span>Exemple réel, nom retiré</span><br>Distributeur, 850 salariés, Nord : recrute un comptable clientèle pour les impayés et le contentieux.<b>Objet : Vos relances pendant le recrutement</b></div>
+      </article>
     </div>
   </div>
 </section>
 
 <section>
-  <div class="wrap">
-    <div class="label">Clients</div>
+  <div class="wide two">
+    <div>
+      <div class="label">Un mail envoyé</div>
+      <div class="mail">
+        <p class="obj">Objet : Sept niveaux de sous vide</p>
+        <p>Bonjour [Prénom],</p>
+        <p>Sept niveaux de techniques de cuisson sous vide, dont les quatre derniers créés par [votre organisme], enseignés en immersion dans un restaurant : peu de formations culinaires vont aussi loin. Et l'atelier pâtisserie du 7 décembre approche.</p>
+        <p class="sig">[…]</p>
+      </div>
+      <p class="note">Envoyé le 10/11/2026. Réponse le jour même. Une semaine plus tard, on travaillait ensemble. Extrait, noms retirés.</p>
+    </div>
+    <div>
+      <div class="label">Ils en parlent</div>
     <div class="quotes">
       <figure><blockquote>«&nbsp;Il m'a permis de trouver 5 autres clients pour mon activité.&nbsp;»</blockquote><figcaption><b>Raphael Fitoussi</b><span>Architecte IA &amp; automatisation</span></figcaption></figure>
       <figure><blockquote>«&nbsp;Le rendu a dépassé toutes mes attentes.&nbsp;»</blockquote><figcaption><b>Pierre Baptiste Venturini</b><span>Growth Manager, Asie Facile</span></figcaption></figure>
     </div>
     <p class="note">Extraits de recommandations LinkedIn.</p>
+    </div>
   </div>
 </section>
 
 <section id="offre">
-  <div class="wrap">
-    <div class="label">Tarifs</div>
-    <div class="price">
-      <div><b>Les prospects</b><span>60 entreprises par mois, chacune avec sa raison et ses mails prêts. Vous envoyez.</span></div>
-      <div class="n">390 €<small>par mois</small></div>
+  <div class="wide two">
+    <div>
+      <div class="label">Pour qui</div>
+      <div class="cols">
+        <div><b>Pour vous</b><p>Si vous vendez des prestations à forte valeur, en B2B, et qu'un seul nouveau client compte vraiment.</p></div>
+        <div><b>Pas pour vous</b><p>Si vous cherchez du volume, des milliers de mails ou des résultats garantis.</p></div>
+      </div>
     </div>
-    <div class="price">
-      <div><b>Clé en main</b><span>Je prospecte, j'envoie, je relance et je suis les réponses. Vous prenez les rendez-vous.</span></div>
-      <div class="n">890 €<small>par mois</small></div>
+    <div>
+      <div class="label">Tarifs</div>
+      <div class="price">
+        <div><b>Les prospects</b><span>60 entreprises par mois, chacune avec sa raison et ses mails prêts. Vous envoyez.</span></div>
+        <div class="n">390 €<small>par mois</small></div>
+      </div>
+      <div class="price">
+        <div><b>Clé en main</b><span>Je prospecte, j'envoie, je relance et je suis les réponses. Vous prenez les rendez-vous.</span></div>
+        <div class="n">890 €<small>par mois</small></div>
+      </div>
+      <p class="fine">Une entreprise ne vous convient pas ? Je la remplace. Sans engagement. TVA non applicable, art. 293 B du CGI. <a class="link" style="font-size:14px" href="offres.html">Le détail</a></p>
     </div>
-    <p class="fine">Une entreprise ne vous convient pas ? Je la remplace. Sans engagement. TVA non applicable, art. 293 B du CGI. <a class="link" style="font-size:14px" href="offres.html">Le détail</a></p>
   </div>
 </section>
 
 <section>
-  <div class="wrap">
-    <div class="label">Pour commencer</div>
-    <ol class="steps" style="margin-top:0">
-      <li><div><b>Un appel de 20 minutes.</b><span>Ce que vous vendez, à qui, et ce qui a déjà marché.</span></div></li>
-      <li><div><b>Trois entreprises sur votre cible.</b><span>Avec la raison de leur écrire et le mail prêt. Gratuit, pour juger sur pièces.</span></div></li>
-      <li><div><b>Vous décidez.</b><span>Si c'est oui, le premier fichier arrive dans la semaine.</span></div></li>
-    </ol>
-    <a class="more link" href="questions.html">Les questions qu'on n'ose pas poser</a>
-  </div>
-</section>
-
-<section class="about">
-  <div class="wrap">
-    <div class="label">Qui</div>
-    <div class="who"><img src="img/eliad.jpg" alt="Eliad Garnault" width="64" height="64"><p>Eliad Garnault. Je prospecte en B2B pour des entreprises en France, aux États-Unis et au Canada.</p></div>
-    <p class="m">Plus de dix rendez-vous avec des dirigeants pour Beyond Sustainable Tech. Cinq clients trouvés pour Raphael Fitoussi. Je travaille avec peu d'entreprises à la fois.</p>
-    <a class="link" href="https://www.linkedin.com/in/eliad-garnault/">LinkedIn</a>
-  </div>
-</section>
-
-<section class="end" id="contact">
-  <div class="wrap">
-    <h2>Parlons de vos clients.</h2>
-    <a class="cta" href="https://calendly.com/egarnault/30min">Réserver 20 minutes</a>
-    <div class="contact">
-      <a href="mailto:eliad@linksharp.fr">eliad@linksharp.fr</a>
-      <a href="tel:+33607763994">+33 6 07 76 39 94</a>
+  <div class="wide">
+    <div class="behind">
+      <img src="img/eliad-portrait.jpg" alt="Portrait d'Eliad Garnault, fondateur de LinkSharp" width="640" height="640">
+      <div>
+        <div class="label">Qui est derrière</div>
+        <h2>Eliad Garnault. Je fais chaque recherche et j'écris chaque mail.</h2>
+        <p class="muted">Quand vous m'appelez, vous parlez à la personne qui fait le travail. Je prospecte pour des entreprises en France, aux États-Unis et au Canada, en français et en anglais, avec peu de clients à la fois.</p>
+        <div class="actions">
+          <a class="link" href="a-propos.html">Mon parcours</a>
+          <a class="link" href="a-propos.html#rejoindre">Rejoindre le projet</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+<section class="end" id="contact">
+  <div class="wide two">
+    <div>
+      <div class="label">Pour commencer</div>
+      <ol class="steps" style="margin-top:0">
+        <li><div><b>Un appel de 20 minutes.</b><span>Ce que vous vendez, à qui, et ce qui a déjà marché.</span></div></li>
+        <li><div><b>Trois entreprises sur votre cible.</b><span>Avec la raison de leur écrire et le mail prêt. Gratuit, pour juger sur pièces.</span></div></li>
+        <li><div><b>Vous décidez.</b><span>Si c'est oui, le premier fichier arrive dans la semaine.</span></div></li>
+      </ol>
+      <a class="more link" href="questions.html">Les questions qu'on n'ose pas poser</a>
+    </div>
+    <div class="end-box">
+      <h2>Parlons de vos clients.</h2>
+      <a class="cta" href="https://calendly.com/egarnault/30min">Réserver 20 minutes</a>
+      <div class="contact">
+        <a href="mailto:eliad@linksharp.fr">eliad@linksharp.fr</a>
+        <a href="tel:+33607763994">+33 6 07 76 39 94</a>
+      </div>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer>
   <div class="wrap">
     <div class="row">
       <span>© 2026 LinkSharp · Eliad Garnault EI</span>
-      <nav aria-label="Pied de page"><a href="offres.html">Offres</a><a href="questions.html">Questions</a><a href="kit.html">Kit gratuit</a><a href="en.html" hreflang="en" lang="en">English</a></nav>
+      <nav aria-label="Pied de page"><a href="clients.html">Clients</a><a href="signaux.html">Signaux</a><a href="offres.html">Offres</a><a href="questions.html">Questions</a><a href="a-propos.html">Qui est derrière</a><a href="a-propos.html#rejoindre">Rejoindre le projet</a><a href="kit.html">Kit gratuit</a><a href="en.html" hreflang="en" lang="en">English</a></nav>
     </div>
     <details>
       <summary>Mentions légales</summary>
@@ -174,6 +221,7 @@
     </details>
   </div>
 </footer>
-
+<script src="signaux.js?v=3"></script>
+<script src="site.js?v=3"></script>
 </body>
 </html>
