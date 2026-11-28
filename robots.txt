@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /mon-kit.html
+Disallow: /backend/
+
+Sitemap: https://linksharp.fr/sitemap.xml
