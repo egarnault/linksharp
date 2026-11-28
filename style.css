@@ -308,7 +308,7 @@ footer .row nav{flex-wrap:wrap}
 @media(max-width:600px){
   section.hero2{padding:40px 0 88px}
   .hero2 .sub{font-size:19px}
-  .feed{margin:0 -8px;padding:22px 14px 16px}
+  .feed{padding:22px 14px 16px}
   .trust li a{font-size:18px}
   .facts li{grid-template-columns:1fr;gap:2px}
   section.week{padding:56px 0}
@@ -332,3 +332,104 @@ main .wrap > .quotes{max-width:none;grid-template-columns:1fr 1fr;gap:48px}
 .two .end-box .cta{margin-top:32px}
 @media(max-width:900px){.two{grid-template-columns:1fr;gap:72px}}
 .case p.job{font-size:16px;line-height:1.5}
+
+/* ============================================================
+   v4 : logos clients, fiches clients, parcours, version anglaise
+   ============================================================ */
+.kicker{font-size:13px;color:var(--muted);font-weight:500;margin-bottom:14px}
+.howline{margin-top:40px;padding-left:16px;border-left:2px solid var(--accent);font-size:16px;font-weight:500;max-width:720px}
+
+/* Mur de logos */
+section.trust{padding:88px 0;background:var(--soft);border-top:0}
+section.trust.flush{padding-top:0;background:#fff}
+.trust .wide{display:block}
+.trust-head{margin-bottom:36px}
+.trust-head h2{max-width:none}
+.wall{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.wcard{display:flex;flex-direction:column;gap:6px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 20px 20px;transition:border-color .2s,transform .2s}
+.wcard:hover{border-color:#C9CEDA;transform:translateY(-2px)}
+.wlogo{height:52px;display:flex;align-items:center;margin-bottom:12px}
+.wlogo img{max-width:100%;width:auto}
+.wname{font-weight:600;font-size:16px}
+.wshort{font-size:14px;color:var(--muted);line-height:1.4}
+.wsite{margin-top:auto;padding-top:12px;font-size:13px;font-weight:500}
+.past{display:flex;flex-wrap:wrap;align-items:center;gap:14px 36px;margin-top:28px;font-size:14px;color:var(--muted)}
+.plogo{display:inline-flex;align-items:center;opacity:.85}
+.plogo:hover{opacity:1}
+.bpm-mark{display:inline-flex;align-items:center;gap:10px}
+.bpm-mark b{font-weight:800;font-size:15px;letter-spacing:.04em}
+.bpm-mark.light b{color:#fff;font-size:20px}
+.bst-mark{display:inline-flex;align-items:baseline;gap:8px;color:#070a08;white-space:nowrap}
+.bst-mark b{font-weight:800;font-size:19px;letter-spacing:-.01em}
+.bst-mark span{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#333}
+@media(max-width:1000px){.wall{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.wall{grid-template-columns:repeat(2,minmax(0,1fr))}.wcard{padding:18px 16px}.wlogo{height:44px}}
+
+/* Fiches « cas » de l'accueil */
+.case-logo{display:flex;align-items:center;height:48px;margin-bottom:2px}
+.case-logo img{max-width:100%;width:auto}
+
+/* Page clients : une section par client */
+section.client{padding:96px 0}
+.client-grid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:72px;align-items:start}
+.client-logo{display:flex;align-items:center;min-height:52px;margin-bottom:18px}
+.client-logo img{width:auto;max-width:100%}
+.client-id h2{font-size:34px}
+.client-id .muted{margin:12px 0 16px;font-size:17px}
+.badge{margin-top:22px;padding-left:14px;border-left:2px solid var(--accent);font-size:15px}
+.crow{display:grid;grid-template-columns:170px 1fr;gap:20px;padding:18px 0;border-top:1px solid var(--line);font-size:16px}
+.crow:last-child{border-bottom:1px solid var(--line)}
+.crow b{font-weight:600}
+.crow span{color:#3A404C}
+section.client.dark{background:var(--ink);color:#fff;border-top:0}
+.client.dark .kicker,.client.dark .muted{color:#AEB5C4}
+.client.dark .link{color:#fff;border-color:#fff}
+.client.dark .badge{color:#AEB5C4}
+.client.dark .crow{border-color:rgba(255,255,255,.14)}
+.client.dark .crow span{color:#C9CFDB}
+@media(max-width:900px){.client-grid{grid-template-columns:1fr;gap:40px}.crow{grid-template-columns:1fr;gap:4px}}
+
+/* Expériences passées */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.pcard{border:1px solid var(--line);border-radius:18px;padding:30px 28px}
+.pcard-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.pcard-top .client-logo{margin-bottom:0}
+.pcard h3{margin-top:18px}
+.pmeta{font-size:14px;color:var(--muted);margin-top:4px}
+.prole{font-weight:500;margin-top:12px}
+.pcard .muted{font-size:16px;margin-top:4px}
+.plist{list-style:none;margin-top:16px;display:grid;gap:8px;font-size:16px}
+.plist li{padding-left:18px;position:relative}
+.plist li::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:2px;background:var(--accent)}
+@media(max-width:900px){.pgrid{grid-template-columns:1fr}}
+
+/* Étiquettes lieu */
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;white-space:nowrap}
+.chip.site{background:var(--accent);color:#fff}
+.chip.hybrid{background:#E9EDFF;color:#3550D8}
+.chip.remote{border:1px solid #C9CEDA;color:var(--muted)}
+.chip.site::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff}
+
+/* Là où j'ai travaillé */
+section.places{background:var(--soft);border-top:0}
+.place-list{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.place-list li{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:4px}
+.place-list b{font-size:22px;font-weight:600;letter-spacing:-.02em}
+.place-list span{font-size:14px;color:var(--muted)}
+.place-list .chip{justify-self:start;margin-top:10px}
+.place-list .chip.site{color:#fff}
+@media(max-width:800px){.place-list{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.place-list{gap:10px}.place-list li{padding:16px}.place-list b{font-size:18px}}
+
+/* Parcours (vraie chronologie) */
+.tl{list-style:none;border-left:2px solid var(--line);margin-left:6px}
+.tl-item{display:grid;grid-template-columns:200px 1fr;gap:32px;padding:0 0 44px 32px;position:relative}
+.tl-item::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--accent)}
+.tl-when{font-size:14px;color:var(--muted);padding-top:3px}
+.tl-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tl-role{font-weight:500;margin-top:4px;font-size:16px}
+.tl-body p:last-child{color:var(--muted);margin-top:8px;max-width:640px}
+@media(max-width:700px){.tl-item{grid-template-columns:1fr;gap:6px;padding-left:24px}}
+.bpm-mark b{white-space:nowrap}
+@media(max-width:640px){.wlogo .bpm-mark b{font-size:12px}.wlogo .bpm-mark img{height:24px}}
+html,body{overflow-x:hidden}
